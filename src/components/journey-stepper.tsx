@@ -1,9 +1,16 @@
 "use client";
 
+import clsx from "clsx";
+
 /**
- * JourneyStepper — numbered step indicator for "where you stand". Simple,
- * editorial styling (matches the mock): larger numbered circles + labels below,
- * a single indigo accent for done/current, neutral for upcoming.
+ * JourneyStepper — numbered step indicator for "where you stand". Editorial
+ * styling: numbered circles with labels below, a single indigo accent for
+ * done/current, neutral for upcoming.
+ *
+ * Layout: equal flex-1 columns (fully responsive — fits any width down to
+ * mobile). Each circle sits between two flex-1 line segments, so the connectors
+ * always render and every circle stays centered in its column; the first/last
+ * outer segments are transparent.
  *
  * Doctrine (DESIGN.md §3.7): the current node is never the last node — an
  * upcoming step always follows so the journey reads as ongoing.
@@ -28,25 +35,36 @@ export function JourneyStepper({
 }) {
   if (!steps.length) return null;
 
+  const lineClass = (done: boolean) =>
+    done
+      ? "bg-trovio-primary"
+      : "bg-trovio-light-border dark:bg-trovio-dark-border";
+
   return (
     <div className="flex items-start">
       {steps.map((step, idx) => {
-        const showConnector = idx < steps.length - 1;
+        const isFirst = idx === 0;
+        const isLast = idx === steps.length - 1;
+        // A connecting line is "done" (indigo) once its preceding step is done.
+        const leftDone = idx > 0 && steps[idx - 1].status === "completed";
+        const rightDone = step.status === "completed";
 
         const circleBase =
-          "flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition-colors";
-        const circle =
-          step.status === "completed"
-            ? `${circleBase} bg-trovio-primary text-white`
-            : step.status === "current"
-              ? `${circleBase} border-2 border-trovio-primary text-trovio-primary`
-              : `${circleBase} border border-trovio-light-border text-trovio-light-text-muted dark:border-trovio-dark-border dark:text-trovio-dark-text-muted`;
+          "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors sm:h-10 sm:w-10 sm:text-sm";
+        const circle = clsx(
+          circleBase,
+          step.status === "completed" && "bg-trovio-primary text-white",
+          step.status === "current" &&
+            "border-2 border-trovio-primary text-trovio-primary",
+          step.status === "upcoming" &&
+            "border border-trovio-light-border text-trovio-light-text-muted dark:border-trovio-dark-border dark:text-trovio-dark-text-muted",
+        );
 
         const node =
           step.status === "current" && onCurrentClick ? (
             <button
               aria-label={`${step.label}, tap to activate`}
-              className={`${circle} cursor-pointer`}
+              className={clsx(circle, "cursor-pointer")}
               type="button"
               onClick={onCurrentClick}
             >
@@ -65,32 +83,34 @@ export function JourneyStepper({
         return (
           <div
             key={step.label + idx}
-            className={`flex items-start ${showConnector ? "flex-1" : ""}`}
+            className="flex min-w-0 flex-1 flex-col items-center"
           >
-            <div className="flex w-24 flex-col items-center gap-2">
-              {node}
-              <span
-                className={`text-center text-sm leading-tight ${
-                  step.status === "upcoming"
-                    ? "text-trovio-light-text-muted dark:text-trovio-dark-text-muted"
-                    : "font-medium text-trovio-light-text dark:text-trovio-dark-text"
-                }`}
-              >
-                {step.label}
-              </span>
+            {/* circle flanked by connecting line segments */}
+            <div className="flex w-full items-center">
+              <div
+                className={clsx(
+                  "h-px flex-1",
+                  isFirst ? "bg-transparent" : lineClass(leftDone),
+                )}
+              />
+              <div className="mx-1.5 shrink-0">{node}</div>
+              <div
+                className={clsx(
+                  "h-px flex-1",
+                  isLast ? "bg-transparent" : lineClass(rightDone),
+                )}
+              />
             </div>
-
-            {showConnector && (
-              <div className="mt-5 flex-1">
-                <div
-                  className={`h-px w-full ${
-                    step.status === "completed"
-                      ? "bg-trovio-primary"
-                      : "bg-trovio-light-border dark:bg-trovio-dark-border"
-                  }`}
-                />
-              </div>
-            )}
+            <span
+              className={clsx(
+                "mt-2 px-0.5 text-center text-[11px] leading-tight sm:text-sm",
+                step.status === "upcoming"
+                  ? "text-trovio-light-text-muted dark:text-trovio-dark-text-muted"
+                  : "font-medium text-trovio-light-text dark:text-trovio-dark-text",
+              )}
+            >
+              {step.label}
+            </span>
           </div>
         );
       })}

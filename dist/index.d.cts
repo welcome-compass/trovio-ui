@@ -240,9 +240,14 @@ interface AvatarProps {
 declare function Avatar({ imageUrl, name, size, className, }: AvatarProps): React.JSX.Element;
 
 /**
- * JourneyStepper — numbered step indicator for "where you stand". Simple,
- * editorial styling (matches the mock): larger numbered circles + labels below,
- * a single indigo accent for done/current, neutral for upcoming.
+ * JourneyStepper — numbered step indicator for "where you stand". Editorial
+ * styling: numbered circles with labels below, a single indigo accent for
+ * done/current, neutral for upcoming.
+ *
+ * Layout: equal flex-1 columns (fully responsive — fits any width down to
+ * mobile). Each circle sits between two flex-1 line segments, so the connectors
+ * always render and every circle stays centered in its column; the first/last
+ * outer segments are transparent.
  *
  * Doctrine (DESIGN.md §3.7): the current node is never the last node — an
  * upcoming step always follows so the journey reads as ongoing.

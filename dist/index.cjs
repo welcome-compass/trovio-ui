@@ -864,7 +864,7 @@ function PortraitHero({
         )
       ) : /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute inset-0 flex items-center justify-center", children: /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-6xl font-light text-white/90", children: initials(name) }) }),
       action && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute right-3 top-3 z-10", children: action }),
-      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-trovio-light-surface to-transparent dark:from-trovio-dark-bg" })
+      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-trovio-light-surface via-trovio-light-surface/70 to-transparent dark:from-trovio-dark-bg dark:via-trovio-dark-bg/70" })
     ] }),
     /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative -mt-10 px-1", children: [
       /* @__PURE__ */ jsxRuntime.jsx("p", { className: "-ml-1 text-display text-trovio-light-text dark:text-trovio-dark-text", children: name }),

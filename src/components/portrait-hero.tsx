@@ -73,7 +73,7 @@ export function PortraitHero({
 
         {/* Fade the image bottom into the page background so the name reads as
             part of the page, not boxed in the image. */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-trovio-light-surface to-transparent dark:from-trovio-dark-bg" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-trovio-light-surface via-trovio-light-surface/70 to-transparent dark:from-trovio-dark-bg dark:via-trovio-dark-bg/70" />
       </div>
 
       {/* Name overlaps the fade and continues into the page */}

@@ -52,7 +52,7 @@ export function PortraitHero({
 
   return (
     <div>
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-trovio-primary/30 to-trovio-primary-dark/30">
+      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-trovio-primary/30 to-trovio-primary-dark/30 lg:aspect-[3/4]">
         {showImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -78,9 +78,7 @@ export function PortraitHero({
 
       {/* Name overlaps the fade and continues into the page */}
       <div className="relative -mt-10 px-1">
-        <p className="text-display text-trovio-light-text dark:text-trovio-dark-text">
-          {name}
-        </p>
+        <p className="text-display text-trovio-primary">{name}</p>
         {role && (
           <p className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
             {role}

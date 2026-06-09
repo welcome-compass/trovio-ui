@@ -850,7 +850,7 @@ function PortraitHero({
   const [errored, setErrored] = react$1.useState(false);
   const showImage = Boolean(imageUrl) && !errored;
   return /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
-    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-trovio-primary/30 to-trovio-primary-dark/30", children: [
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-trovio-primary/30 to-trovio-primary-dark/30 lg:aspect-[3/4]", children: [
       showImage ? (
         // eslint-disable-next-line @next/next/no-img-element
         /* @__PURE__ */ jsxRuntime.jsx(
@@ -867,7 +867,7 @@ function PortraitHero({
       /* @__PURE__ */ jsxRuntime.jsx("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-trovio-light-surface to-transparent dark:from-trovio-dark-bg" })
     ] }),
     /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative -mt-10 px-1", children: [
-      /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-display text-trovio-light-text dark:text-trovio-dark-text", children: name }),
+      /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-display text-trovio-primary", children: name }),
       role && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: role }),
       handles && handles.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-3 flex flex-wrap gap-x-5 gap-y-1.5", children: handles.map((h) => /* @__PURE__ */ jsxRuntime.jsxs(
         "span",

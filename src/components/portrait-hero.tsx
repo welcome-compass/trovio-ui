@@ -78,7 +78,11 @@ export function PortraitHero({
 
       {/* Name overlaps the fade and continues into the page */}
       <div className="relative -mt-10 px-1">
-        <p className="text-display text-trovio-primary">{name}</p>
+        {/* -ml-1 optically aligns the large display glyph with the role +
+            handles below (compensates for the font's left side-bearing). */}
+        <p className="-ml-1 text-display text-trovio-light-text dark:text-trovio-dark-text">
+          {name}
+        </p>
         {role && (
           <p className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
             {role}

@@ -861,7 +861,7 @@ function PortraitHero({
       /* @__PURE__ */ jsx("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-trovio-light-surface to-transparent dark:from-trovio-dark-bg" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "relative -mt-10 px-1", children: [
-      /* @__PURE__ */ jsx("p", { className: "text-display text-trovio-primary", children: name }),
+      /* @__PURE__ */ jsx("p", { className: "-ml-1 text-display text-trovio-light-text dark:text-trovio-dark-text", children: name }),
       role && /* @__PURE__ */ jsx("p", { className: "mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: role }),
       handles && handles.length > 0 && /* @__PURE__ */ jsx("div", { className: "mt-3 flex flex-wrap gap-x-5 gap-y-1.5", children: handles.map((h) => /* @__PURE__ */ jsxs(
         "span",

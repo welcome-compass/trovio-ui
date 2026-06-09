@@ -1,0 +1,39 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundations/Introduction" />
+
+# Trovio Design System
+
+The component catalog for Trovio. Browse tokens, typography, primitives, and
+components in isolation; toggle **theme** (light/dark) and **viewport**
+(mobile / tablet / desktop) from the toolbar to test responsiveness.
+
+## Frameworks we inherit
+
+- **HeroUI v3** (`@heroui/react`, beta) — headless, accessible primitives
+  (Button, Card, Input, Modal, Chip, Checkbox, Switch, Spinner, Skeleton). Our
+  `Trovio*` components in `components/ui/` are thin wrappers that apply Trovio
+  styling + variants on top.
+- **Tailwind v4** — utility styling. Tokens live in the `@theme` block of
+  `styles/globals.css` (no `tailwind.config.js`); brand colors become utilities
+  like `bg-trovio-primary`.
+- **tailwind-variants (`tv`)** — type-safe variant composition (e.g.
+  `TrovioButton` variant × tone × size).
+- **next-themes** — light/dark via a `dark` class on `<html>`; every component
+  ships `dark:` styles.
+
+## How it's organized
+
+- **Foundations** — tokens (colors, radius, shadow) + typography, rendered from
+  the canonical `config/design-tokens.ts`. That module is the platform-agnostic
+  source of truth and the seed for a future JSON/iOS export.
+- **Primitives** — the dashboard building blocks (`components/dashboard/`):
+  `SectionHeading`, `PortraitHero`, `JourneyStepper`, `PillarChips`,
+  `StatStrip`, `LockChip`, `PlatformIcon`, plus the locked feature card.
+- **Components** — the `Trovio*` UI library (`components/ui/`).
+
+## Roadmap
+
+This catalog lives inside creator-dashboard today. The components + tokens are
+arranged so they can be lifted into a shared `@trovio/ui` package consumed by
+admin-dashboard / brand-dashboard, with the tokens exported to JSON for iOS.

@@ -1,0 +1,84 @@
+/**
+ * Trovio design tokens (Tailwind v4).
+ *
+ * Consumers import this once globally (`import "@trovio/ui/tokens.css"`). It
+ * defines the brand color/spacing/type tokens (the `@theme` block, which makes
+ * Tailwind generate utilities like `bg-trovio-primary`) plus the HeroUI semantic
+ * theme variables for light/dark. It deliberately does NOT `@import "tailwindcss"`
+ * — the consuming app already does that.
+ *
+ * KEEP IN SYNC with src/tokens/design-tokens.ts until a token generator (Style
+ * Dictionary) emits both from one source.
+ */
+
+:root,
+.light,
+[data-theme="light"] {
+  --accent: oklch(59.81% 0.2213 277.36);
+  --accent-foreground: oklch(99.11% 0 0);
+  --background: oklch(97.02% 0 277.36);
+  --border: oklch(90% 0 277.36);
+  --danger: oklch(65.32% 0.2328 28.56);
+  --danger-foreground: oklch(99.11% 0 0);
+  --field-background: oklch(100% 0 277.36);
+  --field-foreground: oklch(21.03% 0 277.36);
+  --focus: oklch(59.81% 0.2213 277.36);
+  --foreground: oklch(21.03% 0 277.36);
+  --muted: oklch(55.17% 0 277.36);
+  --success: oklch(73.29% 0.1935 153.63);
+  --surface: oklch(100% 0 277.36);
+  --surface-secondary: oklch(95.24% 0 277.36);
+  --warning: oklch(78.19% 0.1585 75.15);
+
+  --radius: 0.5rem;
+  --field-radius: 0.75rem;
+
+  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --font-accent: "Nothing You Could Do", cursive;
+}
+
+.dark,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --background: oklch(12% 0 277.36);
+  --border: oklch(28% 0 277.36);
+  --danger: oklch(59.4% 0.1967 27.45);
+  --field-background: oklch(21.03% 0 277.36);
+  --foreground: oklch(99.11% 0 277.36);
+  --muted: oklch(70.5% 0 277.36);
+  --surface: oklch(21.03% 0 277.36);
+  --surface-secondary: oklch(25.7% 0 277.36);
+  --warning: oklch(82.03% 0.1388 79.16);
+}
+
+@theme {
+  --font-family-sans: var(--font-sans);
+  --font-family-accent: var(--font-accent);
+
+  /* Trovio brand colors */
+  --color-trovio-primary-dark: #000066;
+  --color-trovio-primary: #6666ff;
+  --color-trovio-primary-light: #e1e128;
+  --color-trovio-secondary-1: #ff99ff;
+  --color-trovio-secondary-2: #ff3366;
+  --color-trovio-secondary-3: #ff9933;
+  --color-trovio-light-bg: #f1f1fa;
+  --color-trovio-light-surface: #ffffff;
+  --color-trovio-light-border: #e5e7eb;
+  --color-trovio-light-text: #1b1b28;
+  --color-trovio-light-text-muted: rgba(27, 27, 40, 0.7);
+  --color-trovio-dark-bg: #161623;
+  --color-trovio-dark-surface: #1e1e2e;
+  --color-trovio-dark-border: #2d2d44;
+  --color-trovio-dark-text: #ffffff;
+  --color-trovio-dark-text-muted: rgba(255, 255, 255, 0.7);
+  --color-trovio-success: #3eba64;
+  --color-trovio-warning: #ffb800;
+  --color-trovio-error: #ff3366;
+  --color-trovio-info: #3e89ba;
+
+  --radius-lg: 0.75rem;
+  --shadow-sm: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0px 10px 15px rgba(0, 0, 0, 0.1);
+}

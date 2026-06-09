@@ -1,0 +1,13 @@
+/* Tailwind pipeline for the Storybook catalog (NOT shipped to consumers). */
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Nothing+You+Could+Do&display=swap");
+
+@import "tailwindcss";
+@import "@heroui/styles";
+@import "../styles/tokens.css";
+
+/* Dark mode toggled via a `.dark` class on an ancestor (Storybook addon-themes). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Scan the library + stories for class names. */
+@source "../components";
+@source "../../stories";

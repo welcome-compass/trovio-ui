@@ -86,17 +86,17 @@
      that applies size + line-height + tracking + weight together, used like a
      color utility. Fluid via clamp() so there's no breakpoint hop. Mirror any
      change in every consumer's globals.css until Style Dictionary lands. */
-  --text-display: clamp(2.5rem, 1.5rem + 4vw, 3.75rem);
+  --text-display: clamp(3rem, 1.5rem + 6vw, 4rem);
   --text-display--line-height: 1;
   --text-display--letter-spacing: -0.02em;
   --text-display--font-weight: 300;
 
-  --text-hero: clamp(1.875rem, 1.4rem + 1.8vw, 2.25rem);
+  --text-hero: clamp(2rem, 1.3rem + 3vw, 2.5rem);
   --text-hero--line-height: 1.15;
   --text-hero--letter-spacing: -0.02em;
   --text-hero--font-weight: 400;
 
-  --text-section: clamp(1.5rem, 1.35rem + 0.6vw, 1.625rem);
+  --text-section: clamp(1.625rem, 1.35rem + 1.5vw, 1.875rem);
   --text-section--line-height: 1.2;
   --text-section--letter-spacing: -0.02em;
   --text-section--font-weight: 500;

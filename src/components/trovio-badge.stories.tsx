@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { TrovioBadge } from "./trovio-badge";
 
 const meta = {
-  title: "Components/TrovioBadge",
+  title: "Primitives/TrovioBadge",
   component: TrovioBadge,
   tags: ["autodocs"],
   argTypes: {

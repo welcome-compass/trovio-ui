@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { TrovioSpinner } from "./trovio-spinner";
 
 const meta = {
-  title: "Components/TrovioSpinner",
+  title: "Primitives/TrovioSpinner",
   component: TrovioSpinner,
   tags: ["autodocs"],
   argTypes: {

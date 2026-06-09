@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { JourneyStepper } from "./journey-stepper";
 
 const meta = {
-  title: "Primitives/JourneyStepper",
+  title: "Components/JourneyStepper",
   component: JourneyStepper,
   tags: ["autodocs"],
   parameters: { layout: "padded" },

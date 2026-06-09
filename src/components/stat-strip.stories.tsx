@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StatStrip } from "./stat-strip";
 
 const meta = {
-  title: "Primitives/StatStrip",
+  title: "Components/StatStrip",
   component: StatStrip,
   tags: ["autodocs"],
   parameters: { layout: "padded" },

@@ -10,30 +10,41 @@ components in isolation; toggle **theme** (light/dark) and **viewport**
 
 ## Frameworks we inherit
 
-- **HeroUI v3** (`@heroui/react`, beta) — headless, accessible primitives
+- **HeroUI v3** (`@heroui/react`, beta) — headless, accessible base elements
   (Button, Card, Input, Modal, Chip, Checkbox, Switch, Spinner, Skeleton). Our
-  `Trovio*` components in `components/ui/` are thin wrappers that apply Trovio
-  styling + variants on top.
+  `Trovio*` primitives are thin wrappers that apply Trovio styling + variants.
 - **Tailwind v4** — utility styling. Tokens live in the `@theme` block of
-  `styles/globals.css` (no `tailwind.config.js`); brand colors become utilities
-  like `bg-trovio-primary`.
-- **tailwind-variants (`tv`)** — type-safe variant composition (e.g.
-  `TrovioButton` variant × tone × size).
-- **next-themes** — light/dark via a `dark` class on `<html>`; every component
-  ships `dark:` styles.
+  `tokens.css` (no `tailwind.config.js`); brand colors become utilities like
+  `bg-trovio-primary`.
+- **tailwind-variants (`tv`)** — type-safe variant composition.
 
-## How it's organized
+## Taxonomy
 
-- **Foundations** — tokens (colors, radius, shadow) + typography, rendered from
-  the canonical `config/design-tokens.ts`. That module is the platform-agnostic
-  source of truth and the seed for a future JSON/iOS export.
-- **Primitives** — the dashboard building blocks (`components/dashboard/`):
-  `SectionHeading`, `PortraitHero`, `JourneyStepper`, `PillarChips`,
-  `StatStrip`, `LockChip`, `PlatformIcon`, plus the locked feature card.
-- **Components** — the `Trovio*` UI library (`components/ui/`).
+We follow the standard hierarchical-composition model (the principle behind
+Atomic Design / Radix): **small, presentation-only building blocks compose into
+larger, purpose-specific ones.** The labels exist to give us a shared vocabulary,
+not to litigate edge cases.
+
+- **Foundations** — design _decisions_, not React components: color, typography,
+  spacing, radius, shadow. Rendered from the canonical `src/tokens/design-tokens.ts`
+  (the platform-agnostic source + seed for a JSON/iOS export).
+- **Primitives** — **base, single-purpose, presentation-only** building blocks.
+  A primitive does **not** compose other Trovio components, and it does **not**
+  own app behavior (no analytics, no routing) — those are injected by the
+  consumer via props/handlers. Examples: `TrovioButton`, `TrovioInput`,
+  `TrovioBadge`, `TrovioCard`, `TrovioModal`, `TrovioSpinner`, `TrovioSkeleton`,
+  `TrovioProgressBar`, `SectionHeading`, `SectionLabel`, `LockChip`, `PlatformIcon`.
+- **Components** — **composed of one or more primitives** to do a specific job.
+  Examples: `JourneyStepper`, `PillarChips`, `StatStrip`, `PortraitHero`,
+  `EmptyState`, `LockedFeatureCard`.
+- **Patterns** (future) — full screen compositions (e.g. the acquainted
+  dashboard). These stay in the app, not the package.
+
+**The test:** does it stand alone and render one thing (→ primitive), or does it
+assemble primitives for a purpose (→ component)?
 
 ## Roadmap
 
-This catalog lives inside creator-dashboard today. The components + tokens are
-arranged so they can be lifted into a shared `@trovio/ui` package consumed by
-admin-dashboard / brand-dashboard, with the tokens exported to JSON for iOS.
+Lift remaining `Trovio*` primitives + the dashboard components into this package;
+consumers (`creator-dashboard`, `admin-dashboard`, `brand-dashboard`) import from
+`@trovio/ui`. Tokens export to JSON for iOS.

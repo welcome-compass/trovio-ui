@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PillarChips } from "./pillar-chips";
 
 const meta = {
-  title: "Primitives/PillarChips",
+  title: "Components/PillarChips",
   component: PillarChips,
   tags: ["autodocs"],
   parameters: { layout: "padded" },

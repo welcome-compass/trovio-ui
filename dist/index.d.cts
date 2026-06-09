@@ -1,7 +1,186 @@
-import * as react from 'react';
-import react__default, { ReactNode } from 'react';
-import { ChipProps } from '@heroui/react';
+import { ButtonProps, ChipProps, InputProps, CardProps } from '@heroui/react';
+import * as React from 'react';
+import React__default, { ReactNode } from 'react';
 export { DesignTokens, brandColors, darkColors, designTokens, fonts, lightColors, radius, semanticColors, shadow, typeScale } from './tokens.cjs';
+
+interface TrovioButtonProps extends Omit<ButtonProps, "color" | "variant" | "className"> {
+    variant?: "primary" | "secondary" | "tertiary" | "dashed" | "custom";
+    color?: "blue" | "yellow";
+    fullWidth?: boolean;
+    size?: "sm" | "md" | "lg";
+    isLoading?: boolean;
+    isPending?: boolean;
+    href?: string;
+    target?: string;
+    rel?: string;
+    children?: React__default.ReactNode;
+    className?: string;
+}
+declare const TrovioButton: React__default.ForwardRefExoticComponent<Omit<TrovioButtonProps, "ref"> & React__default.RefAttributes<HTMLButtonElement>>;
+
+interface TrovioBadgeProps extends Omit<ChipProps, "color"> {
+    status: "published" | "draft" | "archived" | "success" | "warning" | "error" | "info";
+}
+declare const TrovioBadge: React__default.FC<TrovioBadgeProps>;
+
+interface TrovioInputProps extends Omit<InputProps, "variant" | "size"> {
+    label?: string;
+    helperText?: string;
+    error?: string;
+    size?: "sm" | "md" | "lg";
+    variant?: "default" | "dynamic";
+}
+declare const TrovioInput: React__default.FC<TrovioInputProps>;
+
+interface TrovioTextAreaProps {
+    label?: string;
+    helperText?: string;
+    error?: string;
+    variant?: "default" | "dynamic";
+    className?: string;
+    placeholder?: string;
+    value?: string;
+    isDisabled?: boolean;
+    isReadOnly?: boolean;
+    onBlur?: (e: React__default.FocusEvent<HTMLTextAreaElement>) => void;
+    onChange?: (e: React__default.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+declare const TrovioTextArea: React__default.FC<TrovioTextAreaProps>;
+
+interface TrovioModalProps {
+    /** Whether the modal is open */
+    isOpen: boolean;
+    /** Callback invoked when the modal should close (backdrop click, ESC, close button, etc.) */
+    onClose: () => void;
+    /** Modal title */
+    title: string;
+    /** Modal content */
+    children: React__default.ReactNode;
+    /** Optional footer with action buttons */
+    footer?: React__default.ReactNode;
+    /** Size of the modal */
+    size?: "sm" | "md" | "lg";
+    /** Whether the modal can be dismissed by clicking backdrop (default: true) */
+    isDismissable?: boolean;
+    /** Whether ESC key can dismiss the modal (default: false) */
+    isKeyboardDismissDisabled?: boolean;
+    /** Scroll behavior - inside or outside (default: inside) */
+    scroll?: "inside" | "outside";
+    /**
+     * Modal placement on screen.
+     * Defaults to "auto": centered on desktop (sm+), bottom sheet on mobile.
+     */
+    placement?: "auto" | "top" | "center" | "bottom";
+    /** Hide the header and close button for full-bleed content (e.g. banner images). Title is still used for aria-label. */
+    hideHeader?: boolean;
+}
+/**
+ * TrovioModal component using HeroUI v3 Modal with Trovio branding.
+ * Features backdrop, close button, customizable content/footer, and full accessibility.
+ */
+declare const TrovioModal: React__default.FC<TrovioModalProps>;
+
+interface TrovioCheckboxProps {
+    checked: boolean;
+    onChange: (checked: boolean) => void;
+    "aria-label": string;
+    className?: string;
+    size?: "md" | "lg";
+    isDisabled?: boolean;
+}
+/**
+ * Trovio Checkbox
+ * --------------
+ * Thin wrapper around HeroUI v3 Checkbox.
+ * We keep the default square checkbox visuals and only apply minimal Trovio theming.
+ */
+declare function TrovioCheckbox({ checked, onChange, className, size, isDisabled, ...ariaProps }: TrovioCheckboxProps): React.JSX.Element;
+
+interface TrovioSwitchProps {
+    label?: string;
+    helperText?: string;
+    className?: string;
+    checked?: boolean;
+    defaultChecked?: boolean;
+    onChange?: (isChecked: boolean) => void;
+    isDisabled?: boolean;
+    name?: string;
+    id?: string;
+}
+/**
+ * Trovio Switch Component
+ * -----------------------
+ * Themed toggle switch using HeroUI v3 Switch
+ * Uses Trovio primary color and larger size for better visibility
+ */
+declare const TrovioSwitch: React__default.FC<TrovioSwitchProps>;
+
+interface TrovioSpinnerProps {
+    size?: "sm" | "md" | "lg" | "xl";
+    className?: string;
+}
+declare const TrovioSpinner: ({ size, className, }: TrovioSpinnerProps) => React.JSX.Element;
+
+interface TrovioSkeletonProps {
+    isLoaded?: boolean;
+    disableAnimation?: boolean;
+    className?: string;
+    children?: React__default.ReactNode;
+    usePrimaryColor?: boolean;
+}
+declare const TrovioSkeleton: ({ isLoaded, disableAnimation, className, children, usePrimaryColor, }: TrovioSkeletonProps) => React__default.JSX.Element;
+
+interface TrovioProgressBarProps {
+    /** Current value */
+    value: number;
+    /** Maximum value */
+    max: number;
+    /** Fill color (hex string, e.g. "#FF00AA") */
+    color?: string;
+    /** Size variant */
+    size?: "sm" | "md";
+    /** Additional class names */
+    className?: string;
+    /** Accessible label (e.g. "Fitness: 3 of 5 posts") */
+    label?: string;
+}
+/**
+ * Trovio Progress Bar
+ * -------------------
+ * Linear progress bar with customizable fill color.
+ * Used primarily in the pillar challenge widget to show posting progress.
+ *
+ * - Pillar-colored fill with border-colored background
+ * - Rounded ends (rounded-full)
+ * - Accessible with role="progressbar" and aria attributes
+ */
+declare function TrovioProgressBar({ value, max, color, size, className, label, }: TrovioProgressBarProps): React.JSX.Element;
+
+interface WidgetCardProps extends CardProps {
+    /**
+     * Remove default padding from card content
+     * Useful for cards with full-bleed backgrounds or custom layouts
+     */
+    noPadding?: boolean;
+    /**
+     * Minimum height for the card
+     * @default "300px"
+     */
+    minHeight?: string;
+}
+/**
+ * Widget Card Base Component
+ * --------------------------
+ * Simple container card for dashboard widgets
+ * Uses HeroUI v3 Card with minimal styling for maximum flexibility
+ *
+ * Features:
+ * - Consistent card styling across widgets
+ * - Optional padding control
+ * - Configurable minimum height
+ * - Dark mode support
+ */
+declare function WidgetCard({ children, className, noPadding, minHeight, ...props }: WidgetCardProps): React.JSX.Element;
 
 /**
  * SectionLabel — the one uppercase eyebrow used across dashboard states.
@@ -14,7 +193,7 @@ export { DesignTokens, brandColors, darkColors, designTokens, fonts, lightColors
 declare function SectionLabel({ children, className, }: {
     children: ReactNode;
     className?: string;
-}): react.JSX.Element;
+}): React.JSX.Element;
 
 /**
  * SectionHeading — the open, editorial section heading for the refreshed
@@ -32,15 +211,7 @@ declare function SectionHeading({ children, divider, hero, className, }: {
     /** Hero size for the lead heading on the screen. */
     hero?: boolean;
     className?: string;
-}): react.JSX.Element;
-
-declare function PlatformIcon({ platform, className, size, }: {
-    platform: string;
-    className?: string;
-    size?: number;
-}): react.JSX.Element;
-/** Human-readable platform name, e.g. "instagram" -> "Instagram". */
-declare function platformLabel(platform: string): string;
+}): React.JSX.Element;
 
 /**
  * LockChip — the small "locked" badge used on locked feature cards. Shared so
@@ -48,7 +219,15 @@ declare function platformLabel(platform: string): string;
  */
 declare function LockChip({ label }: {
     label?: string;
-}): react.JSX.Element;
+}): React.JSX.Element;
+
+declare function PlatformIcon({ platform, className, size, }: {
+    platform: string;
+    className?: string;
+    size?: number;
+}): React.JSX.Element;
+/** Human-readable platform name, e.g. "instagram" -> "Instagram". */
+declare function platformLabel(platform: string): string;
 
 /**
  * JourneyStepper — numbered step indicator for "where you stand". Simple,
@@ -70,7 +249,7 @@ interface JourneyStep {
 declare function JourneyStepper({ steps, onCurrentClick, }: {
     steps: JourneyStep[];
     onCurrentClick?: () => void;
-}): react.JSX.Element | null;
+}): React.JSX.Element | null;
 
 /**
  * PillarChips — the creator's content pillars as a clean, minimal list.
@@ -86,7 +265,7 @@ interface PillarChipItem {
 }
 declare function PillarChips({ pillars }: {
     pillars?: PillarChipItem[];
-}): react.JSX.Element | null;
+}): React.JSX.Element | null;
 
 /**
  * StatStrip — grounded vitals as a single borderless, muted inline line
@@ -101,18 +280,7 @@ interface StatStripProps {
     platforms?: string[];
     className?: string;
 }
-declare function StatStrip({ followers, posts, platforms, className, }: StatStripProps): react.JSX.Element | null;
-
-interface TrovioBadgeProps extends Omit<ChipProps, "color"> {
-    status: "published" | "draft" | "archived" | "success" | "warning" | "error" | "info";
-}
-declare const TrovioBadge: react__default.FC<TrovioBadgeProps>;
-
-interface TrovioSpinnerProps {
-    size?: "sm" | "md" | "lg" | "xl";
-    className?: string;
-}
-declare const TrovioSpinner: ({ size, className, }: TrovioSpinnerProps) => react.JSX.Element;
+declare function StatStrip({ followers, posts, platforms, className, }: StatStripProps): React.JSX.Element | null;
 
 /**
  * Compact number formatting for stat displays (followers, posts, etc.).
@@ -127,4 +295,4 @@ declare const TrovioSpinner: ({ size, className, }: TrovioSpinnerProps) => react
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { type JourneyStep, type JourneyStepStatus, JourneyStepper, LockChip, type PillarChipItem, PillarChips, PlatformIcon, SectionHeading, SectionLabel, StatStrip, type StatStripProps, TrovioBadge, type TrovioBadgeProps, TrovioSpinner, formatCompactNumber, platformLabel };
+export { type JourneyStep, type JourneyStepStatus, JourneyStepper, LockChip, type PillarChipItem, PillarChips, PlatformIcon, SectionHeading, SectionLabel, StatStrip, type StatStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

@@ -16,9 +16,11 @@ import { formatCompactNumber } from "../utils/format-number";
 /**
  * LockedFeatureCard (Component) — pre-paywall teaser for a tool that unlocks on
  * activation. Each preview sells the OUTCOME (a polished media kit, personalized
- * brand matches, an AI post score) using real imagery where the consumer
- * provides it + illustrative numbers. Presentation-only: tap behavior is
- * injected via `onActivate` (the app decides activation / fires analytics).
+ * brand matches, an AI post score). Every preview uses REAL data when the
+ * consumer supplies it and falls back to illustrative example data when absent,
+ * so the cards are correct the moment the backend starts passing real fields —
+ * no LLM call required. Presentation-only: tap behavior is injected via
+ * `onActivate`.
  */
 export type LockedFeatureVariant =
   | "media_kit"
@@ -26,17 +28,35 @@ export type LockedFeatureVariant =
   | "post_analyzer";
 export type LockedFeatureTreatment = "crisp" | "veiled";
 
+export interface LockedFeaturePillar {
+  label: string;
+  reason?: string;
+}
+
 export interface LockedFeatureItem {
   variant: LockedFeatureVariant;
   treatment: LockedFeatureTreatment;
-  /** Real stats for the Media Kit preview. */
-  stats?: { followers?: number | null; platforms?: string[] };
+  /** Real stats for the Media Kit preview. Each field is optional — the preview
+   *  falls back to an illustrative value when it's absent. */
+  stats?: {
+    followers?: number | null;
+    platforms?: string[];
+    /** Decimal engagement rate (0.035 = 3.5%). */
+    engagementRate?: number | null;
+    /** Average views per post. */
+    avgViews?: number | null;
+  };
   /** Personalized teaser copy; falls back to the built-in line. */
   description?: string;
   /** Recent post thumbnail to illustrate Post Analyzer. */
   sampleThumbnailUrl?: string | null;
   /** Recent content image URLs to illustrate the Media Kit. */
   sampleImages?: string[];
+  /** Real content pillars → Media Kit "top pillar" + Brand Matcher rows
+   *  (grounded categories; no fabricated match scores until matching runs). */
+  pillars?: LockedFeaturePillar[];
+  /** Count of already-analyzed posts → real Post Analyzer teaser line. */
+  analyzedCount?: number;
 }
 
 export interface LockedFeatureCardProps {
@@ -84,19 +104,24 @@ function PlaceholderTile({ className }: { className?: string }) {
 
 /**
  * Media Kit — a miniature one-pager: identity + the cross-platform metrics
- * brands ask for + an audience snapshot + a top-content strip. Reads as a
- * professional document, not a social profile.
+ * brands ask for + (real top pillar | illustrative audience) + a content strip.
  */
 function MediaKitPreview({
   portraitUrl,
   images,
   followers,
   platforms,
+  engagementRate,
+  avgViews,
+  topPillar,
 }: {
   portraitUrl?: string | null;
   images?: string[];
   followers?: number | null;
   platforms?: string[];
+  engagementRate?: number | null;
+  avgViews?: number | null;
+  topPillar?: string;
 }) {
   const tiles = (images ?? []).slice(0, 3);
   const metrics = [
@@ -104,8 +129,17 @@ function MediaKitPreview({
       label: "Followers",
       value: followers != null ? formatCompactNumber(followers) : "—",
     },
-    { label: "Eng. rate", value: "5.2%" },
-    { label: "Avg. reach", value: "8.4K" },
+    {
+      label: "Eng. rate",
+      value:
+        engagementRate != null
+          ? `${(engagementRate * 100).toFixed(1)}%`
+          : "5.2%",
+    },
+    {
+      label: "Avg. views",
+      value: avgViews != null ? formatCompactNumber(avgViews) : "8.4K",
+    },
   ];
 
   return (
@@ -137,12 +171,17 @@ function MediaKitPreview({
 
       <div className="mt-2.5">
         <div className={`mb-1 flex justify-between ${META_TEXT}`}>
-          <span>Audience</span>
-          <span>65% women · 25–34</span>
+          <span>{topPillar ? "Top pillar" : "Audience"}</span>
+          <span className="truncate pl-2">
+            {topPillar ?? "65% women · 25–34"}
+          </span>
         </div>
         <div className="flex h-1.5 overflow-hidden rounded-full">
-          <div className="bg-trovio-primary/70" style={{ width: "65%" }} />
-          <div className="flex-1 bg-trovio-primary/25" />
+          <div
+            className="bg-trovio-primary/70"
+            style={{ width: topPillar ? "100%" : "65%" }}
+          />
+          {!topPillar && <div className="flex-1 bg-trovio-primary/25" />}
         </div>
       </div>
 
@@ -170,46 +209,62 @@ function MediaKitPreview({
 }
 
 /**
- * Brand Matcher — personalized match rows. Brands are obscured (we don't have
- * them until activation), but the match % + the reason make the value tangible.
+ * Brand Matcher — personalized rows. With real pillars we show the creator's own
+ * brand "spaces" + why (no fabricated scores until matching runs); without them
+ * we fall back to illustrative category + score rows.
  */
-function BrandMatcherPreview() {
-  const matches = [
-    {
-      category: "Beauty & Skincare",
-      reason: "Aligns with your skincare content",
-      score: 94,
-    },
-    {
-      category: "Health & Wellness",
-      reason: "Strong fit for your audience",
-      score: 89,
-    },
-    {
-      category: "Travel & Lifestyle",
-      reason: "Matches your lifestyle pillar",
-      score: 86,
-    },
-  ];
+function BrandMatcherPreview({
+  categories,
+}: {
+  categories?: LockedFeaturePillar[];
+}) {
+  const hasReal = Boolean(categories && categories.length);
+  const rows = hasReal
+    ? categories!.slice(0, 3).map((c) => ({
+        category: c.label,
+        reason: c.reason ?? "A natural fit for your content",
+        score: null as number | null,
+      }))
+    : [
+        {
+          category: "Beauty & Skincare",
+          reason: "Aligns with your skincare content",
+          score: 94,
+        },
+        {
+          category: "Health & Wellness",
+          reason: "Strong fit for your audience",
+          score: 89,
+        },
+        {
+          category: "Travel & Lifestyle",
+          reason: "Matches your lifestyle pillar",
+          score: 86,
+        },
+      ];
 
   return (
     <div className={PREVIEW_SHELL}>
-      <p className={`mb-2.5 ${EYEBROW}`}>12 potential matches</p>
+      <p className={`mb-2.5 ${EYEBROW}`}>
+        {hasReal ? "Brands in your spaces" : "12 potential matches"}
+      </p>
       <div className="space-y-2.5">
-        {matches.map((m) => (
-          <div key={m.category} className="flex items-center gap-2.5">
+        {rows.map((r) => (
+          <div key={r.category} className="flex items-center gap-2.5">
             <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-trovio-primary/10">
               <PiHandshakeDuotone className="absolute inset-0 m-auto h-4 w-4 text-trovio-primary/40" />
             </div>
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text">
-                {m.category}
+                {r.category}
               </p>
-              <p className={`truncate ${META_TEXT}`}>{m.reason}</p>
+              <p className={`truncate ${META_TEXT}`}>{r.reason}</p>
             </div>
-            <span className="shrink-0 text-sm font-bold text-trovio-primary">
-              {m.score}%
-            </span>
+            {r.score != null && (
+              <span className="shrink-0 text-sm font-bold text-trovio-primary">
+                {r.score}%
+              </span>
+            )}
           </div>
         ))}
       </div>
@@ -265,13 +320,16 @@ function ScoreRing({ score, size = 52 }: { score: number; size?: number }) {
 }
 
 /**
- * Post Analyzer — a score ring + a one-line AI insight + per-dimension bars.
- * Sells the actionable feedback, not just a number.
+ * Post Analyzer — score ring + AI insight + dimension bars. The score/bars stay
+ * illustrative until the eval scorer runs; a real "{n} videos analyzed" line is
+ * shown when the consumer supplies analyzedCount.
  */
 function PostAnalyzerPreview({
   thumbnailUrl,
+  analyzedCount,
 }: {
   thumbnailUrl?: string | null;
+  analyzedCount?: number;
 }) {
   const metrics = [
     { label: "Hook", pct: 86 },
@@ -300,6 +358,11 @@ function PostAnalyzerPreview({
           <p className="mt-0.5 text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text">
             Strong hook — tighten the middle.
           </p>
+          {analyzedCount != null && analyzedCount > 0 && (
+            <p className={`mt-1 ${META_TEXT}`}>
+              {analyzedCount} of your videos analyzed
+            </p>
+          )}
         </div>
       </div>
 
@@ -357,16 +420,24 @@ export function LockedFeatureCard({
 
       {item.variant === "media_kit" && (
         <MediaKitPreview
+          avgViews={item.stats?.avgViews}
+          engagementRate={item.stats?.engagementRate}
           followers={item.stats?.followers}
           images={item.sampleImages}
           platforms={item.stats?.platforms}
           portraitUrl={portraitUrl}
+          topPillar={item.pillars?.[0]?.label}
         />
       )}
       {item.variant === "post_analyzer" && (
-        <PostAnalyzerPreview thumbnailUrl={item.sampleThumbnailUrl} />
+        <PostAnalyzerPreview
+          analyzedCount={item.analyzedCount}
+          thumbnailUrl={item.sampleThumbnailUrl}
+        />
       )}
-      {item.variant === "brand_matcher" && <BrandMatcherPreview />}
+      {item.variant === "brand_matcher" && (
+        <BrandMatcherPreview categories={item.pillars} />
+      )}
     </button>
   );
 }

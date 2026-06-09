@@ -934,7 +934,10 @@ function MediaKitPreview({
   portraitUrl,
   images,
   followers,
-  platforms
+  platforms,
+  engagementRate,
+  avgViews,
+  topPillar
 }) {
   const tiles = (images ?? []).slice(0, 3);
   const metrics = [
@@ -942,8 +945,14 @@ function MediaKitPreview({
       label: "Followers",
       value: followers != null ? formatCompactNumber(followers) : "\u2014"
     },
-    { label: "Eng. rate", value: "5.2%" },
-    { label: "Avg. reach", value: "8.4K" }
+    {
+      label: "Eng. rate",
+      value: engagementRate != null ? `${(engagementRate * 100).toFixed(1)}%` : "5.2%"
+    },
+    {
+      label: "Avg. views",
+      value: avgViews != null ? formatCompactNumber(avgViews) : "8.4K"
+    }
   ];
   return /* @__PURE__ */ jsxs("div", { className: PREVIEW_SHELL, children: [
     /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2.5", children: [
@@ -959,12 +968,18 @@ function MediaKitPreview({
     ] }, m.label)) }),
     /* @__PURE__ */ jsxs("div", { className: "mt-2.5", children: [
       /* @__PURE__ */ jsxs("div", { className: `mb-1 flex justify-between ${META_TEXT}`, children: [
-        /* @__PURE__ */ jsx("span", { children: "Audience" }),
-        /* @__PURE__ */ jsx("span", { children: "65% women \xB7 25\u201334" })
+        /* @__PURE__ */ jsx("span", { children: topPillar ? "Top pillar" : "Audience" }),
+        /* @__PURE__ */ jsx("span", { className: "truncate pl-2", children: topPillar ?? "65% women \xB7 25\u201334" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "flex h-1.5 overflow-hidden rounded-full", children: [
-        /* @__PURE__ */ jsx("div", { className: "bg-trovio-primary/70", style: { width: "65%" } }),
-        /* @__PURE__ */ jsx("div", { className: "flex-1 bg-trovio-primary/25" })
+        /* @__PURE__ */ jsx(
+          "div",
+          {
+            className: "bg-trovio-primary/70",
+            style: { width: topPillar ? "100%" : "65%" }
+          }
+        ),
+        !topPillar && /* @__PURE__ */ jsx("div", { className: "flex-1 bg-trovio-primary/25" })
       ] })
     ] }),
     /* @__PURE__ */ jsx("div", { className: "mt-2.5 grid grid-cols-3 gap-1.5", children: [0, 1, 2].map(
@@ -986,8 +1001,15 @@ function MediaKitPreview({
     ) })
   ] });
 }
-function BrandMatcherPreview() {
-  const matches = [
+function BrandMatcherPreview({
+  categories
+}) {
+  const hasReal = Boolean(categories && categories.length);
+  const rows = hasReal ? categories.slice(0, 3).map((c) => ({
+    category: c.label,
+    reason: c.reason ?? "A natural fit for your content",
+    score: null
+  })) : [
     {
       category: "Beauty & Skincare",
       reason: "Aligns with your skincare content",
@@ -1005,18 +1027,18 @@ function BrandMatcherPreview() {
     }
   ];
   return /* @__PURE__ */ jsxs("div", { className: PREVIEW_SHELL, children: [
-    /* @__PURE__ */ jsx("p", { className: `mb-2.5 ${EYEBROW}`, children: "12 potential matches" }),
-    /* @__PURE__ */ jsx("div", { className: "space-y-2.5", children: matches.map((m) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2.5", children: [
+    /* @__PURE__ */ jsx("p", { className: `mb-2.5 ${EYEBROW}`, children: hasReal ? "Brands in your spaces" : "12 potential matches" }),
+    /* @__PURE__ */ jsx("div", { className: "space-y-2.5", children: rows.map((r) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2.5", children: [
       /* @__PURE__ */ jsx("div", { className: "relative h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-trovio-primary/10", children: /* @__PURE__ */ jsx(PiHandshakeDuotone, { className: "absolute inset-0 m-auto h-4 w-4 text-trovio-primary/40" }) }),
       /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
-        /* @__PURE__ */ jsx("p", { className: "truncate text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: m.category }),
-        /* @__PURE__ */ jsx("p", { className: `truncate ${META_TEXT}`, children: m.reason })
+        /* @__PURE__ */ jsx("p", { className: "truncate text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: r.category }),
+        /* @__PURE__ */ jsx("p", { className: `truncate ${META_TEXT}`, children: r.reason })
       ] }),
-      /* @__PURE__ */ jsxs("span", { className: "shrink-0 text-sm font-bold text-trovio-primary", children: [
-        m.score,
+      r.score != null && /* @__PURE__ */ jsxs("span", { className: "shrink-0 text-sm font-bold text-trovio-primary", children: [
+        r.score,
         "%"
       ] })
-    ] }, m.category)) })
+    ] }, r.category)) })
   ] });
 }
 function ScoreRing({ score, size = 52 }) {
@@ -1074,7 +1096,8 @@ function ScoreRing({ score, size = 52 }) {
   );
 }
 function PostAnalyzerPreview({
-  thumbnailUrl
+  thumbnailUrl,
+  analyzedCount
 }) {
   const metrics = [
     { label: "Hook", pct: 86 },
@@ -1097,7 +1120,11 @@ function PostAnalyzerPreview({
       /* @__PURE__ */ jsx(ScoreRing, { score: 92 }),
       /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
         /* @__PURE__ */ jsx("p", { className: EYEBROW, children: "Overall score" }),
-        /* @__PURE__ */ jsx("p", { className: "mt-0.5 text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text", children: "Strong hook \u2014 tighten the middle." })
+        /* @__PURE__ */ jsx("p", { className: "mt-0.5 text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text", children: "Strong hook \u2014 tighten the middle." }),
+        analyzedCount != null && analyzedCount > 0 && /* @__PURE__ */ jsxs("p", { className: `mt-1 ${META_TEXT}`, children: [
+          analyzedCount,
+          " of your videos analyzed"
+        ] })
       ] })
     ] }),
     /* @__PURE__ */ jsx("div", { className: "mt-3 space-y-2", children: metrics.map((m) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
@@ -1148,14 +1175,23 @@ function LockedFeatureCard({
         item.variant === "media_kit" && /* @__PURE__ */ jsx(
           MediaKitPreview,
           {
+            avgViews: item.stats?.avgViews,
+            engagementRate: item.stats?.engagementRate,
             followers: item.stats?.followers,
             images: item.sampleImages,
             platforms: item.stats?.platforms,
-            portraitUrl
+            portraitUrl,
+            topPillar: item.pillars?.[0]?.label
           }
         ),
-        item.variant === "post_analyzer" && /* @__PURE__ */ jsx(PostAnalyzerPreview, { thumbnailUrl: item.sampleThumbnailUrl }),
-        item.variant === "brand_matcher" && /* @__PURE__ */ jsx(BrandMatcherPreview, {})
+        item.variant === "post_analyzer" && /* @__PURE__ */ jsx(
+          PostAnalyzerPreview,
+          {
+            analyzedCount: item.analyzedCount,
+            thumbnailUrl: item.sampleThumbnailUrl
+          }
+        ),
+        item.variant === "brand_matcher" && /* @__PURE__ */ jsx(BrandMatcherPreview, { categories: item.pillars })
       ]
     }
   );

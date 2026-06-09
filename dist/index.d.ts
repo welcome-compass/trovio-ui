@@ -316,19 +316,30 @@ declare function PortraitHero({ imageUrl, name, role, handles, action, }: Portra
 /**
  * LockedFeatureCard (Component) — pre-paywall teaser for a tool that unlocks on
  * activation. Each preview sells the OUTCOME (a polished media kit, personalized
- * brand matches, an AI post score) using real imagery where the consumer
- * provides it + illustrative numbers. Presentation-only: tap behavior is
- * injected via `onActivate` (the app decides activation / fires analytics).
+ * brand matches, an AI post score). Every preview uses REAL data when the
+ * consumer supplies it and falls back to illustrative example data when absent,
+ * so the cards are correct the moment the backend starts passing real fields —
+ * no LLM call required. Presentation-only: tap behavior is injected via
+ * `onActivate`.
  */
 type LockedFeatureVariant = "media_kit" | "brand_matcher" | "post_analyzer";
 type LockedFeatureTreatment = "crisp" | "veiled";
+interface LockedFeaturePillar {
+    label: string;
+    reason?: string;
+}
 interface LockedFeatureItem {
     variant: LockedFeatureVariant;
     treatment: LockedFeatureTreatment;
-    /** Real stats for the Media Kit preview. */
+    /** Real stats for the Media Kit preview. Each field is optional — the preview
+     *  falls back to an illustrative value when it's absent. */
     stats?: {
         followers?: number | null;
         platforms?: string[];
+        /** Decimal engagement rate (0.035 = 3.5%). */
+        engagementRate?: number | null;
+        /** Average views per post. */
+        avgViews?: number | null;
     };
     /** Personalized teaser copy; falls back to the built-in line. */
     description?: string;
@@ -336,6 +347,11 @@ interface LockedFeatureItem {
     sampleThumbnailUrl?: string | null;
     /** Recent content image URLs to illustrate the Media Kit. */
     sampleImages?: string[];
+    /** Real content pillars → Media Kit "top pillar" + Brand Matcher rows
+     *  (grounded categories; no fabricated match scores until matching runs). */
+    pillars?: LockedFeaturePillar[];
+    /** Count of already-analyzed posts → real Post Analyzer teaser line. */
+    analyzedCount?: number;
 }
 interface LockedFeatureCardProps {
     item: LockedFeatureItem;

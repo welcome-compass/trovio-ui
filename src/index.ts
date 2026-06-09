@@ -33,6 +33,8 @@ export { SectionLabel } from "./components/section-label";
 export { SectionHeading } from "./components/section-heading";
 export { LockChip } from "./components/lock-chip";
 export { PlatformIcon, platformLabel } from "./components/platform-icon";
+export { Avatar } from "./components/avatar";
+export type { AvatarProps } from "./components/avatar";
 
 // ── Components (composed of primitives) ─────────────────────────────────────
 export { JourneyStepper } from "./components/journey-stepper";
@@ -41,6 +43,15 @@ export { PillarChips } from "./components/pillar-chips";
 export type { PillarChipItem } from "./components/pillar-chips";
 export { StatStrip } from "./components/stat-strip";
 export type { StatStripProps } from "./components/stat-strip";
+export { PortraitHero } from "./components/portrait-hero";
+export type { PortraitHeroProps, PortraitHandle } from "./components/portrait-hero";
+export { LockedFeatureCard } from "./components/locked-feature-card";
+export type {
+  LockedFeatureCardProps,
+  LockedFeatureItem,
+  LockedFeatureVariant,
+  LockedFeatureTreatment,
+} from "./components/locked-feature-card";
 
 // ── Utilities ───────────────────────────────────────────────────────────────
 export { formatCompactNumber } from "./utils/format-number";

@@ -662,6 +662,43 @@ function platformLabel(platform) {
   const key = platform.toLowerCase();
   return PLATFORM_LABELS[key] ?? platform.charAt(0).toUpperCase() + platform.slice(1);
 }
+function initialsOf(name) {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "?";
+  if (parts.length === 1) return parts[0][0].toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+function Avatar({
+  imageUrl,
+  name = "",
+  size = 32,
+  className
+}) {
+  const [errored, setErrored] = react$1.useState(false);
+  const showImage = Boolean(imageUrl) && !errored;
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "span",
+    {
+      className: clsx__default.default(
+        "inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-trovio-light-bg font-bold text-trovio-light-text dark:bg-trovio-dark-bg dark:text-trovio-dark-text",
+        className
+      ),
+      style: { width: size, height: size },
+      children: showImage ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "img",
+          {
+            alt: name ? `${name} avatar` : "",
+            className: "h-full w-full object-cover",
+            src: imageUrl,
+            onError: () => setErrored(true)
+          }
+        )
+      ) : /* @__PURE__ */ jsxRuntime.jsx("span", { style: { fontSize: Math.round(size * 0.4) }, children: initialsOf(name) })
+    }
+  );
+}
 function JourneyStepper({
   steps,
   onCurrentClick
@@ -797,6 +834,205 @@ function StatStrip({
     }
   );
 }
+function initials(name) {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "?";
+  if (parts.length === 1) return parts[0].slice(0, 1).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+function PortraitHero({
+  imageUrl,
+  name,
+  role,
+  handles,
+  action
+}) {
+  const [errored, setErrored] = react$1.useState(false);
+  const showImage = Boolean(imageUrl) && !errored;
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-trovio-primary/30 to-trovio-primary-dark/30", children: [
+      showImage ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "img",
+          {
+            alt: `${name} portrait`,
+            className: "absolute inset-0 h-full w-full object-cover",
+            src: imageUrl,
+            onError: () => setErrored(true)
+          }
+        )
+      ) : /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute inset-0 flex items-center justify-center", children: /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-6xl font-light text-white/90", children: initials(name) }) }),
+      action && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute right-3 top-3 z-10", children: action }),
+      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-trovio-light-surface to-transparent dark:from-trovio-dark-bg" })
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative -mt-10 px-1", children: [
+      /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-5xl font-light leading-none tracking-tight text-trovio-light-text dark:text-trovio-dark-text md:text-6xl", children: name }),
+      role && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: role }),
+      handles && handles.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-3 flex flex-wrap gap-x-5 gap-y-1.5", children: handles.map((h) => /* @__PURE__ */ jsxRuntime.jsxs(
+        "span",
+        {
+          className: "inline-flex items-center gap-1.5 text-sm text-trovio-light-text-muted dark:text-trovio-dark-text-muted",
+          children: [
+            /* @__PURE__ */ jsxRuntime.jsx(PlatformIcon, { platform: h.platform, size: 16 }),
+            "@",
+            h.username
+          ]
+        },
+        h.platform + h.username
+      )) })
+    ] })
+  ] });
+}
+var VARIANT_META = {
+  media_kit: {
+    title: "Media Kit",
+    value: "One link that makes brands take you seriously.",
+    Icon: pi.PiIdentificationCardDuotone
+  },
+  brand_matcher: {
+    title: "Brand Matcher",
+    value: "Real brands matched to your pillars, after you activate.",
+    Icon: pi.PiHandshakeDuotone
+  },
+  post_analyzer: {
+    title: "Post Analyzer",
+    value: "Score your next post before you publish.",
+    Icon: pi.PiSparkleDuotone
+  }
+};
+function PlaceholderTile({ className }) {
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      className: `bg-gradient-to-br from-trovio-primary/15 to-trovio-primary/5 ${className ?? ""}`
+    }
+  );
+}
+function MediaKitPreview({
+  portraitUrl,
+  images,
+  followers,
+  platforms
+}) {
+  const tiles = (images ?? []).slice(0, 3);
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "rounded-lg border border-trovio-light-border bg-trovio-light-bg p-3 dark:border-trovio-dark-border dark:bg-trovio-dark-bg", children: [
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(Avatar, { imageUrl: portraitUrl, size: 48 }),
+      /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "min-w-0", children: [
+        followers != null && /* @__PURE__ */ jsxRuntime.jsxs("p", { className: "text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: [
+          formatCompactNumber(followers),
+          " followers"
+        ] }),
+        platforms && platforms.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "mt-0.5 flex items-center gap-1.5 text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: platforms.map((p) => /* @__PURE__ */ jsxRuntime.jsx(PlatformIcon, { platform: p, size: 14 }, p)) })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-2 grid grid-cols-3 gap-1.5", children: [0, 1, 2].map(
+      (i) => tiles[i] ? /* @__PURE__ */ jsxRuntime.jsx("div", { className: "relative aspect-square overflow-hidden rounded", children: /* @__PURE__ */ jsxRuntime.jsx(
+        "img",
+        {
+          alt: "",
+          className: "absolute inset-0 h-full w-full object-cover",
+          src: tiles[i]
+        }
+      ) }, i) : /* @__PURE__ */ jsxRuntime.jsx(PlaceholderTile, { className: "aspect-square rounded" }, i)
+    ) })
+  ] });
+}
+function PostAnalyzerPreview({
+  thumbnailUrl
+}) {
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3 rounded-lg border border-trovio-light-border bg-trovio-light-bg p-3 dark:border-trovio-dark-border dark:bg-trovio-dark-bg", children: [
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative aspect-[9/16] w-16 shrink-0 overflow-hidden rounded", children: [
+      thumbnailUrl ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "img",
+          {
+            alt: "",
+            className: "absolute inset-0 h-full w-full object-cover",
+            src: thumbnailUrl
+          }
+        )
+      ) : /* @__PURE__ */ jsxRuntime.jsx(PlaceholderTile, { className: "h-full w-full" }),
+      /* @__PURE__ */ jsxRuntime.jsx("span", { className: "absolute bottom-1 left-1 rounded bg-black/70 px-1 text-[10px] font-bold text-white", children: "92" })
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex-1 space-y-2", children: [
+      { label: "Hook", pct: 86 },
+      { label: "Pacing", pct: 72 },
+      { label: "Pillar fit", pct: 64 }
+    ].map((m) => /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mb-1 flex justify-between text-[11px] text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: /* @__PURE__ */ jsxRuntime.jsx("span", { children: m.label }) }),
+      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "h-1.5 w-full overflow-hidden rounded-full bg-trovio-light-border dark:bg-trovio-dark-border", children: /* @__PURE__ */ jsxRuntime.jsx(
+        "div",
+        {
+          className: "h-full rounded-full bg-trovio-primary/70",
+          style: { width: `${m.pct}%` }
+        }
+      ) })
+    ] }, m.label)) })
+  ] });
+}
+function BrandMatcherPreview() {
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "space-y-2 rounded-lg border border-trovio-light-border bg-trovio-light-bg p-3 dark:border-trovio-dark-border dark:bg-trovio-dark-bg", children: [0, 1, 2].map((i) => /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-2", children: [
+    /* @__PURE__ */ jsxRuntime.jsx("span", { className: "h-6 w-6 shrink-0 rounded-full bg-trovio-primary/15" }),
+    /* @__PURE__ */ jsxRuntime.jsx(
+      "span",
+      {
+        "aria-hidden": true,
+        className: "h-2.5 flex-1 rounded-full bg-trovio-light-text/10 blur-[2px] dark:bg-trovio-dark-text/15",
+        style: { maxWidth: `${72 - i * 14}%` }
+      }
+    )
+  ] }, i)) });
+}
+function LockedFeatureCard({
+  item,
+  portraitUrl,
+  onActivate
+}) {
+  const meta = VARIANT_META[item.variant];
+  const description = item.description?.trim() || meta.value;
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "button",
+    {
+      className: "group w-full rounded-2xl border border-trovio-light-border bg-trovio-light-surface p-4 text-left transition-colors hover:border-trovio-light-text-muted/40 dark:border-trovio-dark-border dark:bg-trovio-dark-surface",
+      type: "button",
+      onClick: onActivate,
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mb-2 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsxRuntime.jsx(
+            meta.Icon,
+            {
+              className: "shrink-0 text-trovio-light-text-muted dark:text-trovio-dark-text-muted",
+              size: 22
+            }
+          ),
+          /* @__PURE__ */ jsxRuntime.jsx("h3", { className: "flex-1 text-base font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: meta.title }),
+          /* @__PURE__ */ jsxRuntime.jsx(
+            pi.PiLockSimpleDuotone,
+            {
+              className: "shrink-0 text-trovio-light-text-muted/60 dark:text-trovio-dark-text-muted/60",
+              size: 18
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntime.jsx("p", { className: "mb-3 text-sm leading-relaxed text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: description }),
+        item.variant === "media_kit" && /* @__PURE__ */ jsxRuntime.jsx(
+          MediaKitPreview,
+          {
+            followers: item.stats?.followers,
+            images: item.sampleImages,
+            platforms: item.stats?.platforms,
+            portraitUrl
+          }
+        ),
+        item.variant === "post_analyzer" && /* @__PURE__ */ jsxRuntime.jsx(PostAnalyzerPreview, { thumbnailUrl: item.sampleThumbnailUrl }),
+        item.variant === "brand_matcher" && /* @__PURE__ */ jsxRuntime.jsx(BrandMatcherPreview, {})
+      ]
+    }
+  );
+}
 
 // src/tokens/design-tokens.ts
 var brandColors = {
@@ -890,10 +1126,13 @@ var designTokens = {
   typeScale
 };
 
+exports.Avatar = Avatar;
 exports.JourneyStepper = JourneyStepper;
 exports.LockChip = LockChip;
+exports.LockedFeatureCard = LockedFeatureCard;
 exports.PillarChips = PillarChips;
 exports.PlatformIcon = PlatformIcon;
+exports.PortraitHero = PortraitHero;
 exports.SectionHeading = SectionHeading;
 exports.SectionLabel = SectionLabel;
 exports.StatStrip = StatStrip;

@@ -229,6 +229,16 @@ declare function PlatformIcon({ platform, className, size, }: {
 /** Human-readable platform name, e.g. "instagram" -> "Instagram". */
 declare function platformLabel(platform: string): string;
 
+interface AvatarProps {
+    imageUrl?: string | null;
+    /** Used for the initials fallback + alt text. */
+    name?: string;
+    /** Pixel size (width = height). Default 32. */
+    size?: number;
+    className?: string;
+}
+declare function Avatar({ imageUrl, name, size, className, }: AvatarProps): React.JSX.Element;
+
 /**
  * JourneyStepper — numbered step indicator for "where you stand". Simple,
  * editorial styling (matches the mock): larger numbered circles + labels below,
@@ -282,6 +292,55 @@ interface StatStripProps {
 }
 declare function StatStrip({ followers, posts, platforms, className, }: StatStripProps): React.JSX.Element | null;
 
+interface PortraitHandle {
+    platform: string;
+    username: string;
+}
+interface PortraitHeroProps {
+    imageUrl?: string | null;
+    name: string;
+    /** Small uppercase role/niche line under the name (e.g. "Lifestyle creator"). */
+    role?: string | null;
+    /** Social handles rendered as an icon + @username row. */
+    handles?: PortraitHandle[];
+    /** Optional top-right action (e.g. a share button) injected by the consumer. */
+    action?: ReactNode;
+}
+declare function PortraitHero({ imageUrl, name, role, handles, action, }: PortraitHeroProps): React.JSX.Element;
+
+/**
+ * LockedFeatureCard (Component) — pre-paywall teaser for a tool that unlocks on
+ * activation. Media Kit / Post Analyzer render ILLUSTRATIVE visual examples
+ * (real imagery where the consumer provides it, mock numbers); Brand Matcher is
+ * veiled. Presentation-only: tap behavior is injected via `onActivate` (the app
+ * decides what activation means / fires analytics).
+ */
+type LockedFeatureVariant = "media_kit" | "brand_matcher" | "post_analyzer";
+type LockedFeatureTreatment = "crisp" | "veiled";
+interface LockedFeatureItem {
+    variant: LockedFeatureVariant;
+    treatment: LockedFeatureTreatment;
+    /** Real stats for the crisp Media Kit preview. */
+    stats?: {
+        followers?: number | null;
+        platforms?: string[];
+    };
+    /** Personalized teaser copy; falls back to the built-in line. */
+    description?: string;
+    /** Recent post thumbnail to illustrate Post Analyzer. */
+    sampleThumbnailUrl?: string | null;
+    /** Recent content image URLs to illustrate the Media Kit. */
+    sampleImages?: string[];
+}
+interface LockedFeatureCardProps {
+    item: LockedFeatureItem;
+    /** Creator portrait for the Media Kit headshot. */
+    portraitUrl?: string | null;
+    /** Invoked on tap (e.g. open the upsell). Analytics live in the consumer. */
+    onActivate?: () => void;
+}
+declare function LockedFeatureCard({ item, portraitUrl, onActivate, }: LockedFeatureCardProps): React.JSX.Element;
+
 /**
  * Compact number formatting for stat displays (followers, posts, etc.).
  *
@@ -295,4 +354,4 @@ declare function StatStrip({ followers, posts, platforms, className, }: StatStri
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { type JourneyStep, type JourneyStepStatus, JourneyStepper, LockChip, type PillarChipItem, PillarChips, PlatformIcon, SectionHeading, SectionLabel, StatStrip, type StatStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, type JourneyStep, type JourneyStepStatus, JourneyStepper, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, SectionHeading, SectionLabel, StatStrip, type StatStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

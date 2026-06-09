@@ -30,7 +30,7 @@ export interface TrovioProgressBarProps {
 export function TrovioProgressBar({
   value,
   max,
-  color = "#6666FF",
+  color = "var(--color-trovio-primary)",
   size = "md",
   className,
   label,

@@ -84,7 +84,7 @@ export function PortraitHero({
           {name}
         </p>
         {role && (
-          <p className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
+          <p className="mt-3 text-micro uppercase text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
             {role}
           </p>
         )}
@@ -93,7 +93,7 @@ export function PortraitHero({
             {handles.map((h) => (
               <span
                 key={h.platform + h.username}
-                className="inline-flex items-center gap-1.5 text-sm text-trovio-light-text-muted dark:text-trovio-dark-text-muted"
+                className="inline-flex items-center gap-1.5 text-caption text-trovio-light-text-muted dark:text-trovio-dark-text-muted"
               >
                 <PlatformIcon platform={h.platform} size={16} />@{h.username}
               </span>

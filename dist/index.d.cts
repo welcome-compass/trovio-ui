@@ -1,6 +1,6 @@
 import { ButtonProps, ChipProps, InputProps, CardProps } from '@heroui/react';
-import * as React from 'react';
-import React__default, { ReactNode } from 'react';
+import * as react from 'react';
+import react__default, { ReactNode } from 'react';
 export { DesignTokens, brandColors, darkColors, designTokens, fonts, lightColors, radius, semanticColors, shadow, typeScale } from './tokens.cjs';
 
 interface TrovioButtonProps extends Omit<ButtonProps, "color" | "variant" | "className"> {
@@ -13,15 +13,15 @@ interface TrovioButtonProps extends Omit<ButtonProps, "color" | "variant" | "cla
     href?: string;
     target?: string;
     rel?: string;
-    children?: React__default.ReactNode;
+    children?: react__default.ReactNode;
     className?: string;
 }
-declare const TrovioButton: React__default.ForwardRefExoticComponent<Omit<TrovioButtonProps, "ref"> & React__default.RefAttributes<HTMLButtonElement>>;
+declare const TrovioButton: react__default.ForwardRefExoticComponent<Omit<TrovioButtonProps, "ref"> & react__default.RefAttributes<HTMLButtonElement>>;
 
 interface TrovioBadgeProps extends Omit<ChipProps, "color"> {
     status: "published" | "draft" | "archived" | "success" | "warning" | "error" | "info";
 }
-declare const TrovioBadge: React__default.FC<TrovioBadgeProps>;
+declare const TrovioBadge: react__default.FC<TrovioBadgeProps>;
 
 interface TrovioInputProps extends Omit<InputProps, "variant" | "size"> {
     label?: string;
@@ -30,7 +30,7 @@ interface TrovioInputProps extends Omit<InputProps, "variant" | "size"> {
     size?: "sm" | "md" | "lg";
     variant?: "default" | "dynamic";
 }
-declare const TrovioInput: React__default.FC<TrovioInputProps>;
+declare const TrovioInput: react__default.FC<TrovioInputProps>;
 
 interface TrovioTextAreaProps {
     label?: string;
@@ -42,10 +42,10 @@ interface TrovioTextAreaProps {
     value?: string;
     isDisabled?: boolean;
     isReadOnly?: boolean;
-    onBlur?: (e: React__default.FocusEvent<HTMLTextAreaElement>) => void;
-    onChange?: (e: React__default.ChangeEvent<HTMLTextAreaElement>) => void;
+    onBlur?: (e: react__default.FocusEvent<HTMLTextAreaElement>) => void;
+    onChange?: (e: react__default.ChangeEvent<HTMLTextAreaElement>) => void;
 }
-declare const TrovioTextArea: React__default.FC<TrovioTextAreaProps>;
+declare const TrovioTextArea: react__default.FC<TrovioTextAreaProps>;
 
 interface TrovioModalProps {
     /** Whether the modal is open */
@@ -55,9 +55,9 @@ interface TrovioModalProps {
     /** Modal title */
     title: string;
     /** Modal content */
-    children: React__default.ReactNode;
+    children: react__default.ReactNode;
     /** Optional footer with action buttons */
-    footer?: React__default.ReactNode;
+    footer?: react__default.ReactNode;
     /** Size of the modal */
     size?: "sm" | "md" | "lg";
     /** Whether the modal can be dismissed by clicking backdrop (default: true) */
@@ -78,7 +78,7 @@ interface TrovioModalProps {
  * TrovioModal component using HeroUI v3 Modal with Trovio branding.
  * Features backdrop, close button, customizable content/footer, and full accessibility.
  */
-declare const TrovioModal: React__default.FC<TrovioModalProps>;
+declare const TrovioModal: react__default.FC<TrovioModalProps>;
 
 interface TrovioCheckboxProps {
     checked: boolean;
@@ -94,7 +94,7 @@ interface TrovioCheckboxProps {
  * Thin wrapper around HeroUI v3 Checkbox.
  * We keep the default square checkbox visuals and only apply minimal Trovio theming.
  */
-declare function TrovioCheckbox({ checked, onChange, className, size, isDisabled, ...ariaProps }: TrovioCheckboxProps): React.JSX.Element;
+declare function TrovioCheckbox({ checked, onChange, className, size, isDisabled, ...ariaProps }: TrovioCheckboxProps): react.JSX.Element;
 
 interface TrovioSwitchProps {
     label?: string;
@@ -113,22 +113,22 @@ interface TrovioSwitchProps {
  * Themed toggle switch using HeroUI v3 Switch
  * Uses Trovio primary color and larger size for better visibility
  */
-declare const TrovioSwitch: React__default.FC<TrovioSwitchProps>;
+declare const TrovioSwitch: react__default.FC<TrovioSwitchProps>;
 
 interface TrovioSpinnerProps {
     size?: "sm" | "md" | "lg" | "xl";
     className?: string;
 }
-declare const TrovioSpinner: ({ size, className, }: TrovioSpinnerProps) => React.JSX.Element;
+declare const TrovioSpinner: ({ size, className, }: TrovioSpinnerProps) => react.JSX.Element;
 
 interface TrovioSkeletonProps {
     isLoaded?: boolean;
     disableAnimation?: boolean;
     className?: string;
-    children?: React__default.ReactNode;
+    children?: react__default.ReactNode;
     usePrimaryColor?: boolean;
 }
-declare const TrovioSkeleton: ({ isLoaded, disableAnimation, className, children, usePrimaryColor, }: TrovioSkeletonProps) => React__default.JSX.Element;
+declare const TrovioSkeleton: ({ isLoaded, disableAnimation, className, children, usePrimaryColor, }: TrovioSkeletonProps) => react__default.JSX.Element;
 
 interface TrovioProgressBarProps {
     /** Current value */
@@ -154,7 +154,7 @@ interface TrovioProgressBarProps {
  * - Rounded ends (rounded-full)
  * - Accessible with role="progressbar" and aria attributes
  */
-declare function TrovioProgressBar({ value, max, color, size, className, label, }: TrovioProgressBarProps): React.JSX.Element;
+declare function TrovioProgressBar({ value, max, color, size, className, label, }: TrovioProgressBarProps): react.JSX.Element;
 
 interface WidgetCardProps extends CardProps {
     /**
@@ -180,20 +180,25 @@ interface WidgetCardProps extends CardProps {
  * - Configurable minimum height
  * - Dark mode support
  */
-declare function WidgetCard({ children, className, noPadding, minHeight, ...props }: WidgetCardProps): React.JSX.Element;
+declare function WidgetCard({ children, className, noPadding, minHeight, ...props }: WidgetCardProps): react.JSX.Element;
 
 /**
  * SectionLabel — the one uppercase eyebrow used across dashboard states.
  *
- * Consolidates the ad-hoc `text-xs uppercase tracking` labels that were
- * scattered inline (e.g. trovio-card `bodyEyebrow`, agent-upsell-sheet). Use
- * this for every "WHERE YOU STAND" / "YOUR CONTENT PILLARS" style header so the
- * stranger / acquainted / friendly dashboards stay visually consistent.
+ * Consolidates the ad-hoc `text-micro uppercase` labels that were scattered
+ * inline (my-agent-landing, create/brands/insights views, trovio-card
+ * `bodyEyebrow`, agent-upsell-sheet). Use this for every "TODAY'S DRAFT" /
+ * "YOUR WORKSPACES" style header so the stranger / acquainted / friendly
+ * dashboards stay visually consistent.
+ *
+ * Tone: `muted` (default) is the standard page eyebrow. `primary` is reserved
+ * for emphasis inside previews/teasers (e.g. the locked-feature mini-pages).
  */
-declare function SectionLabel({ children, className, }: {
+declare function SectionLabel({ children, tone, className, }: {
     children: ReactNode;
+    tone?: "muted" | "primary";
     className?: string;
-}): React.JSX.Element;
+}): react.JSX.Element;
 
 /**
  * SectionHeading — the open, editorial section heading for the refreshed
@@ -211,7 +216,7 @@ declare function SectionHeading({ children, divider, hero, className, }: {
     /** Hero size for the lead heading on the screen. */
     hero?: boolean;
     className?: string;
-}): React.JSX.Element;
+}): react.JSX.Element;
 
 /**
  * LockChip — the small "locked" badge used on locked feature cards. Shared so
@@ -219,13 +224,13 @@ declare function SectionHeading({ children, divider, hero, className, }: {
  */
 declare function LockChip({ label }: {
     label?: string;
-}): React.JSX.Element;
+}): react.JSX.Element;
 
 declare function PlatformIcon({ platform, className, size, }: {
     platform: string;
     className?: string;
     size?: number;
-}): React.JSX.Element;
+}): react.JSX.Element;
 /** Human-readable platform name, e.g. "instagram" -> "Instagram". */
 declare function platformLabel(platform: string): string;
 
@@ -237,7 +242,83 @@ interface AvatarProps {
     size?: number;
     className?: string;
 }
-declare function Avatar({ imageUrl, name, size, className, }: AvatarProps): React.JSX.Element;
+declare function Avatar({ imageUrl, name, size, className, }: AvatarProps): react.JSX.Element;
+
+/**
+ * RingGauge (Primitive) — a small circular (donut) progress gauge.
+ *
+ * Renders an SVG donut: a muted track + a primary-colored arc filled to
+ * `value` (0–1), with optional centered content (an icon, a number).
+ * Used for the Insights score factors and the Post Analyzer score ring.
+ */
+interface RingGaugeProps {
+    /** Fill fraction, 0–1. */
+    value: number;
+    size?: number;
+    stroke?: number;
+    /** Arc color (CSS color). Defaults to the brand primary. */
+    color?: string;
+    /** Tailwind text-color class for the track ring. */
+    trackClassName?: string;
+    className?: string;
+    children?: ReactNode;
+}
+declare function RingGauge({ value, size, stroke, color, trackClassName, className, children, }: RingGaugeProps): react.JSX.Element;
+
+/**
+ * Sparkline (Primitive) — a tiny inline trend line (no axes, no labels).
+ *
+ * Pure SVG, no deps. Renders nothing when there are fewer than 2 points
+ * (graceful degrade — callers can pass `points={[]}` until data exists).
+ */
+interface SparklineProps {
+    /** Series values in chronological order. */
+    points: number[];
+    width?: number;
+    height?: number;
+    strokeWidth?: number;
+    color?: string;
+    className?: string;
+}
+declare function Sparkline({ points, width, height, strokeWidth, color, className, }: SparklineProps): react.JSX.Element | null;
+
+/**
+ * SegmentedToggle (Primitive) — a small pill-style single-select control.
+ *
+ * Token-driven: the selected pill is the brand primary, the rest are muted
+ * outlines. Used e.g. for the Message Crafter channel picker.
+ */
+interface SegmentedToggleOption<T extends string> {
+    value: T;
+    label: string;
+}
+declare function SegmentedToggle<T extends string>({ options, value, onChange, className, }: {
+    options: SegmentedToggleOption<T>[];
+    value: T;
+    onChange: (value: T) => void;
+    className?: string;
+}): react.JSX.Element;
+
+/**
+ * ClampText (Primitive) — line-clamped text with a built-in expand affordance.
+ *
+ * Design rule: truncated text must always be reachable. This renders its
+ * children clamped to `lines`, and when (and only when) the content actually
+ * overflows, shows a "More" toggle to expand inline. Use it anywhere copy can
+ * run long (brand match rationales, notes, descriptions) instead of a bare
+ * `line-clamp-*` / `truncate`.
+ */
+interface ClampTextProps {
+    children: ReactNode;
+    /** Max lines while collapsed. Default 3. */
+    lines?: number;
+    moreLabel?: string;
+    lessLabel?: string;
+    className?: string;
+    /** Class for the More/Less toggle button. */
+    toggleClassName?: string;
+}
+declare function ClampText({ children, lines, moreLabel, lessLabel, className, toggleClassName, }: ClampTextProps): react.JSX.Element;
 
 /**
  * JourneyStepper — numbered step indicator for "where you stand". Editorial
@@ -264,7 +345,7 @@ interface JourneyStep {
 declare function JourneyStepper({ steps, onCurrentClick, }: {
     steps: JourneyStep[];
     onCurrentClick?: () => void;
-}): React.JSX.Element | null;
+}): react.JSX.Element | null;
 
 /**
  * PillarChips — the creator's content pillars as a clean, minimal list.
@@ -280,7 +361,7 @@ interface PillarChipItem {
 }
 declare function PillarChips({ pillars }: {
     pillars?: PillarChipItem[];
-}): React.JSX.Element | null;
+}): react.JSX.Element | null;
 
 /**
  * StatStrip — grounded vitals as a single borderless, muted inline line
@@ -295,7 +376,7 @@ interface StatStripProps {
     platforms?: string[];
     className?: string;
 }
-declare function StatStrip({ followers, posts, platforms, className, }: StatStripProps): React.JSX.Element | null;
+declare function StatStrip({ followers, posts, platforms, className, }: StatStripProps): react.JSX.Element | null;
 
 interface PortraitHandle {
     platform: string;
@@ -311,7 +392,7 @@ interface PortraitHeroProps {
     /** Optional top-right action (e.g. a share button) injected by the consumer. */
     action?: ReactNode;
 }
-declare function PortraitHero({ imageUrl, name, role, handles, action, }: PortraitHeroProps): React.JSX.Element;
+declare function PortraitHero({ imageUrl, name, role, handles, action, }: PortraitHeroProps): react.JSX.Element;
 
 /**
  * LockedFeatureCard (Component) — pre-paywall teaser for a tool that unlocks on
@@ -345,7 +426,8 @@ interface LockedFeatureItem {
     description?: string;
     /** Recent post thumbnail to illustrate Post Analyzer. */
     sampleThumbnailUrl?: string | null;
-    /** Recent content image URLs to illustrate the Media Kit. */
+    /** @deprecated No longer rendered — the Media Kit preview is an identity
+     *  masthead (portfolio), not a post grid. Kept so existing payloads parse. */
     sampleImages?: string[];
     /** Real content pillars → Media Kit "top pillar" + Brand Matcher rows
      *  (grounded categories; no fabricated match scores until matching runs). */
@@ -357,10 +439,32 @@ interface LockedFeatureCardProps {
     item: LockedFeatureItem;
     /** Creator portrait for the Media Kit headshot. */
     portraitUrl?: string | null;
+    /** Creator display name for the Media Kit masthead. */
+    creatorName?: string;
     /** Invoked on tap (e.g. open the upsell). Analytics live in the consumer. */
     onActivate?: () => void;
 }
-declare function LockedFeatureCard({ item, portraitUrl, onActivate, }: LockedFeatureCardProps): React.JSX.Element;
+declare function LockedFeatureCard({ item, portraitUrl, creatorName, onActivate, }: LockedFeatureCardProps): react.JSX.Element;
+
+/**
+ * Drawer (Component) — a right-side slide-over panel over a dimming scrim.
+ *
+ * Desktop: ~480px panel anchored right. Mobile (< sm): full-screen sheet.
+ * Used e.g. for the Message Crafter ("Draft a pitch") flow so crafting happens
+ * in context without losing the underlying list. Presentation-only: open
+ * state and behavior live in the consumer.
+ */
+interface DrawerProps {
+    isOpen: boolean;
+    onClose: () => void;
+    title: ReactNode;
+    eyebrow?: ReactNode;
+    /** Extra content under the title row (e.g. channel/pillar pickers). */
+    headerExtra?: ReactNode;
+    footer?: ReactNode;
+    children: ReactNode;
+}
+declare function Drawer({ isOpen, onClose, title, eyebrow, headerExtra, footer, children, }: DrawerProps): react.ReactPortal | null;
 
 /**
  * Compact number formatting for stat displays (followers, posts, etc.).
@@ -375,4 +479,4 @@ declare function LockedFeatureCard({ item, portraitUrl, onActivate, }: LockedFea
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { Avatar, type AvatarProps, type JourneyStep, type JourneyStepStatus, JourneyStepper, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, SectionHeading, SectionLabel, StatStrip, type StatStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, ClampText, type ClampTextProps, Drawer, type DrawerProps, type JourneyStep, type JourneyStepStatus, JourneyStepper, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

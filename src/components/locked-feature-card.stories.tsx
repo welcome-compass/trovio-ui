@@ -23,6 +23,7 @@ type Story = StoryObj<typeof meta>;
 
 export const MediaKit: Story = {
   args: {
+    creatorName: "Derrick Showers",
     item: {
       variant: "media_kit",
       treatment: "crisp",

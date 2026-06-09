@@ -73,13 +73,12 @@ Tokens (`@trovio/ui/tokens` + `tokens.css`), and components:
 These are coupled to app-specific things and need a light refactor (inject
 behavior via props; drop `next/*`) before they can move:
 
-- `PortraitHero`, `LockedFeatureCard` — use `next/image`.
 - `TrovioButton` — uses `next/link` + the app's Amplitude tracker.
 - `TrovioCheckbox` / `TrovioSwitch` — use the app's tracker.
 - `AcquaintedDashboard` — reads the app's dashboard context (stays app-side; it
   composes primitives).
-- Remaining `Trovio*` (`Card`, `Input`, `TextArea`, `Modal`, `EmptyState`,
-  `ImageUpload`, `Skeleton`, `ProgressBar`) — straightforward to copy next.
+- `TrovioCard` / `TrovioEmptyState` / `TrovioImageUpload` — app-specific
+  composition or `next/image`; straightforward to copy next.
 
 ## Known limitations (v1)
 

@@ -12,6 +12,8 @@ import {
 
 import { PlatformIcon } from "./platform-icon";
 import { Avatar } from "./avatar";
+import { RingGauge } from "./ring-gauge";
+import { SectionLabel } from "./section-label";
 import { formatCompactNumber } from "../utils/format-number";
 
 /**
@@ -51,7 +53,8 @@ export interface LockedFeatureItem {
   description?: string;
   /** Recent post thumbnail to illustrate Post Analyzer. */
   sampleThumbnailUrl?: string | null;
-  /** Recent content image URLs to illustrate the Media Kit. */
+  /** @deprecated No longer rendered — the Media Kit preview is an identity
+   *  masthead (portfolio), not a post grid. Kept so existing payloads parse. */
   sampleImages?: string[];
   /** Real content pillars → Media Kit "top pillar" + Brand Matcher rows
    *  (grounded categories; no fabricated match scores until matching runs). */
@@ -64,6 +67,8 @@ export interface LockedFeatureCardProps {
   item: LockedFeatureItem;
   /** Creator portrait for the Media Kit headshot. */
   portraitUrl?: string | null;
+  /** Creator display name for the Media Kit masthead. */
+  creatorName?: string;
   /** Invoked on tap (e.g. open the upsell). Analytics live in the consumer. */
   onActivate?: () => void;
 }
@@ -91,7 +96,6 @@ const VARIANT_META: Record<
 
 const PREVIEW_SHELL =
   "rounded-lg border border-trovio-light-border bg-trovio-light-bg p-3 dark:border-trovio-dark-border dark:bg-trovio-dark-bg";
-const EYEBROW = "text-micro uppercase text-trovio-primary";
 const META_TEXT =
   "text-[11px] text-trovio-light-text-muted dark:text-trovio-dark-text-muted";
 
@@ -123,12 +127,13 @@ function PlaceholderTile({ className }: { className?: string }) {
 }
 
 /**
- * Media Kit — a miniature one-pager: identity + the cross-platform metrics
- * brands ask for + (real top pillar | illustrative audience) + a content strip.
+ * Media Kit — the kit's own masthead, simplified: identity (portrait + name +
+ * platforms) over the cross-platform metrics brands ask for, plus the top
+ * pillar line. A portfolio cover, not a post grid.
  */
 function MediaKitPreview({
   portraitUrl,
-  images,
+  name,
   followers,
   platforms,
   engagementRate,
@@ -136,14 +141,13 @@ function MediaKitPreview({
   topPillar,
 }: {
   portraitUrl?: string | null;
-  images?: string[];
+  name?: string;
   followers?: number | null;
   platforms?: string[];
   engagementRate?: number | null;
   avgViews?: number | null;
   topPillar?: string;
 }) {
-  const tiles = (images ?? []).slice(0, 3);
   const metrics = [
     {
       label: "Followers",
@@ -164,10 +168,16 @@ function MediaKitPreview({
 
   return (
     <div className={PREVIEW_SHELL}>
-      <div className="flex items-center gap-2.5">
-        <Avatar imageUrl={portraitUrl} size={36} />
+      {/* Masthead — reads like the top of the real one-pager */}
+      <div className="flex items-center gap-3">
+        <Avatar imageUrl={portraitUrl} name={name ?? ""} size={44} />
         <div className="min-w-0 flex-1">
-          <p className={EYEBROW}>Media Kit</p>
+          <SectionLabel tone="primary">Media Kit</SectionLabel>
+          {name ? (
+            <p className="truncate text-body font-semibold text-trovio-light-text dark:text-trovio-dark-text">
+              {name}
+            </p>
+          ) : null}
           {platforms && platforms.length > 0 && (
             <span className="mt-0.5 flex items-center gap-1.5 text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
               {platforms.map((p) => (
@@ -189,40 +199,11 @@ function MediaKitPreview({
         ))}
       </div>
 
-      <div className="mt-2.5">
-        <div className={`mb-1 flex justify-between ${META_TEXT}`}>
-          <span>{topPillar ? "Top pillar" : "Audience"}</span>
-          <span className="truncate pl-2">
-            {topPillar ?? "65% women · 25–34"}
-          </span>
-        </div>
-        <div className="flex h-1.5 overflow-hidden rounded-full">
-          <div
-            className="bg-trovio-primary/70"
-            style={{ width: topPillar ? "100%" : "65%" }}
-          />
-          {!topPillar && <div className="flex-1 bg-trovio-primary/25" />}
-        </div>
-      </div>
-
-      <div className="mt-2.5 grid grid-cols-3 gap-1.5">
-        {[0, 1, 2].map((i) =>
-          tiles[i] ? (
-            <div
-              key={i}
-              className="relative aspect-square overflow-hidden rounded"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover"
-                src={tiles[i]}
-              />
-            </div>
-          ) : (
-            <PlaceholderTile key={i} className="aspect-square rounded" />
-          ),
-        )}
+      <div className={`mt-2.5 flex items-baseline justify-between gap-2 ${META_TEXT}`}>
+        <span className="shrink-0">{topPillar ? "Top pillar" : "Audience"}</span>
+        <span className="truncate text-right text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text">
+          {topPillar ?? "65% women · 25–34"}
+        </span>
       </div>
     </div>
   );
@@ -265,9 +246,9 @@ function BrandMatcherPreview({
 
   return (
     <div className={PREVIEW_SHELL}>
-      <p className={`mb-2.5 ${EYEBROW}`}>
+      <SectionLabel className="mb-2.5" tone="primary">
         {hasReal ? "Brands in your spaces" : "12 potential matches"}
-      </p>
+      </SectionLabel>
       <div className="space-y-2.5">
         {rows.map((r) => (
           <div key={r.category} className="flex items-center gap-2.5">
@@ -292,50 +273,14 @@ function BrandMatcherPreview({
   );
 }
 
-/** Circular score ring (donut) for the Post Analyzer. */
+/** Circular score ring for the Post Analyzer — RingGauge with the score inside. */
 function ScoreRing({ score, size = 52 }: { score: number; size?: number }) {
-  const stroke = 5;
-  const r = (size - stroke) / 2;
-  const circumference = 2 * Math.PI * r;
-  const offset = circumference * (1 - score / 100);
-
   return (
-    <svg
-      className="shrink-0"
-      height={size}
-      viewBox={`0 0 ${size} ${size}`}
-      width={size}
-    >
-      <circle
-        className="stroke-trovio-light-border dark:stroke-trovio-dark-border"
-        cx={size / 2}
-        cy={size / 2}
-        fill="none"
-        r={r}
-        strokeWidth={stroke}
-      />
-      <circle
-        className="stroke-trovio-primary"
-        cx={size / 2}
-        cy={size / 2}
-        fill="none"
-        r={r}
-        strokeDasharray={circumference}
-        strokeDashoffset={offset}
-        strokeLinecap="round"
-        strokeWidth={stroke}
-        transform={`rotate(-90 ${size / 2} ${size / 2})`}
-      />
-      <text
-        className="fill-trovio-light-text text-sm font-bold dark:fill-trovio-dark-text"
-        dominantBaseline="central"
-        textAnchor="middle"
-        x="50%"
-        y="50%"
-      >
+    <RingGauge size={size} value={score / 100}>
+      <span className="text-sm font-bold text-trovio-light-text dark:text-trovio-dark-text">
         {score}
-      </text>
-    </svg>
+      </span>
+    </RingGauge>
   );
 }
 
@@ -374,7 +319,7 @@ function PostAnalyzerPreview({
         </div>
         <ScoreRing score={92} />
         <div className="min-w-0 flex-1">
-          <p className={EYEBROW}>Overall score</p>
+          <SectionLabel tone="primary">Overall score</SectionLabel>
           <p className="mt-0.5 text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text">
             Strong hook — tighten the middle.
           </p>
@@ -409,6 +354,7 @@ function PostAnalyzerPreview({
 export function LockedFeatureCard({
   item,
   portraitUrl,
+  creatorName,
   onActivate,
 }: LockedFeatureCardProps) {
   const meta = VARIANT_META[item.variant];
@@ -443,7 +389,7 @@ export function LockedFeatureCard({
           avgViews={item.stats?.avgViews}
           engagementRate={item.stats?.engagementRate}
           followers={item.stats?.followers}
-          images={item.sampleImages}
+          name={creatorName}
           platforms={item.stats?.platforms}
           portraitUrl={portraitUrl}
           topPillar={item.pillars?.[0]?.label}

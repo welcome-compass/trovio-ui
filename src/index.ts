@@ -35,6 +35,14 @@ export { LockChip } from "./components/lock-chip";
 export { PlatformIcon, platformLabel } from "./components/platform-icon";
 export { Avatar } from "./components/avatar";
 export type { AvatarProps } from "./components/avatar";
+export { RingGauge } from "./components/ring-gauge";
+export type { RingGaugeProps } from "./components/ring-gauge";
+export { Sparkline } from "./components/sparkline";
+export type { SparklineProps } from "./components/sparkline";
+export { SegmentedToggle } from "./components/segmented-toggle";
+export type { SegmentedToggleOption } from "./components/segmented-toggle";
+export { ClampText } from "./components/clamp-text";
+export type { ClampTextProps } from "./components/clamp-text";
 
 // ── Components (composed of primitives) ─────────────────────────────────────
 export { JourneyStepper } from "./components/journey-stepper";
@@ -52,6 +60,8 @@ export type {
   LockedFeatureVariant,
   LockedFeatureTreatment,
 } from "./components/locked-feature-card";
+export { Drawer } from "./components/drawer";
+export type { DrawerProps } from "./components/drawer";
 
 // ── Utilities ───────────────────────────────────────────────────────────────
 export { formatCompactNumber } from "./utils/format-number";

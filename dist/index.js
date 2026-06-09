@@ -919,6 +919,9 @@ var VARIANT_META = {
     Icon: PiSparkleDuotone
   }
 };
+var PREVIEW_SHELL = "rounded-lg border border-trovio-light-border bg-trovio-light-bg p-3 dark:border-trovio-dark-border dark:bg-trovio-dark-bg";
+var EYEBROW = "text-micro uppercase text-trovio-primary";
+var META_TEXT = "text-[11px] text-trovio-light-text-muted dark:text-trovio-dark-text-muted";
 function PlaceholderTile({ className }) {
   return /* @__PURE__ */ jsx(
     "div",
@@ -934,35 +937,153 @@ function MediaKitPreview({
   platforms
 }) {
   const tiles = (images ?? []).slice(0, 3);
-  return /* @__PURE__ */ jsxs("div", { className: "rounded-lg border border-trovio-light-border bg-trovio-light-bg p-3 dark:border-trovio-dark-border dark:bg-trovio-dark-bg", children: [
-    /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-      /* @__PURE__ */ jsx(Avatar, { imageUrl: portraitUrl, size: 48 }),
-      /* @__PURE__ */ jsxs("div", { className: "min-w-0", children: [
-        followers != null && /* @__PURE__ */ jsxs("p", { className: "text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: [
-          formatCompactNumber(followers),
-          " followers"
-        ] }),
-        platforms && platforms.length > 0 && /* @__PURE__ */ jsx("span", { className: "mt-0.5 flex items-center gap-1.5 text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: platforms.map((p) => /* @__PURE__ */ jsx(PlatformIcon, { platform: p, size: 14 }, p)) })
+  const metrics = [
+    {
+      label: "Followers",
+      value: followers != null ? formatCompactNumber(followers) : "\u2014"
+    },
+    { label: "Eng. rate", value: "5.2%" },
+    { label: "Avg. reach", value: "8.4K" }
+  ];
+  return /* @__PURE__ */ jsxs("div", { className: PREVIEW_SHELL, children: [
+    /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2.5", children: [
+      /* @__PURE__ */ jsx(Avatar, { imageUrl: portraitUrl, size: 36 }),
+      /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
+        /* @__PURE__ */ jsx("p", { className: EYEBROW, children: "Media Kit" }),
+        platforms && platforms.length > 0 && /* @__PURE__ */ jsx("span", { className: "mt-0.5 flex items-center gap-1.5 text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: platforms.map((p) => /* @__PURE__ */ jsx(PlatformIcon, { platform: p, size: 13 }, p)) })
       ] })
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "mt-2 grid grid-cols-3 gap-1.5", children: [0, 1, 2].map(
-      (i) => tiles[i] ? /* @__PURE__ */ jsx("div", { className: "relative aspect-square overflow-hidden rounded", children: /* @__PURE__ */ jsx(
-        "img",
+    /* @__PURE__ */ jsx("div", { className: "mt-3 grid grid-cols-3 gap-2 border-y border-trovio-light-border py-2.5 dark:border-trovio-dark-border", children: metrics.map((m) => /* @__PURE__ */ jsxs("div", { children: [
+      /* @__PURE__ */ jsx("p", { className: "text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: m.value }),
+      /* @__PURE__ */ jsx("p", { className: META_TEXT, children: m.label })
+    ] }, m.label)) }),
+    /* @__PURE__ */ jsxs("div", { className: "mt-2.5", children: [
+      /* @__PURE__ */ jsxs("div", { className: `mb-1 flex justify-between ${META_TEXT}`, children: [
+        /* @__PURE__ */ jsx("span", { children: "Audience" }),
+        /* @__PURE__ */ jsx("span", { children: "65% women \xB7 25\u201334" })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "flex h-1.5 overflow-hidden rounded-full", children: [
+        /* @__PURE__ */ jsx("div", { className: "bg-trovio-primary/70", style: { width: "65%" } }),
+        /* @__PURE__ */ jsx("div", { className: "flex-1 bg-trovio-primary/25" })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "mt-2.5 grid grid-cols-3 gap-1.5", children: [0, 1, 2].map(
+      (i) => tiles[i] ? /* @__PURE__ */ jsx(
+        "div",
         {
-          alt: "",
-          className: "absolute inset-0 h-full w-full object-cover",
-          src: tiles[i]
-        }
-      ) }, i) : /* @__PURE__ */ jsx(PlaceholderTile, { className: "aspect-square rounded" }, i)
+          className: "relative aspect-square overflow-hidden rounded",
+          children: /* @__PURE__ */ jsx(
+            "img",
+            {
+              alt: "",
+              className: "absolute inset-0 h-full w-full object-cover",
+              src: tiles[i]
+            }
+          )
+        },
+        i
+      ) : /* @__PURE__ */ jsx(PlaceholderTile, { className: "aspect-square rounded" }, i)
     ) })
   ] });
+}
+function BrandMatcherPreview() {
+  const matches = [
+    {
+      category: "Beauty & Skincare",
+      reason: "Aligns with your skincare content",
+      score: 94
+    },
+    {
+      category: "Health & Wellness",
+      reason: "Strong fit for your audience",
+      score: 89
+    },
+    {
+      category: "Travel & Lifestyle",
+      reason: "Matches your lifestyle pillar",
+      score: 86
+    }
+  ];
+  return /* @__PURE__ */ jsxs("div", { className: PREVIEW_SHELL, children: [
+    /* @__PURE__ */ jsx("p", { className: `mb-2.5 ${EYEBROW}`, children: "12 potential matches" }),
+    /* @__PURE__ */ jsx("div", { className: "space-y-2.5", children: matches.map((m) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2.5", children: [
+      /* @__PURE__ */ jsx("div", { className: "relative h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-trovio-primary/10", children: /* @__PURE__ */ jsx(PiHandshakeDuotone, { className: "absolute inset-0 m-auto h-4 w-4 text-trovio-primary/40" }) }),
+      /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
+        /* @__PURE__ */ jsx("p", { className: "truncate text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: m.category }),
+        /* @__PURE__ */ jsx("p", { className: `truncate ${META_TEXT}`, children: m.reason })
+      ] }),
+      /* @__PURE__ */ jsxs("span", { className: "shrink-0 text-sm font-bold text-trovio-primary", children: [
+        m.score,
+        "%"
+      ] })
+    ] }, m.category)) })
+  ] });
+}
+function ScoreRing({ score, size = 52 }) {
+  const stroke = 5;
+  const r = (size - stroke) / 2;
+  const circumference = 2 * Math.PI * r;
+  const offset = circumference * (1 - score / 100);
+  return /* @__PURE__ */ jsxs(
+    "svg",
+    {
+      className: "shrink-0",
+      height: size,
+      viewBox: `0 0 ${size} ${size}`,
+      width: size,
+      children: [
+        /* @__PURE__ */ jsx(
+          "circle",
+          {
+            className: "stroke-trovio-light-border dark:stroke-trovio-dark-border",
+            cx: size / 2,
+            cy: size / 2,
+            fill: "none",
+            r,
+            strokeWidth: stroke
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          "circle",
+          {
+            className: "stroke-trovio-primary",
+            cx: size / 2,
+            cy: size / 2,
+            fill: "none",
+            r,
+            strokeDasharray: circumference,
+            strokeDashoffset: offset,
+            strokeLinecap: "round",
+            strokeWidth: stroke,
+            transform: `rotate(-90 ${size / 2} ${size / 2})`
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          "text",
+          {
+            className: "fill-trovio-light-text text-sm font-bold dark:fill-trovio-dark-text",
+            dominantBaseline: "central",
+            textAnchor: "middle",
+            x: "50%",
+            y: "50%",
+            children: score
+          }
+        )
+      ]
+    }
+  );
 }
 function PostAnalyzerPreview({
   thumbnailUrl
 }) {
-  return /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 rounded-lg border border-trovio-light-border bg-trovio-light-bg p-3 dark:border-trovio-dark-border dark:bg-trovio-dark-bg", children: [
-    /* @__PURE__ */ jsxs("div", { className: "relative aspect-[9/16] w-16 shrink-0 overflow-hidden rounded", children: [
-      thumbnailUrl ? (
+  const metrics = [
+    { label: "Hook", pct: 86 },
+    { label: "Pacing", pct: 72 },
+    { label: "Pillar fit", pct: 64 }
+  ];
+  return /* @__PURE__ */ jsxs("div", { className: PREVIEW_SHELL, children: [
+    /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
+      /* @__PURE__ */ jsx("div", { className: "relative aspect-[9/16] w-14 shrink-0 overflow-hidden rounded", children: thumbnailUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
         /* @__PURE__ */ jsx(
           "img",
@@ -972,37 +1093,25 @@ function PostAnalyzerPreview({
             src: thumbnailUrl
           }
         )
-      ) : /* @__PURE__ */ jsx(PlaceholderTile, { className: "h-full w-full" }),
-      /* @__PURE__ */ jsx("span", { className: "absolute bottom-1 left-1 rounded bg-black/70 px-1 text-[10px] font-bold text-white", children: "92" })
+      ) : /* @__PURE__ */ jsx(PlaceholderTile, { className: "h-full w-full" }) }),
+      /* @__PURE__ */ jsx(ScoreRing, { score: 92 }),
+      /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
+        /* @__PURE__ */ jsx("p", { className: EYEBROW, children: "Overall score" }),
+        /* @__PURE__ */ jsx("p", { className: "mt-0.5 text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text", children: "Strong hook \u2014 tighten the middle." })
+      ] })
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "flex-1 space-y-2", children: [
-      { label: "Hook", pct: 86 },
-      { label: "Pacing", pct: 72 },
-      { label: "Pillar fit", pct: 64 }
-    ].map((m) => /* @__PURE__ */ jsxs("div", { children: [
-      /* @__PURE__ */ jsx("div", { className: "mb-1 flex justify-between text-[11px] text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: /* @__PURE__ */ jsx("span", { children: m.label }) }),
-      /* @__PURE__ */ jsx("div", { className: "h-1.5 w-full overflow-hidden rounded-full bg-trovio-light-border dark:bg-trovio-dark-border", children: /* @__PURE__ */ jsx(
+    /* @__PURE__ */ jsx("div", { className: "mt-3 space-y-2", children: metrics.map((m) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
+      /* @__PURE__ */ jsx("span", { className: `w-16 shrink-0 ${META_TEXT}`, children: m.label }),
+      /* @__PURE__ */ jsx("div", { className: "h-1.5 flex-1 overflow-hidden rounded-full bg-trovio-light-border dark:bg-trovio-dark-border", children: /* @__PURE__ */ jsx(
         "div",
         {
-          className: "h-full rounded-full bg-trovio-primary/70",
+          className: "h-full rounded-full bg-gradient-to-r from-trovio-primary/60 to-trovio-primary",
           style: { width: `${m.pct}%` }
         }
-      ) })
+      ) }),
+      /* @__PURE__ */ jsx("span", { className: "w-7 shrink-0 text-right text-[11px] font-medium text-trovio-light-text dark:text-trovio-dark-text", children: m.pct })
     ] }, m.label)) })
   ] });
-}
-function BrandMatcherPreview() {
-  return /* @__PURE__ */ jsx("div", { className: "space-y-2 rounded-lg border border-trovio-light-border bg-trovio-light-bg p-3 dark:border-trovio-dark-border dark:bg-trovio-dark-bg", children: [0, 1, 2].map((i) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-    /* @__PURE__ */ jsx("span", { className: "h-6 w-6 shrink-0 rounded-full bg-trovio-primary/15" }),
-    /* @__PURE__ */ jsx(
-      "span",
-      {
-        "aria-hidden": true,
-        className: "h-2.5 flex-1 rounded-full bg-trovio-light-text/10 blur-[2px] dark:bg-trovio-dark-text/15",
-        style: { maxWidth: `${72 - i * 14}%` }
-      }
-    )
-  ] }, i)) });
 }
 function LockedFeatureCard({
   item,

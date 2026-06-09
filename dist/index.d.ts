@@ -315,17 +315,17 @@ declare function PortraitHero({ imageUrl, name, role, handles, action, }: Portra
 
 /**
  * LockedFeatureCard (Component) — pre-paywall teaser for a tool that unlocks on
- * activation. Media Kit / Post Analyzer render ILLUSTRATIVE visual examples
- * (real imagery where the consumer provides it, mock numbers); Brand Matcher is
- * veiled. Presentation-only: tap behavior is injected via `onActivate` (the app
- * decides what activation means / fires analytics).
+ * activation. Each preview sells the OUTCOME (a polished media kit, personalized
+ * brand matches, an AI post score) using real imagery where the consumer
+ * provides it + illustrative numbers. Presentation-only: tap behavior is
+ * injected via `onActivate` (the app decides activation / fires analytics).
  */
 type LockedFeatureVariant = "media_kit" | "brand_matcher" | "post_analyzer";
 type LockedFeatureTreatment = "crisp" | "veiled";
 interface LockedFeatureItem {
     variant: LockedFeatureVariant;
     treatment: LockedFeatureTreatment;
-    /** Real stats for the crisp Media Kit preview. */
+    /** Real stats for the Media Kit preview. */
     stats?: {
         followers?: number | null;
         platforms?: string[];

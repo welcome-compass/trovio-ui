@@ -1,6 +1,7 @@
 "use client";
 
 import type { IconType } from "react-icons";
+import type { ReactNode } from "react";
 
 import {
   PiIdentificationCardDuotone,
@@ -93,6 +94,25 @@ const PREVIEW_SHELL =
 const EYEBROW = "text-micro uppercase text-trovio-primary";
 const META_TEXT =
   "text-[11px] text-trovio-light-text-muted dark:text-trovio-dark-text-muted";
+
+/**
+ * Render inline `**bold**` emphasis from the teaser copy (which is markdown)
+ * without pulling in a full markdown parser.
+ */
+function renderEmphasis(text: string): ReactNode {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong
+        key={i}
+        className="font-semibold text-trovio-light-text dark:text-trovio-dark-text"
+      >
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      part
+    ),
+  );
+}
 
 function PlaceholderTile({ className }: { className?: string }) {
   return (
@@ -415,7 +435,7 @@ export function LockedFeatureCard({
       </div>
 
       <p className="mb-3 text-sm leading-relaxed text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
-        {description}
+        {renderEmphasis(description)}
       </p>
 
       {item.variant === "media_kit" && (

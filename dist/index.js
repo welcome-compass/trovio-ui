@@ -922,6 +922,18 @@ var VARIANT_META = {
 var PREVIEW_SHELL = "rounded-lg border border-trovio-light-border bg-trovio-light-bg p-3 dark:border-trovio-dark-border dark:bg-trovio-dark-bg";
 var EYEBROW = "text-micro uppercase text-trovio-primary";
 var META_TEXT = "text-[11px] text-trovio-light-text-muted dark:text-trovio-dark-text-muted";
+function renderEmphasis(text) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map(
+    (part, i) => part.startsWith("**") && part.endsWith("**") ? /* @__PURE__ */ jsx(
+      "strong",
+      {
+        className: "font-semibold text-trovio-light-text dark:text-trovio-dark-text",
+        children: part.slice(2, -2)
+      },
+      i
+    ) : part
+  );
+}
 function PlaceholderTile({ className }) {
   return /* @__PURE__ */ jsx(
     "div",
@@ -1171,7 +1183,7 @@ function LockedFeatureCard({
             }
           )
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "mb-3 text-sm leading-relaxed text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: description }),
+        /* @__PURE__ */ jsx("p", { className: "mb-3 text-sm leading-relaxed text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: renderEmphasis(description) }),
         item.variant === "media_kit" && /* @__PURE__ */ jsx(
           MediaKitPreview,
           {

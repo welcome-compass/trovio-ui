@@ -22,7 +22,7 @@ export function SectionLabel({
   return (
     <p
       className={clsx(
-        "text-[11px] font-semibold uppercase tracking-wider text-trovio-primary",
+        "text-micro uppercase text-trovio-primary",
         className,
       )}
     >

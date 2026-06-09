@@ -607,7 +607,7 @@ function SectionLabel({
     "p",
     {
       className: clsx__default.default(
-        "text-[11px] font-semibold uppercase tracking-wider text-trovio-primary",
+        "text-micro uppercase text-trovio-primary",
         className
       ),
       children
@@ -625,8 +625,8 @@ function SectionHeading({
     Tag,
     {
       className: clsx__default.default(
-        "tracking-tight text-trovio-light-text dark:text-trovio-dark-text",
-        hero ? "text-3xl font-normal md:text-4xl" : "text-2xl font-medium md:text-[26px]",
+        "text-trovio-light-text dark:text-trovio-dark-text",
+        hero ? "text-hero" : "text-section",
         divider && "border-b border-trovio-light-border pb-3 dark:border-trovio-dark-border",
         className
       ),
@@ -696,36 +696,6 @@ function Avatar({
           }
         )
       ) : /* @__PURE__ */ jsxRuntime.jsx("span", { style: { fontSize: Math.round(size * 0.4) }, children: initialsOf(name) })
-    }
-  );
-}
-var VARIANT_CLASS = {
-  // Display — portrait / creator name (leading-none so it can overlap a hero)
-  display: "text-5xl md:text-6xl font-light leading-none tracking-tight",
-  // Body large — emphasized body copy
-  "body-lg": "text-base md:text-lg leading-relaxed",
-  // Body — findings, descriptions, list items
-  body: "text-base leading-relaxed",
-  // Caption / meta — stat lines, tool descriptions
-  caption: "text-sm"
-};
-function Text({
-  variant = "body",
-  as,
-  muted = false,
-  className,
-  children
-}) {
-  const Tag = as ?? "p";
-  return /* @__PURE__ */ jsxRuntime.jsx(
-    Tag,
-    {
-      className: clsx__default.default(
-        VARIANT_CLASS[variant],
-        muted ? "text-trovio-light-text-muted dark:text-trovio-dark-text-muted" : "text-trovio-light-text dark:text-trovio-dark-text",
-        className
-      ),
-      children
     }
   );
 }
@@ -897,7 +867,7 @@ function PortraitHero({
       /* @__PURE__ */ jsxRuntime.jsx("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-trovio-light-surface to-transparent dark:from-trovio-dark-bg" })
     ] }),
     /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative -mt-10 px-1", children: [
-      /* @__PURE__ */ jsxRuntime.jsx(Text, { variant: "display", children: name }),
+      /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-display text-trovio-light-text dark:text-trovio-dark-text", children: name }),
       role && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: role }),
       handles && handles.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-3 flex flex-wrap gap-x-5 gap-y-1.5", children: handles.map((h) => /* @__PURE__ */ jsxRuntime.jsxs(
         "span",
@@ -1114,32 +1084,37 @@ var fonts = {
 var typeScale = [
   {
     name: "Display",
-    class: "text-5xl md:text-6xl font-light tracking-tight",
+    class: "text-display",
     usage: "Portrait / creator name"
   },
   {
     name: "Hero heading",
-    class: "text-3xl md:text-4xl font-normal tracking-tight",
+    class: "text-hero",
     usage: "Lead heading per screen (SectionHeading hero)"
   },
   {
     name: "Section heading",
-    class: "text-2xl md:text-[26px] font-medium tracking-tight",
+    class: "text-section",
     usage: "Section titles (SectionHeading)"
   },
   {
+    name: "Body large",
+    class: "text-body-lg",
+    usage: "Emphasized body copy"
+  },
+  {
     name: "Body",
-    class: "text-base leading-relaxed",
+    class: "text-body",
     usage: "Findings, descriptions, list items"
   },
   {
     name: "Caption / meta",
-    class: "text-sm",
+    class: "text-caption",
     usage: "Stat lines, tool descriptions"
   },
   {
     name: "Micro-label",
-    class: "text-xs font-semibold uppercase tracking-[0.15em]",
+    class: "text-micro uppercase",
     usage: "Eyebrow / role tags (SectionLabel)"
   }
 ];
@@ -1166,7 +1141,6 @@ exports.PortraitHero = PortraitHero;
 exports.SectionHeading = SectionHeading;
 exports.SectionLabel = SectionLabel;
 exports.StatStrip = StatStrip;
-exports.Text = Text;
 exports.TrovioBadge = TrovioBadge;
 exports.TrovioButton = TrovioButton;
 exports.TrovioCheckbox = TrovioCheckbox;

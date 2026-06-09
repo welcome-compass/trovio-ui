@@ -5,7 +5,6 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 
 import { PlatformIcon } from "./platform-icon";
-import { Text } from "./text";
 
 /**
  * PortraitHero (Component) — editorial creator portrait shown as a tall image
@@ -79,7 +78,9 @@ export function PortraitHero({
 
       {/* Name overlaps the fade and continues into the page */}
       <div className="relative -mt-10 px-1">
-        <Text variant="display">{name}</Text>
+        <p className="text-display text-trovio-light-text dark:text-trovio-dark-text">
+          {name}
+        </p>
         {role && (
           <p className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
             {role}

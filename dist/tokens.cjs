@@ -50,32 +50,37 @@ var fonts = {
 var typeScale = [
   {
     name: "Display",
-    class: "text-5xl md:text-6xl font-light tracking-tight",
+    class: "text-display",
     usage: "Portrait / creator name"
   },
   {
     name: "Hero heading",
-    class: "text-3xl md:text-4xl font-normal tracking-tight",
+    class: "text-hero",
     usage: "Lead heading per screen (SectionHeading hero)"
   },
   {
     name: "Section heading",
-    class: "text-2xl md:text-[26px] font-medium tracking-tight",
+    class: "text-section",
     usage: "Section titles (SectionHeading)"
   },
   {
+    name: "Body large",
+    class: "text-body-lg",
+    usage: "Emphasized body copy"
+  },
+  {
     name: "Body",
-    class: "text-base leading-relaxed",
+    class: "text-body",
     usage: "Findings, descriptions, list items"
   },
   {
     name: "Caption / meta",
-    class: "text-sm",
+    class: "text-caption",
     usage: "Stat lines, tool descriptions"
   },
   {
     name: "Micro-label",
-    class: "text-xs font-semibold uppercase tracking-[0.15em]",
+    class: "text-micro uppercase",
     usage: "Eyebrow / role tags (SectionLabel)"
   }
 ];

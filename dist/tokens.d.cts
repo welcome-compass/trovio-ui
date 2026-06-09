@@ -73,27 +73,31 @@ declare const fonts: {
  */
 declare const typeScale: readonly [{
     readonly name: "Display";
-    readonly class: "text-5xl md:text-6xl font-light tracking-tight";
+    readonly class: "text-display";
     readonly usage: "Portrait / creator name";
 }, {
     readonly name: "Hero heading";
-    readonly class: "text-3xl md:text-4xl font-normal tracking-tight";
+    readonly class: "text-hero";
     readonly usage: "Lead heading per screen (SectionHeading hero)";
 }, {
     readonly name: "Section heading";
-    readonly class: "text-2xl md:text-[26px] font-medium tracking-tight";
+    readonly class: "text-section";
     readonly usage: "Section titles (SectionHeading)";
 }, {
+    readonly name: "Body large";
+    readonly class: "text-body-lg";
+    readonly usage: "Emphasized body copy";
+}, {
     readonly name: "Body";
-    readonly class: "text-base leading-relaxed";
+    readonly class: "text-body";
     readonly usage: "Findings, descriptions, list items";
 }, {
     readonly name: "Caption / meta";
-    readonly class: "text-sm";
+    readonly class: "text-caption";
     readonly usage: "Stat lines, tool descriptions";
 }, {
     readonly name: "Micro-label";
-    readonly class: "text-xs font-semibold uppercase tracking-[0.15em]";
+    readonly class: "text-micro uppercase";
     readonly usage: "Eyebrow / role tags (SectionLabel)";
 }];
 /** Convenience aggregate for codegen / JSON export. */
@@ -156,27 +160,31 @@ declare const designTokens: {
     };
     readonly typeScale: readonly [{
         readonly name: "Display";
-        readonly class: "text-5xl md:text-6xl font-light tracking-tight";
+        readonly class: "text-display";
         readonly usage: "Portrait / creator name";
     }, {
         readonly name: "Hero heading";
-        readonly class: "text-3xl md:text-4xl font-normal tracking-tight";
+        readonly class: "text-hero";
         readonly usage: "Lead heading per screen (SectionHeading hero)";
     }, {
         readonly name: "Section heading";
-        readonly class: "text-2xl md:text-[26px] font-medium tracking-tight";
+        readonly class: "text-section";
         readonly usage: "Section titles (SectionHeading)";
     }, {
+        readonly name: "Body large";
+        readonly class: "text-body-lg";
+        readonly usage: "Emphasized body copy";
+    }, {
         readonly name: "Body";
-        readonly class: "text-base leading-relaxed";
+        readonly class: "text-body";
         readonly usage: "Findings, descriptions, list items";
     }, {
         readonly name: "Caption / meta";
-        readonly class: "text-sm";
+        readonly class: "text-caption";
         readonly usage: "Stat lines, tool descriptions";
     }, {
         readonly name: "Micro-label";
-        readonly class: "text-xs font-semibold uppercase tracking-[0.15em]";
+        readonly class: "text-micro uppercase";
         readonly usage: "Eyebrow / role tags (SectionLabel)";
     }];
 };

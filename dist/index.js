@@ -1,4 +1,4 @@
-export { brandColors, darkColors, designTokens, fonts, lightColors, radius, semanticColors, shadow, typeScale } from './chunk-PGLQXXUF.js';
+export { brandColors, darkColors, designTokens, fonts, lightColors, radius, semanticColors, shadow, typeScale } from './chunk-SMQSL3K6.js';
 import { forwardRef, useState } from 'react';
 import { buttonVariants, Button, Spinner, Chip, Input, TextArea, Modal, Checkbox, Switch, Skeleton, Card } from '@heroui/react';
 import { tv } from 'tailwind-variants';
@@ -601,7 +601,7 @@ function SectionLabel({
     "p",
     {
       className: clsx(
-        "text-[11px] font-semibold uppercase tracking-wider text-trovio-primary",
+        "text-micro uppercase text-trovio-primary",
         className
       ),
       children
@@ -619,8 +619,8 @@ function SectionHeading({
     Tag,
     {
       className: clsx(
-        "tracking-tight text-trovio-light-text dark:text-trovio-dark-text",
-        hero ? "text-3xl font-normal md:text-4xl" : "text-2xl font-medium md:text-[26px]",
+        "text-trovio-light-text dark:text-trovio-dark-text",
+        hero ? "text-hero" : "text-section",
         divider && "border-b border-trovio-light-border pb-3 dark:border-trovio-dark-border",
         className
       ),
@@ -690,36 +690,6 @@ function Avatar({
           }
         )
       ) : /* @__PURE__ */ jsx("span", { style: { fontSize: Math.round(size * 0.4) }, children: initialsOf(name) })
-    }
-  );
-}
-var VARIANT_CLASS = {
-  // Display — portrait / creator name (leading-none so it can overlap a hero)
-  display: "text-5xl md:text-6xl font-light leading-none tracking-tight",
-  // Body large — emphasized body copy
-  "body-lg": "text-base md:text-lg leading-relaxed",
-  // Body — findings, descriptions, list items
-  body: "text-base leading-relaxed",
-  // Caption / meta — stat lines, tool descriptions
-  caption: "text-sm"
-};
-function Text({
-  variant = "body",
-  as,
-  muted = false,
-  className,
-  children
-}) {
-  const Tag = as ?? "p";
-  return /* @__PURE__ */ jsx(
-    Tag,
-    {
-      className: clsx(
-        VARIANT_CLASS[variant],
-        muted ? "text-trovio-light-text-muted dark:text-trovio-dark-text-muted" : "text-trovio-light-text dark:text-trovio-dark-text",
-        className
-      ),
-      children
     }
   );
 }
@@ -891,7 +861,7 @@ function PortraitHero({
       /* @__PURE__ */ jsx("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-trovio-light-surface to-transparent dark:from-trovio-dark-bg" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "relative -mt-10 px-1", children: [
-      /* @__PURE__ */ jsx(Text, { variant: "display", children: name }),
+      /* @__PURE__ */ jsx("p", { className: "text-display text-trovio-light-text dark:text-trovio-dark-text", children: name }),
       role && /* @__PURE__ */ jsx("p", { className: "mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: role }),
       handles && handles.length > 0 && /* @__PURE__ */ jsx("div", { className: "mt-3 flex flex-wrap gap-x-5 gap-y-1.5", children: handles.map((h) => /* @__PURE__ */ jsxs(
         "span",
@@ -1058,6 +1028,6 @@ function LockedFeatureCard({
   );
 }
 
-export { Avatar, JourneyStepper, LockChip, LockedFeatureCard, PillarChips, PlatformIcon, PortraitHero, SectionHeading, SectionLabel, StatStrip, Text, TrovioBadge, TrovioButton, TrovioCheckbox, TrovioInput, TrovioModal, TrovioProgressBar, TrovioSkeleton, TrovioSpinner, TrovioSwitch, TrovioTextArea, WidgetCard, formatCompactNumber, platformLabel };
+export { Avatar, JourneyStepper, LockChip, LockedFeatureCard, PillarChips, PlatformIcon, PortraitHero, SectionHeading, SectionLabel, StatStrip, TrovioBadge, TrovioButton, TrovioCheckbox, TrovioInput, TrovioModal, TrovioProgressBar, TrovioSkeleton, TrovioSpinner, TrovioSwitch, TrovioTextArea, WidgetCard, formatCompactNumber, platformLabel };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

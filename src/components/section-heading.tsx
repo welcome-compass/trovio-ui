@@ -31,10 +31,8 @@ export function SectionHeading({
   return (
     <Tag
       className={clsx(
-        "tracking-tight text-trovio-light-text dark:text-trovio-dark-text",
-        hero
-          ? "text-3xl font-normal md:text-4xl"
-          : "text-2xl font-medium md:text-[26px]",
+        "text-trovio-light-text dark:text-trovio-dark-text",
+        hero ? "text-hero" : "text-section",
         divider &&
           "border-b border-trovio-light-border pb-3 dark:border-trovio-dark-border",
         className,

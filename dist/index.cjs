@@ -699,6 +699,36 @@ function Avatar({
     }
   );
 }
+var VARIANT_CLASS = {
+  // Display — portrait / creator name (leading-none so it can overlap a hero)
+  display: "text-5xl md:text-6xl font-light leading-none tracking-tight",
+  // Body large — emphasized body copy
+  "body-lg": "text-base md:text-lg leading-relaxed",
+  // Body — findings, descriptions, list items
+  body: "text-base leading-relaxed",
+  // Caption / meta — stat lines, tool descriptions
+  caption: "text-sm"
+};
+function Text({
+  variant = "body",
+  as,
+  muted = false,
+  className,
+  children
+}) {
+  const Tag = as ?? "p";
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    Tag,
+    {
+      className: clsx__default.default(
+        VARIANT_CLASS[variant],
+        muted ? "text-trovio-light-text-muted dark:text-trovio-dark-text-muted" : "text-trovio-light-text dark:text-trovio-dark-text",
+        className
+      ),
+      children
+    }
+  );
+}
 function JourneyStepper({
   steps,
   onCurrentClick
@@ -867,7 +897,7 @@ function PortraitHero({
       /* @__PURE__ */ jsxRuntime.jsx("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-trovio-light-surface to-transparent dark:from-trovio-dark-bg" })
     ] }),
     /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative -mt-10 px-1", children: [
-      /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-5xl font-light leading-none tracking-tight text-trovio-light-text dark:text-trovio-dark-text md:text-6xl", children: name }),
+      /* @__PURE__ */ jsxRuntime.jsx(Text, { variant: "display", children: name }),
       role && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: role }),
       handles && handles.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-3 flex flex-wrap gap-x-5 gap-y-1.5", children: handles.map((h) => /* @__PURE__ */ jsxRuntime.jsxs(
         "span",
@@ -1136,6 +1166,7 @@ exports.PortraitHero = PortraitHero;
 exports.SectionHeading = SectionHeading;
 exports.SectionLabel = SectionLabel;
 exports.StatStrip = StatStrip;
+exports.Text = Text;
 exports.TrovioBadge = TrovioBadge;
 exports.TrovioButton = TrovioButton;
 exports.TrovioCheckbox = TrovioCheckbox;

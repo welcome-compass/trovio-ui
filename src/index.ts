@@ -35,6 +35,8 @@ export { LockChip } from "./components/lock-chip";
 export { PlatformIcon, platformLabel } from "./components/platform-icon";
 export { Avatar } from "./components/avatar";
 export type { AvatarProps } from "./components/avatar";
+export { Text } from "./components/text";
+export type { TextProps, TextVariant } from "./components/text";
 
 // ── Components (composed of primitives) ─────────────────────────────────────
 export { JourneyStepper } from "./components/journey-stepper";

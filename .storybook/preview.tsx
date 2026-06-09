@@ -12,6 +12,9 @@ const withSurface: Decorator = (Story) => (
 const preview: Preview = {
   parameters: {
     layout: "fullscreen",
+    options: {
+      storySort: { order: ["Foundations", "Primitives", "Components"] },
+    },
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
     viewport: {
       options: {

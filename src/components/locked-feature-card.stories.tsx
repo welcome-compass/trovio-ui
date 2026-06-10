@@ -19,6 +19,15 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** Loading skeleton — card identity over breathing placeholders, shown on the
+ *  living screen while the rest of the page is still generating. */
+export const Loading: Story = {
+  args: {
+    loading: true,
+    item: { variant: "media_kit", treatment: "crisp" },
+  },
+};
+
 // --- Real-data path (the fields the backend will pass; no LLM) ---------------
 
 export const MediaKit: Story = {

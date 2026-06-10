@@ -1315,14 +1315,43 @@ function PostAnalyzerPreview({
     ] }, m.label)) })
   ] });
 }
+function LockedFeatureCardSkeleton({ variant }) {
+  const meta = VARIANT_META[variant];
+  return /* @__PURE__ */ jsxs("div", { className: "w-full rounded-2xl border border-trovio-light-border bg-trovio-light-surface p-4 dark:border-trovio-dark-border dark:bg-trovio-dark-surface", children: [
+    /* @__PURE__ */ jsxs("div", { className: "mb-2 flex items-center gap-2", children: [
+      /* @__PURE__ */ jsx(
+        meta.Icon,
+        {
+          className: "shrink-0 text-trovio-light-text-muted dark:text-trovio-dark-text-muted",
+          size: 22
+        }
+      ),
+      /* @__PURE__ */ jsx("h3", { className: "flex-1 text-base font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: meta.title }),
+      /* @__PURE__ */ jsx(
+        PiLockSimpleDuotone,
+        {
+          className: "shrink-0 text-trovio-light-text-muted/60 dark:text-trovio-dark-text-muted/60",
+          size: 18
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "mb-3 space-y-1.5", children: [
+      /* @__PURE__ */ jsx("div", { className: "h-3 w-full animate-pulse rounded bg-trovio-light-text/10 dark:bg-trovio-dark-text/10" }),
+      /* @__PURE__ */ jsx("div", { className: "h-3 w-2/3 animate-pulse rounded bg-trovio-light-text/10 dark:bg-trovio-dark-text/10" })
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "h-24 w-full animate-pulse rounded-lg bg-trovio-light-text/5 dark:bg-trovio-dark-text/5" })
+  ] });
+}
 function LockedFeatureCard({
   item,
   portraitUrl,
   creatorName,
-  onActivate
+  onActivate,
+  loading
 }) {
   const meta = VARIANT_META[item.variant];
   const description = item.description?.trim() || meta.value;
+  if (loading) return /* @__PURE__ */ jsx(LockedFeatureCardSkeleton, { variant: item.variant });
   return /* @__PURE__ */ jsxs(
     "button",
     {

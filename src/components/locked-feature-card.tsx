@@ -71,6 +71,9 @@ export interface LockedFeatureCardProps {
   creatorName?: string;
   /** Invoked on tap (e.g. open the upsell). Analytics live in the consumer. */
   onActivate?: () => void;
+  /** Show the card's identity (icon + title + lock) over a breathing skeleton
+   *  preview — for the living screen while the rest of the page is generating. */
+  loading?: boolean;
 }
 
 const VARIANT_META: Record<
@@ -351,14 +354,47 @@ function PostAnalyzerPreview({
   );
 }
 
+/** Card identity (icon + title + lock) over breathing skeletons — shown while
+ *  the living screen is still assembling, so the card is present but reads as
+ *  "coming" rather than a finished upsell. */
+function LockedFeatureCardSkeleton({ variant }: { variant: LockedFeatureVariant }) {
+  const meta = VARIANT_META[variant];
+
+  return (
+    <div className="w-full rounded-2xl border border-trovio-light-border bg-trovio-light-surface p-4 dark:border-trovio-dark-border dark:bg-trovio-dark-surface">
+      <div className="mb-2 flex items-center gap-2">
+        <meta.Icon
+          className="shrink-0 text-trovio-light-text-muted dark:text-trovio-dark-text-muted"
+          size={22}
+        />
+        <h3 className="flex-1 text-base font-semibold text-trovio-light-text dark:text-trovio-dark-text">
+          {meta.title}
+        </h3>
+        <PiLockSimpleDuotone
+          className="shrink-0 text-trovio-light-text-muted/60 dark:text-trovio-dark-text-muted/60"
+          size={18}
+        />
+      </div>
+      <div className="mb-3 space-y-1.5">
+        <div className="h-3 w-full animate-pulse rounded bg-trovio-light-text/10 dark:bg-trovio-dark-text/10" />
+        <div className="h-3 w-2/3 animate-pulse rounded bg-trovio-light-text/10 dark:bg-trovio-dark-text/10" />
+      </div>
+      <div className="h-24 w-full animate-pulse rounded-lg bg-trovio-light-text/5 dark:bg-trovio-dark-text/5" />
+    </div>
+  );
+}
+
 export function LockedFeatureCard({
   item,
   portraitUrl,
   creatorName,
   onActivate,
+  loading,
 }: LockedFeatureCardProps) {
   const meta = VARIANT_META[item.variant];
   const description = item.description?.trim() || meta.value;
+
+  if (loading) return <LockedFeatureCardSkeleton variant={item.variant} />;
 
   return (
     <button

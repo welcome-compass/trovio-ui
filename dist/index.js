@@ -4,7 +4,7 @@ import { buttonVariants, Button, Spinner, Chip, Input, TextArea, Modal, Checkbox
 import { tv } from 'tailwind-variants';
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import clsx16 from 'clsx';
-import { PiLockKeyDuotone, PiYoutubeLogoDuotone, PiTiktokLogoDuotone, PiInstagramLogoDuotone, PiGlobeDuotone, PiSparkleDuotone, PiHandshakeDuotone, PiIdentificationCardDuotone, PiLockSimpleDuotone, PiXBold, PiUsersThreeDuotone, PiTrendUpDuotone, PiEyeDuotone, PiMagnetDuotone, PiWaveSineDuotone, PiTargetDuotone, PiStarDuotone, PiHeartDuotone, PiClockDuotone, PiLightningDuotone } from 'react-icons/pi';
+import { PiLockKeyDuotone, PiYoutubeLogoDuotone, PiTiktokLogoDuotone, PiInstagramLogoDuotone, PiGlobeDuotone, PiSparkleDuotone, PiHandshakeDuotone, PiIdentificationCardDuotone, PiLockSimpleDuotone, PiArrowRightBold, PiXBold, PiUsersThreeDuotone, PiTrendUpDuotone, PiEyeDuotone, PiMagnetDuotone, PiWaveSineDuotone, PiTargetDuotone, PiStarDuotone, PiHeartDuotone, PiClockDuotone, PiLightningDuotone } from 'react-icons/pi';
 import { createPortal } from 'react-dom';
 
 var trovioButtonVariants = tv({
@@ -1470,10 +1470,12 @@ function LockedFeatureCard({
   portraitUrl,
   creatorName,
   onActivate,
+  ctaLabel,
   loading
 }) {
   const meta = VARIANT_META[item.variant];
   const description = item.description?.trim() || meta.value;
+  const cta = ctaLabel?.trim();
   if (loading) return /* @__PURE__ */ jsx(LockedFeatureCardSkeleton, { variant: item.variant });
   return /* @__PURE__ */ jsxs(
     "button",
@@ -1512,7 +1514,17 @@ function LockedFeatureCard({
           }
         ),
         item.variant === "post_analyzer" && /* @__PURE__ */ jsx(PostAnalyzerPreview, { thumbnailUrl: item.sampleThumbnailUrl }),
-        item.variant === "brand_matcher" && /* @__PURE__ */ jsx(BrandMatcherPreview, {})
+        item.variant === "brand_matcher" && /* @__PURE__ */ jsx(BrandMatcherPreview, {}),
+        cta ? /* @__PURE__ */ jsx("div", { className: "mt-3 flex justify-end", children: /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 text-sm font-semibold text-trovio-primary", children: [
+          cta,
+          /* @__PURE__ */ jsx(
+            PiArrowRightBold,
+            {
+              className: "transition-transform group-hover:translate-x-0.5",
+              size: 13
+            }
+          )
+        ] }) }) : null
       ]
     }
   );

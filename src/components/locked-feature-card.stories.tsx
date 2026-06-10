@@ -33,6 +33,7 @@ export const Loading: Story = {
 export const MediaKit: Story = {
   args: {
     creatorName: "Derrick Showers",
+    ctaLabel: "Create my media kit",
     item: {
       variant: "media_kit",
       treatment: "crisp",
@@ -50,6 +51,7 @@ export const MediaKit: Story = {
 
 export const BrandMatcher: Story = {
   args: {
+    ctaLabel: "See my matches",
     item: {
       variant: "brand_matcher",
       treatment: "veiled",
@@ -61,6 +63,7 @@ export const BrandMatcher: Story = {
 
 export const PostAnalyzer: Story = {
   args: {
+    ctaLabel: "Score my next post",
     item: { variant: "post_analyzer", treatment: "veiled" },
   },
 };

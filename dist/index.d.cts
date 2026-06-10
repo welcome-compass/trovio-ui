@@ -358,6 +358,33 @@ interface OnboardingBrandHeaderProps {
  */
 declare const OnboardingBrandHeader: React__default.FC<OnboardingBrandHeaderProps>;
 
+interface BrandLogoProps {
+    /** Image source shown in light mode. */
+    lightSrc: string;
+    /** Image source shown in dark mode. */
+    darkSrc: string;
+    /** Accessible alt text (applied to whichever variant is visible). */
+    alt?: string;
+    /**
+     * Class applied to BOTH `<img>` elements — use it to size the logo. Prefer a
+     * single dimension so the aspect ratio is preserved, e.g. `h-8 w-auto`.
+     */
+    className?: string;
+}
+/**
+ * BrandLogo — renders a brand logo image with automatic light/dark switching.
+ *
+ * Both sources render and are toggled with Tailwind `dark:` utilities (CSS, not
+ * JS theme state), so it is SSR-safe, has no theme-provider coupling, and never
+ * flashes the wrong variant on hydration. Only the visible `<img>` is announced
+ * by screen readers (the hidden one is `display:none`).
+ *
+ * Presentation-only: the consumer hosts the asset bytes and passes their URLs
+ * (mirrors how Avatar/PortraitHero take an image src). trovio-ui ships no raster
+ * assets, so the brand PNGs live in each app's `public/`.
+ */
+declare const BrandLogo: React__default.FC<BrandLogoProps>;
+
 interface GoalCardProps extends React__default.HTMLAttributes<HTMLDivElement> {
     /** Ranking number shown in the badge (1-based). */
     rank: number;
@@ -551,4 +578,4 @@ declare function Drawer({ isOpen, onClose, title, eyebrow, headerExtra, footer, 
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { Avatar, type AvatarProps, ClampText, type ClampTextProps, Drawer, type DrawerProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, type JourneyStep, type JourneyStepStatus, JourneyStepper, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, BrandLogo, type BrandLogoProps, ClampText, type ClampTextProps, Drawer, type DrawerProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, type JourneyStep, type JourneyStepStatus, JourneyStepper, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

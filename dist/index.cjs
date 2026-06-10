@@ -914,6 +914,17 @@ var OnboardingBrandHeader = ({
     }
   );
 };
+var BrandLogo = ({
+  lightSrc,
+  darkSrc,
+  alt = "",
+  className = ""
+}) => {
+  return /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntime.jsx("img", { alt, className: `block dark:hidden ${className}`, src: lightSrc }),
+    /* @__PURE__ */ jsxRuntime.jsx("img", { alt, className: `hidden dark:block ${className}`, src: darkSrc })
+  ] });
+};
 var GoalCard = React2__default.default.forwardRef(
   function GoalCard2({ rank, icon, title, description, iconGradient, isDragging = false, className, ...rest }, ref) {
     return /* @__PURE__ */ jsxRuntime.jsxs(
@@ -1638,6 +1649,7 @@ var designTokens = {
 };
 
 exports.Avatar = Avatar;
+exports.BrandLogo = BrandLogo;
 exports.ClampText = ClampText;
 exports.Drawer = Drawer;
 exports.GeneratingBlock = GeneratingBlock;

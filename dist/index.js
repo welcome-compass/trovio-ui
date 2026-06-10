@@ -907,6 +907,17 @@ var OnboardingBrandHeader = ({
     }
   );
 };
+var BrandLogo = ({
+  lightSrc,
+  darkSrc,
+  alt = "",
+  className = ""
+}) => {
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx("img", { alt, className: `block dark:hidden ${className}`, src: lightSrc }),
+    /* @__PURE__ */ jsx("img", { alt, className: `hidden dark:block ${className}`, src: darkSrc })
+  ] });
+};
 var GoalCard = React2.forwardRef(
   function GoalCard2({ rank, icon, title, description, iconGradient, isDragging = false, className, ...rest }, ref) {
     return /* @__PURE__ */ jsxs(
@@ -1533,6 +1544,6 @@ function Drawer({
   );
 }
 
-export { Avatar, ClampText, Drawer, GeneratingBlock, GoalCard, JourneyStepper, LockChip, LockedFeatureCard, OnboardingBrandHeader, PillarChips, PlatformIcon, PortraitHero, RingGauge, SectionHeading, SectionLabel, SegmentedToggle, Sparkline, StatStrip, TrovioBadge, TrovioButton, TrovioCheckbox, TrovioInput, TrovioModal, TrovioProgressBar, TrovioSkeleton, TrovioSpinner, TrovioSwitch, TrovioTextArea, WidgetCard, formatCompactNumber, platformLabel };
+export { Avatar, BrandLogo, ClampText, Drawer, GeneratingBlock, GoalCard, JourneyStepper, LockChip, LockedFeatureCard, OnboardingBrandHeader, PillarChips, PlatformIcon, PortraitHero, RingGauge, SectionHeading, SectionLabel, SegmentedToggle, Sparkline, StatStrip, TrovioBadge, TrovioButton, TrovioCheckbox, TrovioInput, TrovioModal, TrovioProgressBar, TrovioSkeleton, TrovioSpinner, TrovioSwitch, TrovioTextArea, WidgetCard, formatCompactNumber, platformLabel };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

@@ -47,6 +47,8 @@ export { GeneratingBlock } from "./components/generating-block";
 export type { GeneratingBlockProps } from "./components/generating-block";
 export { OnboardingBrandHeader } from "./components/onboarding-brand-header";
 export type { OnboardingBrandHeaderProps } from "./components/onboarding-brand-header";
+export { BrandLogo } from "./components/brand-logo";
+export type { BrandLogoProps } from "./components/brand-logo";
 export { GoalCard } from "./components/goal-card";
 export type { GoalCardProps } from "./components/goal-card";
 

@@ -216,7 +216,7 @@ var trovioInputVariants = tv({
     "transition-all duration-200",
     "focus-within:border-trovio-primary focus-within:shadow-md focus-within:ring-2 focus-within:ring-trovio-primary/20",
     "text-trovio-light-text dark:text-trovio-dark-text",
-    "placeholder:text-trovio-light-text-muted dark:placeholder:text-trovio-dark-text-muted"
+    "placeholder:text-trovio-light-text-muted/60 dark:placeholder:text-trovio-dark-text-muted/60"
   ],
   variants: {
     size: {
@@ -252,7 +252,7 @@ var TrovioInput = ({
     hasError: !!error
   });
   return /* @__PURE__ */ jsxs("div", { className: "w-full", children: [
-    label && /* @__PURE__ */ jsx("label", { className: "text-left block text-xs font-medium text-trovio-primary dark:text-trovio-primary mb-1", children: label }),
+    label && /* @__PURE__ */ jsx("label", { className: "text-left block text-xs font-semibold text-trovio-light-text-muted dark:text-trovio-dark-text-muted mb-1.5", children: label }),
     /* @__PURE__ */ jsx(
       Input,
       {
@@ -283,7 +283,7 @@ var trovioTextAreaVariants = tv({
     "transition-all duration-200",
     "focus-within:border-trovio-primary focus-within:shadow-md focus-within:ring-2 focus-within:ring-trovio-primary/20",
     "text-trovio-light-text dark:text-trovio-dark-text",
-    "placeholder:text-trovio-light-text-muted dark:placeholder:text-trovio-dark-text-muted",
+    "placeholder:text-trovio-light-text-muted/60 dark:placeholder:text-trovio-dark-text-muted/60",
     "min-h-20 p-3"
   ],
   variants: {
@@ -308,7 +308,7 @@ var TrovioTextArea = ({
   ...props
 }) => {
   return /* @__PURE__ */ jsxs("div", { className: "w-full", children: [
-    label && /* @__PURE__ */ jsx("label", { className: "text-left block text-xs font-medium text-trovio-primary dark:text-trovio-primary mb-1", children: label }),
+    label && /* @__PURE__ */ jsx("label", { className: "text-left block text-xs font-semibold text-trovio-light-text-muted dark:text-trovio-dark-text-muted mb-1.5", children: label }),
     /* @__PURE__ */ jsx(
       TextArea,
       {

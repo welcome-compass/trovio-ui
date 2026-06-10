@@ -10,6 +10,10 @@ const config: StorybookConfig = {
   stories: ["../stories/**/*.mdx", "../src/**/*.stories.@(ts|tsx|mdx)"],
   addons: ["@storybook/addon-docs", "@storybook/addon-themes"],
   framework: { name: "@storybook/react-vite", options: {} },
+  // Dev-only static assets (e.g. the brand logo PNGs the BrandLogo / header
+  // stories reference). NOT part of the published package (`files` = dist +
+  // src/styles), so consumers still host their own assets.
+  staticDirs: ["../public"],
   viteFinal: async (cfg) => {
     cfg.plugins = cfg.plugins ?? [];
     cfg.plugins.push(tailwindcss());

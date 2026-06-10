@@ -1,19 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import { BrandLogo } from "./brand-logo";
+
 import { OnboardingBrandHeader } from "./onboarding-brand-header";
 
-/** Stand-in for the real brand logo (an <Image>/<svg> in the app). */
-const Logo = () => (
-  <span className="text-section font-bold text-trovio-light-text dark:text-trovio-dark-text">
-    trovio
-  </span>
+/** The real brand logo, the way the stranger onboarding takeover renders it. */
+const logo = (
+  <BrandLogo
+    alt="Trovio"
+    className="h-8 w-auto"
+    darkSrc="/trovio-logo-dark-mode.png"
+    lightSrc="/trovio-logo-light-mode.png"
+  />
 );
 
 const meta = {
   title: "Primitives/OnboardingBrandHeader",
   component: OnboardingBrandHeader,
   tags: ["autodocs"],
-  args: { logo: <Logo /> },
+  args: { logo },
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof OnboardingBrandHeader>;
 

@@ -53,6 +53,16 @@ export { GoalCard } from "./components/goal-card";
 export type { GoalCardProps } from "./components/goal-card";
 
 // ── Components (composed of primitives) ─────────────────────────────────────
+export { HeadlineBlock } from "./components/headline-block";
+export type {
+  HeadlineBlockProps,
+  HeadlineBlockSize,
+  HeadlineBlockWeight,
+} from "./components/headline-block";
+export { TitledPanel } from "./components/titled-panel";
+export type { TitledPanelProps } from "./components/titled-panel";
+export { LinkCard } from "./components/link-card";
+export type { LinkCardProps } from "./components/link-card";
 export { JourneyStepper } from "./components/journey-stepper";
 export type { JourneyStep, JourneyStepStatus } from "./components/journey-stepper";
 export { PillarChips } from "./components/pillar-chips";

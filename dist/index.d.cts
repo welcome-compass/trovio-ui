@@ -411,6 +411,96 @@ interface GoalCardProps extends React__default.HTMLAttributes<HTMLDivElement> {
 declare const GoalCard: React__default.ForwardRefExoticComponent<GoalCardProps & React__default.RefAttributes<HTMLDivElement>>;
 
 /**
+ * Type-scale sizes the headline can render at. Mirrors the `text-*` utilities
+ * defined in tokens.css — each applies size + line-height + tracking + weight
+ * together.
+ */
+type HeadlineBlockSize = "display" | "hero" | "section" | "body-lg" | "body";
+/**
+ * Optional font-weight override. Each `size` token ships a built-in weight
+ * (e.g. section is 500, hero is 400); set `weight` to decouple the two — handy
+ * for a large-but-light editorial headline.
+ */
+type HeadlineBlockWeight = "extralight" | "light" | "normal" | "medium" | "semibold";
+interface HeadlineBlockProps {
+    /**
+     * The headline content — plain text, or a pre-rendered node (e.g. the
+     * consumer's markdown renderer). HeadlineBlock is markdown-agnostic.
+     */
+    children: ReactNode;
+    /** Type-scale size for the headline. Defaults to "section". */
+    size?: HeadlineBlockSize;
+    /**
+     * Font-weight override. Defaults to the size token's built-in weight when
+     * unset — pass this to make a headline lighter or heavier than its size.
+     */
+    weight?: HeadlineBlockWeight;
+    /**
+     * Optional call to action rendered as a primary button. Presentation-only:
+     * the consumer owns the click behavior (client-side nav, opening a
+     * messenger, analytics, etc.) — wire it up in `onClick`.
+     */
+    cta?: {
+        label: ReactNode;
+        onClick: () => void;
+        /** Optional leading icon node rendered before the label. */
+        icon?: ReactNode;
+    };
+    className?: string;
+}
+/**
+ * HeadlineBlock — a prominent single message: large text plus an optional CTA.
+ * Built for lead surfaces (e.g. the dashboard "today" block) where one line
+ * carries the moment. Size is configurable so the same block works as a hero
+ * statement or a quieter section lead.
+ */
+declare function HeadlineBlock({ children, size, weight, cta, className, }: HeadlineBlockProps): React.JSX.Element;
+
+interface TitledPanelProps {
+    /**
+     * Panel title, rendered via HeadlineBlock. Optional so the same component
+     * works inside a section that already has a shared heading.
+     */
+    title?: ReactNode;
+    /** Title type-scale size. Defaults to "hero" — larger than typical body content. */
+    titleSize?: HeadlineBlockSize;
+    /** Title font-weight override (defaults to the size token's built-in weight). */
+    titleWeight?: HeadlineBlockWeight;
+    /** Panel body — anything below the title. */
+    children: ReactNode;
+    className?: string;
+}
+/**
+ * TitledPanel — a generic titled region: a large title over a content slot.
+ * Built to be laid out side by side (e.g. a 2-up grid on desktop) and reused
+ * across surfaces. Presentation-only; borderless by default so it fits the
+ * flat editorial direction — add card styling via `className` if needed.
+ */
+declare function TitledPanel({ title, titleSize, titleWeight, children, className, }: TitledPanelProps): React.JSX.Element;
+
+interface LinkCardProps {
+    /** Categorical label above the title (e.g. "Trovio Tip", "Course"). */
+    eyebrow?: ReactNode;
+    title: ReactNode;
+    /** Optional hero image, rendered grayscale edge-to-edge at the top. */
+    imageUrl?: string;
+    /** Destination URL. */
+    href: string;
+    /** Open in a new tab (default true — these are usually external resources). */
+    newTab?: boolean;
+    /** Presentation-only click hook — wire analytics/tracking in the consumer. */
+    onClick?: () => void;
+    className?: string;
+}
+/**
+ * LinkCard — a generic clickable resource card: optional grayscale hero image,
+ * an eyebrow label, and a title, wrapping a link. Framing-agnostic so the same
+ * shape carries a Trovio tip, a course, an article, etc. Presentation-only;
+ * the consumer owns any click tracking via `onClick`.
+ */
+declare function LinkCard({ eyebrow, title, imageUrl, href, newTab, onClick, className, }: LinkCardProps): React.JSX.Element;
+
+/**
  * JourneyStepper — numbered step indicator for "where you stand". Editorial
  * styling: numbered circles with labels below, a single indigo accent for
  * done/current, neutral for upcoming.
@@ -584,4 +674,4 @@ declare function Drawer({ isOpen, onClose, title, eyebrow, headerExtra, footer, 
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { Avatar, type AvatarProps, BrandLogo, type BrandLogoProps, ClampText, type ClampTextProps, Drawer, type DrawerProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, type JourneyStep, type JourneyStepStatus, JourneyStepper, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, BrandLogo, type BrandLogoProps, ClampText, type ClampTextProps, Drawer, type DrawerProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, TitledPanel, type TitledPanelProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

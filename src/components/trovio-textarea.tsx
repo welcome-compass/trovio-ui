@@ -15,7 +15,7 @@ const trovioTextAreaVariants = tv({
     "transition-all duration-200",
     "focus-within:border-trovio-primary focus-within:shadow-md focus-within:ring-2 focus-within:ring-trovio-primary/20",
     "text-trovio-light-text dark:text-trovio-dark-text",
-    "placeholder:text-trovio-light-text-muted dark:placeholder:text-trovio-dark-text-muted",
+    "placeholder:text-trovio-light-text-muted/60 dark:placeholder:text-trovio-dark-text-muted/60",
     "min-h-20 p-3",
   ],
   variants: {
@@ -57,7 +57,7 @@ export const TrovioTextArea: React.FC<TrovioTextAreaProps> = ({
   return (
     <div className="w-full">
       {label && (
-        <label className="text-left block text-xs font-medium text-trovio-primary dark:text-trovio-primary mb-1">
+        <label className="text-left block text-xs font-semibold text-trovio-light-text-muted dark:text-trovio-dark-text-muted mb-1.5">
           {label}
         </label>
       )}

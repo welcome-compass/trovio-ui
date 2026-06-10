@@ -906,29 +906,77 @@ function JourneyStepper({
     const isLast = idx === steps.length - 1;
     const leftDone = idx > 0 && steps[idx - 1].status === "completed";
     const rightDone = step.status === "completed";
-    const circleBase = "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors sm:h-10 sm:w-10 sm:text-sm";
+    const isLoading = step.status === "current" && Boolean(step.loading);
+    const circleBase = "relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors sm:h-10 sm:w-10 sm:text-sm";
     const circle = clsx15__default.default(
       circleBase,
       step.status === "completed" && "bg-trovio-primary text-white",
-      step.status === "current" && "border-2 border-trovio-primary text-trovio-primary",
+      // Loading current step drops the static border — the spinning arc
+      // overlay below provides the outline so the two don't double up.
+      step.status === "current" && !isLoading && "border-2 border-trovio-primary text-trovio-primary",
+      step.status === "current" && isLoading && "text-trovio-primary",
       step.status === "upcoming" && "border border-trovio-light-border text-trovio-light-text-muted dark:border-trovio-dark-border dark:text-trovio-dark-text-muted"
     );
+    const spinner = isLoading ? /* @__PURE__ */ jsxRuntime.jsx(
+      "span",
+      {
+        "aria-hidden": "true",
+        className: "pointer-events-none absolute inset-0 text-trovio-primary",
+        children: /* @__PURE__ */ jsxRuntime.jsxs(
+          "svg",
+          {
+            className: "h-full w-full animate-spin",
+            fill: "none",
+            viewBox: "0 0 40 40",
+            children: [
+              /* @__PURE__ */ jsxRuntime.jsx(
+                "circle",
+                {
+                  cx: "20",
+                  cy: "20",
+                  r: "18",
+                  stroke: "currentColor",
+                  strokeOpacity: "0.25",
+                  strokeWidth: "2"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntime.jsx(
+                "circle",
+                {
+                  cx: "20",
+                  cy: "20",
+                  r: "18",
+                  stroke: "currentColor",
+                  strokeDasharray: "28 150",
+                  strokeLinecap: "round",
+                  strokeWidth: "2"
+                }
+              )
+            ]
+          }
+        )
+      }
+    ) : null;
+    const inner = /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
+      spinner,
+      /* @__PURE__ */ jsxRuntime.jsx("span", { className: "relative", children: idx + 1 })
+    ] });
     const node = step.status === "current" && onCurrentClick ? /* @__PURE__ */ jsxRuntime.jsx(
       "button",
       {
-        "aria-label": `${step.label}, tap to activate`,
+        "aria-label": `${step.label}, ${isLoading ? "in progress, " : ""}tap to activate`,
         className: clsx15__default.default(circle, "cursor-pointer"),
         type: "button",
         onClick: onCurrentClick,
-        children: idx + 1
+        children: inner
       }
     ) : /* @__PURE__ */ jsxRuntime.jsx(
       "div",
       {
-        "aria-label": `${step.label}, ${step.status}`,
+        "aria-label": `${step.label}, ${isLoading ? "in progress" : step.status}`,
         className: circle,
         role: "img",
-        children: idx + 1
+        children: inner
       }
     );
     return /* @__PURE__ */ jsxRuntime.jsxs(

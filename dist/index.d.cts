@@ -354,11 +354,17 @@ declare function GeneratingBlock({ message, lines, className, }: GeneratingBlock
  *   completed -> filled indigo circle (white number)
  *   current   -> indigo-ringed circle (indigo number); tappable when onCurrentClick set
  *   upcoming  -> neutral outline circle (muted number)
+ *
+ * A `current` step may also set `loading` to swap its static ring for a
+ * spinning indigo arc — use it while the work that step represents is still
+ * being generated.
  */
 type JourneyStepStatus = "completed" | "current" | "upcoming";
 interface JourneyStep {
     label: string;
     status: JourneyStepStatus;
+    /** Only meaningful on a `current` step: shows a spinning ring (work in progress). */
+    loading?: boolean;
 }
 declare function JourneyStepper({ steps, onCurrentClick, }: {
     steps: JourneyStep[];

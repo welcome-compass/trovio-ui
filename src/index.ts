@@ -43,6 +43,8 @@ export { SegmentedToggle } from "./components/segmented-toggle";
 export type { SegmentedToggleOption } from "./components/segmented-toggle";
 export { ClampText } from "./components/clamp-text";
 export type { ClampTextProps } from "./components/clamp-text";
+export { GeneratingBlock } from "./components/generating-block";
+export type { GeneratingBlockProps } from "./components/generating-block";
 
 // ── Components (composed of primitives) ─────────────────────────────────────
 export { JourneyStepper } from "./components/journey-stepper";

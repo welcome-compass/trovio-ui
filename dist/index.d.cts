@@ -525,10 +525,12 @@ interface LockedFeatureItem {
     /** @deprecated No longer rendered — the Media Kit preview is an identity
      *  masthead (portfolio), not a post grid. Kept so existing payloads parse. */
     sampleImages?: string[];
-    /** Real content pillars → Media Kit "top pillar" + Brand Matcher rows
-     *  (grounded categories; no fabricated match scores until matching runs). */
+    /** @deprecated No longer rendered — Media Kit dropped its "top pillar" line
+     *  and Brand Matcher now uses fixed value-prop rows. Kept so existing payloads
+     *  parse. */
     pillars?: LockedFeaturePillar[];
-    /** Count of already-analyzed posts → real Post Analyzer teaser line. */
+    /** @deprecated No longer rendered — the Post Analyzer preview dropped its
+     *  "{n} videos analyzed" line. Kept so existing payloads parse. */
     analyzedCount?: number;
 }
 interface LockedFeatureCardProps {

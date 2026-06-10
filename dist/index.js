@@ -4,7 +4,7 @@ import { buttonVariants, Button, Spinner, Chip, Input, TextArea, Modal, Checkbox
 import { tv } from 'tailwind-variants';
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import clsx16 from 'clsx';
-import { PiLockKeyDuotone, PiYoutubeLogoDuotone, PiTiktokLogoDuotone, PiInstagramLogoDuotone, PiGlobeDuotone, PiSparkleDuotone, PiHandshakeDuotone, PiIdentificationCardDuotone, PiLockSimpleDuotone, PiXBold } from 'react-icons/pi';
+import { PiLockKeyDuotone, PiYoutubeLogoDuotone, PiTiktokLogoDuotone, PiInstagramLogoDuotone, PiGlobeDuotone, PiSparkleDuotone, PiHandshakeDuotone, PiIdentificationCardDuotone, PiLockSimpleDuotone, PiXBold, PiUsersThreeDuotone, PiTrendUpDuotone, PiEyeDuotone, PiMagnetDuotone, PiWaveSineDuotone, PiTargetDuotone, PiStarDuotone, PiHeartDuotone, PiClockDuotone, PiLightningDuotone } from 'react-icons/pi';
 import { createPortal } from 'react-dom';
 
 var trovioButtonVariants = tv({
@@ -1262,97 +1262,127 @@ function MediaKitPreview({
   followers,
   platforms,
   engagementRate,
-  avgViews,
-  topPillar
+  avgViews
 }) {
   const metrics = [
     {
       label: "Followers",
-      value: followers != null ? formatCompactNumber(followers) : "\u2014"
+      value: followers != null ? formatCompactNumber(followers) : "\u2014",
+      Icon: PiUsersThreeDuotone
     },
     {
       label: "Eng. rate",
-      value: engagementRate != null ? `${(engagementRate * 100).toFixed(1)}%` : "5.2%"
+      value: engagementRate != null ? `${(engagementRate * 100).toFixed(1)}%` : "5.2%",
+      Icon: PiTrendUpDuotone
     },
     {
       label: "Avg. views",
-      value: avgViews != null ? formatCompactNumber(avgViews) : "8.4K"
+      value: avgViews != null ? formatCompactNumber(avgViews) : "8.4K",
+      Icon: PiEyeDuotone
     }
   ];
-  return /* @__PURE__ */ jsxs("div", { className: PREVIEW_SHELL, children: [
-    /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-      /* @__PURE__ */ jsx(Avatar, { imageUrl: portraitUrl, name: name ?? "", size: 44 }),
-      /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
-        /* @__PURE__ */ jsx(SectionLabel, { tone: "primary", children: "Media Kit" }),
-        name ? /* @__PURE__ */ jsx("p", { className: "truncate text-body font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: name }) : null,
-        platforms && platforms.length > 0 && /* @__PURE__ */ jsx("span", { className: "mt-0.5 flex items-center gap-1.5 text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: platforms.map((p) => /* @__PURE__ */ jsx(PlatformIcon, { platform: p, size: 13 }, p)) })
+  return /* @__PURE__ */ jsxs("div", { className: "overflow-hidden rounded-lg border border-trovio-light-border bg-trovio-light-bg dark:border-trovio-dark-border dark:bg-trovio-dark-bg", children: [
+    /* @__PURE__ */ jsxs("div", { className: "relative overflow-hidden bg-gradient-to-br from-trovio-primary/[0.07] to-trovio-primary/[0.03] px-4 py-4", children: [
+      /* @__PURE__ */ jsx(
+        "div",
+        {
+          "aria-hidden": "true",
+          className: "pointer-events-none absolute -right-3 top-1/2 h-20 w-36 -translate-y-1/2 text-trovio-primary/30",
+          style: {
+            backgroundImage: "radial-gradient(currentColor 1.5px, transparent 1.5px)",
+            backgroundSize: "13px 13px",
+            maskImage: "linear-gradient(to left, black 35%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to left, black 35%, transparent 100%)"
+          }
+        }
+      ),
+      /* @__PURE__ */ jsxs("div", { className: "relative flex items-center gap-3.5", children: [
+        /* @__PURE__ */ jsx(Avatar, { imageUrl: portraitUrl, name: name ?? "", size: 56 }),
+        /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
+          /* @__PURE__ */ jsx(SectionLabel, { tone: "primary", children: "Media Kit" }),
+          name ? /* @__PURE__ */ jsx("p", { className: "truncate text-lg font-bold leading-tight text-trovio-light-text dark:text-trovio-dark-text", children: name }) : null,
+          platforms && platforms.length > 0 && /* @__PURE__ */ jsx("span", { className: "mt-1 flex items-center gap-1.5 text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: platforms.map((p) => /* @__PURE__ */ jsx(PlatformIcon, { platform: p, size: 14 }, p)) })
+        ] })
       ] })
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "mt-3 grid grid-cols-3 gap-2 border-y border-trovio-light-border py-2.5 dark:border-trovio-dark-border", children: metrics.map((m) => /* @__PURE__ */ jsxs("div", { children: [
-      /* @__PURE__ */ jsx("p", { className: "text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: m.value }),
-      /* @__PURE__ */ jsx("p", { className: META_TEXT, children: m.label })
-    ] }, m.label)) }),
-    /* @__PURE__ */ jsxs("div", { className: `mt-2.5 flex items-baseline justify-between gap-2 ${META_TEXT}`, children: [
-      /* @__PURE__ */ jsx("span", { className: "shrink-0", children: topPillar ? "Top pillar" : "Audience" }),
-      /* @__PURE__ */ jsx("span", { className: "truncate text-right text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text", children: topPillar ?? "65% women \xB7 25\u201334" })
-    ] })
-  ] });
-}
-function BrandMatcherPreview({
-  categories
-}) {
-  const hasReal = Boolean(categories && categories.length);
-  const rows = hasReal ? categories.slice(0, 3).map((c) => ({
-    category: c.label,
-    reason: c.reason ?? "A natural fit for your content",
-    score: null
-  })) : [
-    {
-      category: "Beauty & Skincare",
-      reason: "Aligns with your skincare content",
-      score: 94
-    },
-    {
-      category: "Health & Wellness",
-      reason: "Strong fit for your audience",
-      score: 89
-    },
-    {
-      category: "Travel & Lifestyle",
-      reason: "Matches your lifestyle pillar",
-      score: 86
-    }
-  ];
-  return /* @__PURE__ */ jsxs("div", { className: PREVIEW_SHELL, children: [
-    /* @__PURE__ */ jsx(SectionLabel, { className: "mb-2.5", tone: "primary", children: hasReal ? "Brands in your spaces" : "12 potential matches" }),
-    /* @__PURE__ */ jsx("div", { className: "space-y-2.5", children: rows.map((r) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2.5", children: [
-      /* @__PURE__ */ jsx("div", { className: "relative h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-trovio-primary/10", children: /* @__PURE__ */ jsx(PiHandshakeDuotone, { className: "absolute inset-0 m-auto h-4 w-4 text-trovio-primary/40" }) }),
-      /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
-        /* @__PURE__ */ jsx("p", { className: "truncate text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: r.category }),
-        /* @__PURE__ */ jsx("p", { className: `truncate ${META_TEXT}`, children: r.reason })
-      ] }),
-      r.score != null && /* @__PURE__ */ jsxs("span", { className: "shrink-0 text-sm font-bold text-trovio-primary", children: [
-        r.score,
-        "%"
+    /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 divide-x divide-trovio-light-border dark:divide-trovio-dark-border", children: metrics.map((m) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 px-3 py-3", children: [
+      /* @__PURE__ */ jsx("span", { className: "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-trovio-primary/10 text-trovio-primary", children: /* @__PURE__ */ jsx(m.Icon, { size: 17 }) }),
+      /* @__PURE__ */ jsxs("div", { className: "min-w-0", children: [
+        /* @__PURE__ */ jsx("p", { className: "truncate text-sm font-bold leading-tight text-trovio-light-text dark:text-trovio-dark-text", children: m.value }),
+        /* @__PURE__ */ jsx("p", { className: `truncate ${META_TEXT}`, children: m.label })
       ] })
-    ] }, r.category)) })
+    ] }, m.label)) })
   ] });
 }
-function ScoreRing({ score, size = 52 }) {
-  return /* @__PURE__ */ jsx(RingGauge, { size, value: score / 100, children: /* @__PURE__ */ jsx("span", { className: "text-sm font-bold text-trovio-light-text dark:text-trovio-dark-text", children: score }) });
+var BRAND_MATCHER_ROWS = [
+  {
+    Tile: PiStarDuotone,
+    Badge: PiTrendUpDuotone,
+    title: "Practical. Helpful. Relevant.",
+    description: "You share real solutions that make a difference. We match you with brands that do too.",
+    badgeLabel: "High alignment"
+  },
+  {
+    Tile: PiUsersThreeDuotone,
+    Badge: PiHeartDuotone,
+    title: "Built for Trust & Authenticity",
+    description: "We look beyond keywords to find partners who fit your voice and values.",
+    badgeLabel: "Audience-first"
+  },
+  {
+    Tile: PiLightningDuotone,
+    Badge: PiClockDuotone,
+    title: "Opportunities Worth Your Time",
+    description: "Get matched with brands that are ready, relevant, and a great fit.",
+    badgeLabel: "Save time"
+  }
+];
+function BrandMatcherPreview() {
+  return /* @__PURE__ */ jsx("div", { className: "divide-y divide-trovio-light-border overflow-hidden rounded-lg border border-trovio-light-border bg-trovio-light-bg dark:divide-trovio-dark-border dark:border-trovio-dark-border dark:bg-trovio-dark-bg", children: BRAND_MATCHER_ROWS.map((row) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 p-3", children: [
+    /* @__PURE__ */ jsx("span", { className: "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-trovio-primary/10 text-trovio-primary", children: /* @__PURE__ */ jsx(row.Tile, { size: 22 }) }),
+    /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
+      /* @__PURE__ */ jsx("p", { className: "text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: row.title }),
+      /* @__PURE__ */ jsx("p", { className: "mt-0.5 text-xs leading-snug text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: row.description })
+    ] }),
+    /* @__PURE__ */ jsxs("span", { className: "flex shrink-0 items-center gap-1.5 rounded-lg bg-trovio-primary/10 px-2.5 py-1 text-trovio-primary", children: [
+      /* @__PURE__ */ jsx(row.Badge, { className: "shrink-0", size: 13 }),
+      /* @__PURE__ */ jsx("span", { className: "whitespace-nowrap text-xs font-medium", children: row.badgeLabel })
+    ] })
+  ] }, row.title)) });
 }
+function ScoreRing({ score, size = 56 }) {
+  return /* @__PURE__ */ jsx(RingGauge, { size, value: score / 100, children: /* @__PURE__ */ jsxs("span", { className: "flex flex-col items-center leading-none", children: [
+    /* @__PURE__ */ jsx("span", { className: "text-base font-bold text-trovio-light-text dark:text-trovio-dark-text", children: score }),
+    /* @__PURE__ */ jsx("span", { className: "mt-0.5 text-[9px] font-medium text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: "/100" })
+  ] }) });
+}
+var POST_ANALYZER_BENCHMARK = 80;
+var POST_ANALYZER_METRICS = [
+  {
+    Icon: PiMagnetDuotone,
+    title: "Hook",
+    subtitle: "Grab attention early.",
+    pct: 86
+  },
+  {
+    Icon: PiWaveSineDuotone,
+    title: "Pacing",
+    subtitle: "Keep momentum going.",
+    pct: 72
+  },
+  {
+    Icon: PiTargetDuotone,
+    title: "Pillar fit",
+    subtitle: "Aligns with your core topics.",
+    pct: 64
+  }
+];
 function PostAnalyzerPreview({
-  thumbnailUrl,
-  analyzedCount
+  thumbnailUrl
 }) {
-  const metrics = [
-    { label: "Hook", pct: 86 },
-    { label: "Pacing", pct: 72 },
-    { label: "Pillar fit", pct: 64 }
-  ];
   return /* @__PURE__ */ jsxs("div", { className: PREVIEW_SHELL, children: [
-    /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-      /* @__PURE__ */ jsx("div", { className: "relative aspect-[9/16] w-14 shrink-0 overflow-hidden rounded", children: thumbnailUrl ? (
+    /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3.5", children: [
+      /* @__PURE__ */ jsx("div", { className: "relative aspect-[4/5] w-16 shrink-0 overflow-hidden rounded-lg", children: thumbnailUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
         /* @__PURE__ */ jsx(
           "img",
@@ -1365,25 +1395,47 @@ function PostAnalyzerPreview({
       ) : /* @__PURE__ */ jsx(PlaceholderTile, { className: "h-full w-full" }) }),
       /* @__PURE__ */ jsx(ScoreRing, { score: 92 }),
       /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
-        /* @__PURE__ */ jsx(SectionLabel, { tone: "primary", children: "Overall score" }),
-        /* @__PURE__ */ jsx("p", { className: "mt-0.5 text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text", children: "Strong hook \u2014 tighten the middle." }),
-        analyzedCount != null && analyzedCount > 0 && /* @__PURE__ */ jsxs("p", { className: `mt-1 ${META_TEXT}`, children: [
-          analyzedCount,
-          " of your videos analyzed"
-        ] })
+        /* @__PURE__ */ jsx("span", { className: "inline-flex rounded-md bg-trovio-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-trovio-primary", children: "Overall score" }),
+        /* @__PURE__ */ jsx("p", { className: "mt-1.5 text-sm font-bold leading-snug text-trovio-light-text dark:text-trovio-dark-text", children: "Strong hook \u2014 tighten the middle." }),
+        /* @__PURE__ */ jsx("p", { className: `mt-1 leading-snug ${META_TEXT}`, children: "Great start \u2014 your post is well-structured. A few tweaks will make it even stronger." })
       ] })
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "mt-3 space-y-2", children: metrics.map((m) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-      /* @__PURE__ */ jsx("span", { className: `w-16 shrink-0 ${META_TEXT}`, children: m.label }),
-      /* @__PURE__ */ jsx("div", { className: "h-1.5 flex-1 overflow-hidden rounded-full bg-trovio-light-border dark:bg-trovio-dark-border", children: /* @__PURE__ */ jsx(
-        "div",
-        {
-          className: "h-full rounded-full bg-gradient-to-r from-trovio-primary/60 to-trovio-primary",
-          style: { width: `${m.pct}%` }
-        }
-      ) }),
-      /* @__PURE__ */ jsx("span", { className: "w-7 shrink-0 text-right text-[11px] font-medium text-trovio-light-text dark:text-trovio-dark-text", children: m.pct })
-    ] }, m.label)) })
+    /* @__PURE__ */ jsx("div", { className: "mt-4 space-y-1 border-t border-trovio-light-border pt-3 dark:border-trovio-dark-border", children: POST_ANALYZER_METRICS.map((m) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 py-1.5", children: [
+      /* @__PURE__ */ jsx("span", { className: "flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-trovio-primary/10 text-trovio-primary", children: /* @__PURE__ */ jsx(m.Icon, { size: 18 }) }),
+      /* @__PURE__ */ jsxs("div", { className: "w-24 shrink-0", children: [
+        /* @__PURE__ */ jsx("p", { className: "text-sm font-semibold leading-tight text-trovio-light-text dark:text-trovio-dark-text", children: m.title }),
+        /* @__PURE__ */ jsx("p", { className: `line-clamp-2 leading-snug ${META_TEXT}`, children: m.subtitle })
+      ] }),
+      /* @__PURE__ */ jsx("div", { className: "relative flex-1", children: /* @__PURE__ */ jsxs("div", { className: "relative h-1.5 w-full rounded-full bg-trovio-light-border dark:bg-trovio-dark-border", children: [
+        /* @__PURE__ */ jsx(
+          "div",
+          {
+            className: "absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-trovio-primary/60 to-trovio-primary",
+            style: { width: `${m.pct}%` }
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          "span",
+          {
+            "aria-hidden": "true",
+            className: "absolute top-1/2 h-3.5 -translate-x-1/2 -translate-y-1/2 border-l border-dashed border-trovio-light-text-muted/50 dark:border-trovio-dark-text-muted/50",
+            style: { left: `${POST_ANALYZER_BENCHMARK}%` }
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          "span",
+          {
+            "aria-hidden": "true",
+            className: "absolute top-1/2 z-10 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-trovio-primary bg-white shadow-sm dark:bg-trovio-dark-surface",
+            style: { left: `${m.pct}%` }
+          }
+        )
+      ] }) }),
+      /* @__PURE__ */ jsxs("div", { className: "w-9 shrink-0 text-right", children: [
+        /* @__PURE__ */ jsx("p", { className: "text-sm font-bold leading-none text-trovio-light-text dark:text-trovio-dark-text", children: m.pct }),
+        /* @__PURE__ */ jsx("p", { className: `mt-0.5 ${META_TEXT}`, children: "/100" })
+      ] })
+    ] }, m.title)) })
   ] });
 }
 function LockedFeatureCardSkeleton({ variant }) {
@@ -1456,18 +1508,11 @@ function LockedFeatureCard({
             followers: item.stats?.followers,
             name: creatorName,
             platforms: item.stats?.platforms,
-            portraitUrl,
-            topPillar: item.pillars?.[0]?.label
+            portraitUrl
           }
         ),
-        item.variant === "post_analyzer" && /* @__PURE__ */ jsx(
-          PostAnalyzerPreview,
-          {
-            analyzedCount: item.analyzedCount,
-            thumbnailUrl: item.sampleThumbnailUrl
-          }
-        ),
-        item.variant === "brand_matcher" && /* @__PURE__ */ jsx(BrandMatcherPreview, { categories: item.pillars })
+        item.variant === "post_analyzer" && /* @__PURE__ */ jsx(PostAnalyzerPreview, { thumbnailUrl: item.sampleThumbnailUrl }),
+        item.variant === "brand_matcher" && /* @__PURE__ */ jsx(BrandMatcherPreview, {})
       ]
     }
   );

@@ -1,16 +1,17 @@
 'use strict';
 
-var react$1 = require('react');
+var React2 = require('react');
 var react = require('@heroui/react');
 var tailwindVariants = require('tailwind-variants');
 var jsxRuntime = require('react/jsx-runtime');
-var clsx15 = require('clsx');
+var clsx16 = require('clsx');
 var pi = require('react-icons/pi');
 var reactDom = require('react-dom');
 
 function _interopDefault (e) { return e && e.__esModule ? e : { default: e }; }
 
-var clsx15__default = /*#__PURE__*/_interopDefault(clsx15);
+var React2__default = /*#__PURE__*/_interopDefault(React2);
+var clsx16__default = /*#__PURE__*/_interopDefault(clsx16);
 
 // src/components/trovio-button.tsx
 var trovioButtonVariants = tailwindVariants.tv({
@@ -96,7 +97,7 @@ var trovioButtonVariants = tailwindVariants.tv({
     tone: "blue"
   }
 });
-var TrovioButton = react$1.forwardRef(
+var TrovioButton = React2.forwardRef(
   (propsFromArgs, _ref) => {
     const {
       children,
@@ -390,7 +391,7 @@ function TrovioCheckbox({
     react.Checkbox,
     {
       ...ariaProps,
-      className: clsx15__default.default(
+      className: clsx16__default.default(
         // Avoid extra spacing when used as an icon in a flex row
         "shrink-0 gap-0 group",
         className
@@ -401,7 +402,7 @@ function TrovioCheckbox({
       children: /* @__PURE__ */ jsxRuntime.jsx(
         react.Checkbox.Control,
         {
-          className: clsx15__default.default(
+          className: clsx16__default.default(
             controlSize,
             // Keep default square checkbox; apply Trovio colors.
             "rounded-md shadow-none",
@@ -418,7 +419,7 @@ function TrovioCheckbox({
           children: /* @__PURE__ */ jsxRuntime.jsx(
             react.Checkbox.Indicator,
             {
-              className: clsx15__default.default(
+              className: clsx16__default.default(
                 "flex items-center justify-center",
                 // keep the indicator container sized consistently
                 `[&_[data-slot='checkbox-default-indicator--checkmark']]:${checkmarkSize}`
@@ -427,7 +428,7 @@ function TrovioCheckbox({
                 "svg",
                 {
                   "aria-hidden": "true",
-                  className: clsx15__default.default(
+                  className: clsx16__default.default(
                     checkmarkSize,
                     isSelected ? "text-white" : "text-trovio-light-text-muted/40 dark:text-trovio-dark-text-muted/40"
                   ),
@@ -469,7 +470,7 @@ var TrovioSwitch = ({
   const switchElement = /* @__PURE__ */ jsxRuntime.jsx(
     react.Switch,
     {
-      className: clsx15__default.default("group", !label ? className : void 0),
+      className: clsx16__default.default("group", !label ? className : void 0),
       defaultSelected: checked === void 0 ? defaultChecked : void 0,
       id,
       isDisabled,
@@ -480,7 +481,7 @@ var TrovioSwitch = ({
       children: /* @__PURE__ */ jsxRuntime.jsx(
         react.Switch.Control,
         {
-          className: clsx15__default.default(
+          className: clsx16__default.default(
             // Default state
             "bg-trovio-light-border dark:bg-trovio-dark-border",
             // Hover state
@@ -497,7 +498,7 @@ var TrovioSwitch = ({
   if (!label) {
     return switchElement;
   }
-  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: clsx15__default.default("flex items-center gap-4", className), children: [
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: clsx16__default.default("flex items-center gap-4", className), children: [
     /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex-1", children: [
       /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text", children: label }),
       helperText && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: helperText })
@@ -518,7 +519,7 @@ var TrovioSpinner = ({
   return /* @__PURE__ */ jsxRuntime.jsx(
     react.Spinner,
     {
-      className: clsx15__default.default("text-trovio-primary", className),
+      className: clsx16__default.default("text-trovio-primary", className),
       color: "current",
       size: sizeMap[size] || "md"
     }
@@ -538,7 +539,7 @@ var TrovioSkeleton = ({
     react.Skeleton,
     {
       animationType: disableAnimation ? "none" : "pulse",
-      className: clsx15__default.default(
+      className: clsx16__default.default(
         className,
         usePrimaryColor && "bg-trovio-primary/15 dark:bg-trovio-primary/15"
       )
@@ -561,7 +562,7 @@ function TrovioProgressBar({
       "aria-valuemax": max,
       "aria-valuemin": 0,
       "aria-valuenow": value,
-      className: clsx15__default.default(
+      className: clsx16__default.default(
         "w-full rounded-full bg-trovio-light-border dark:bg-trovio-dark-border",
         size === "sm" ? "h-1.5" : "h-2.5",
         className
@@ -570,7 +571,7 @@ function TrovioProgressBar({
       children: /* @__PURE__ */ jsxRuntime.jsx(
         "div",
         {
-          className: clsx15__default.default(
+          className: clsx16__default.default(
             "rounded-full transition-all duration-500 ease-out",
             size === "sm" ? "h-1.5" : "h-2.5"
           ),
@@ -593,7 +594,7 @@ function WidgetCard({
   return /* @__PURE__ */ jsxRuntime.jsx(
     react.Card,
     {
-      className: clsx15__default.default("w-full overflow-hidden", !noPadding && "p-6", className),
+      className: clsx16__default.default("w-full overflow-hidden", !noPadding && "p-6", className),
       style: { minHeight },
       ...props,
       children
@@ -608,7 +609,7 @@ function SectionLabel({
   return /* @__PURE__ */ jsxRuntime.jsx(
     "p",
     {
-      className: clsx15__default.default(
+      className: clsx16__default.default(
         "text-micro uppercase",
         tone === "primary" ? "text-trovio-primary" : "text-trovio-light-text-muted dark:text-trovio-dark-text-muted",
         className
@@ -627,7 +628,7 @@ function SectionHeading({
   return /* @__PURE__ */ jsxRuntime.jsx(
     Tag,
     {
-      className: clsx15__default.default(
+      className: clsx16__default.default(
         "text-trovio-light-text dark:text-trovio-dark-text",
         hero ? "text-hero" : "text-section",
         divider && "border-b border-trovio-light-border pb-3 dark:border-trovio-dark-border",
@@ -677,12 +678,12 @@ function Avatar({
   size = 32,
   className
 }) {
-  const [errored, setErrored] = react$1.useState(false);
+  const [errored, setErrored] = React2.useState(false);
   const showImage = Boolean(imageUrl) && !errored;
   return /* @__PURE__ */ jsxRuntime.jsx(
     "span",
     {
-      className: clsx15__default.default(
+      className: clsx16__default.default(
         "inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-trovio-light-bg font-bold text-trovio-light-text dark:bg-trovio-dark-bg dark:text-trovio-dark-text",
         className
       ),
@@ -718,7 +719,7 @@ function RingGauge({
   return /* @__PURE__ */ jsxRuntime.jsxs(
     "div",
     {
-      className: clsx15__default.default("relative inline-flex shrink-0", className),
+      className: clsx16__default.default("relative inline-flex shrink-0", className),
       style: { width: size, height: size },
       children: [
         /* @__PURE__ */ jsxRuntime.jsxs("svg", { height: size, width: size, children: [
@@ -778,7 +779,7 @@ function Sparkline({
     "svg",
     {
       "aria-hidden": "true",
-      className: clsx15__default.default("shrink-0", className),
+      className: clsx16__default.default("shrink-0", className),
       height,
       viewBox: `0 0 ${width} ${height}`,
       width,
@@ -802,13 +803,13 @@ function SegmentedToggle({
   onChange,
   className
 }) {
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: clsx15__default.default("flex flex-wrap gap-2", className), role: "tablist", children: options.map((opt) => {
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: clsx16__default.default("flex flex-wrap gap-2", className), role: "tablist", children: options.map((opt) => {
     const active = opt.value === value;
     return /* @__PURE__ */ jsxRuntime.jsx(
       "button",
       {
         "aria-selected": active,
-        className: clsx15__default.default(
+        className: clsx16__default.default(
           "rounded-full border px-3 py-1.5 text-caption font-semibold transition-colors",
           active ? "border-trovio-primary bg-trovio-primary text-white" : "border-trovio-light-border text-trovio-light-text-muted hover:border-trovio-primary/50 dark:border-trovio-dark-border dark:text-trovio-dark-text-muted"
         ),
@@ -829,10 +830,10 @@ function ClampText({
   className,
   toggleClassName
 }) {
-  const ref = react$1.useRef(null);
-  const [expanded, setExpanded] = react$1.useState(false);
-  const [overflows, setOverflows] = react$1.useState(false);
-  react$1.useEffect(() => {
+  const ref = React2.useRef(null);
+  const [expanded, setExpanded] = React2.useState(false);
+  const [overflows, setOverflows] = React2.useState(false);
+  React2.useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const check = () => {
@@ -860,7 +861,7 @@ function ClampText({
     (overflows || expanded) && /* @__PURE__ */ jsxRuntime.jsx(
       "button",
       {
-        className: clsx15__default.default(
+        className: clsx16__default.default(
           "mt-1 cursor-pointer text-caption font-semibold text-trovio-primary",
           toggleClassName
         ),
@@ -880,7 +881,7 @@ function GeneratingBlock({
   lines = 3,
   className
 }) {
-  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: clsx15__default.default("space-y-4", className), children: [
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: clsx16__default.default("space-y-4", className), children: [
     /* @__PURE__ */ jsxRuntime.jsx("div", { "aria-hidden": true, className: "space-y-2.5", children: Array.from({ length: lines }, (_, i) => /* @__PURE__ */ jsxRuntime.jsx(
       "div",
       {
@@ -895,6 +896,77 @@ function GeneratingBlock({
     ] })
   ] });
 }
+var OnboardingBrandHeader = ({
+  logo,
+  left,
+  right,
+  className = ""
+}) => {
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "header",
+    {
+      className: `w-full border-b border-trovio-light-border dark:border-trovio-dark-border ${className}`,
+      children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative flex h-16 items-center justify-center px-4", children: [
+        left ? /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute left-4", children: left }) : null,
+        logo,
+        right ? /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute right-4", children: right }) : null
+      ] })
+    }
+  );
+};
+var BrandLogo = ({
+  lightSrc,
+  darkSrc,
+  alt = "",
+  className = ""
+}) => {
+  return /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntime.jsx("img", { alt, className: `block dark:hidden ${className}`, src: lightSrc }),
+    /* @__PURE__ */ jsxRuntime.jsx("img", { alt, className: `hidden dark:block ${className}`, src: darkSrc })
+  ] });
+};
+var GoalCard = React2__default.default.forwardRef(
+  function GoalCard2({ rank, icon, title, description, iconGradient, isDragging = false, className, ...rest }, ref) {
+    return /* @__PURE__ */ jsxRuntime.jsxs(
+      "div",
+      {
+        ref,
+        className: clsx16__default.default(
+          "relative select-none rounded-2xl bg-white shadow-sm dark:bg-trovio-dark-surface",
+          "border border-trovio-light-border dark:border-trovio-dark-border",
+          "transition-shadow duration-200",
+          isDragging && "shadow-lg ring-2 ring-trovio-primary ring-opacity-50",
+          className
+        ),
+        ...rest,
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute -left-2 -top-2 z-10 flex size-8 items-center justify-center rounded-full border-2 border-white bg-trovio-primary shadow-md dark:border-trovio-dark-bg", children: /* @__PURE__ */ jsxRuntime.jsx("span", { className: "select-none text-sm font-black text-white", children: rank }) }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3 p-4", children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "-my-4 -ml-4 flex flex-col gap-1 px-3 py-4 opacity-70", children: [...Array(6)].map((_, i) => /* @__PURE__ */ jsxRuntime.jsx(
+              "div",
+              {
+                className: "size-1.5 rounded-full bg-trovio-light-border dark:bg-trovio-dark-border"
+              },
+              i
+            )) }),
+            /* @__PURE__ */ jsxRuntime.jsx(
+              "div",
+              {
+                className: "flex size-12 select-none items-center justify-center rounded-2xl shadow-sm",
+                style: { background: iconGradient },
+                children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "pointer-events-none text-2xl text-white", children: icon })
+              }
+            ),
+            /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "min-w-0 flex-1 select-none", children: [
+              /* @__PURE__ */ jsxRuntime.jsx("h3", { className: "text-base font-bold leading-tight text-trovio-light-text dark:text-trovio-dark-text", children: title }),
+              /* @__PURE__ */ jsxRuntime.jsx("p", { className: "mt-0.5 text-xs leading-snug text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: description })
+            ] })
+          ] })
+        ]
+      }
+    );
+  }
+);
 function JourneyStepper({
   steps,
   onCurrentClick
@@ -908,7 +980,7 @@ function JourneyStepper({
     const rightDone = step.status === "completed";
     const isLoading = step.status === "current" && Boolean(step.loading);
     const circleBase = "relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors sm:h-10 sm:w-10 sm:text-sm";
-    const circle = clsx15__default.default(
+    const circle = clsx16__default.default(
       circleBase,
       step.status === "completed" && "bg-trovio-primary text-white",
       // Loading current step drops the static border — the spinning arc
@@ -965,7 +1037,7 @@ function JourneyStepper({
       "button",
       {
         "aria-label": `${step.label}, ${isLoading ? "in progress, " : ""}tap to activate`,
-        className: clsx15__default.default(circle, "cursor-pointer"),
+        className: clsx16__default.default(circle, "cursor-pointer"),
         type: "button",
         onClick: onCurrentClick,
         children: inner
@@ -988,7 +1060,7 @@ function JourneyStepper({
             /* @__PURE__ */ jsxRuntime.jsx(
               "div",
               {
-                className: clsx15__default.default(
+                className: clsx16__default.default(
                   "h-px flex-1",
                   isFirst ? "bg-transparent" : lineClass(leftDone)
                 )
@@ -998,7 +1070,7 @@ function JourneyStepper({
             /* @__PURE__ */ jsxRuntime.jsx(
               "div",
               {
-                className: clsx15__default.default(
+                className: clsx16__default.default(
                   "h-px flex-1",
                   isLast ? "bg-transparent" : lineClass(rightDone)
                 )
@@ -1008,7 +1080,7 @@ function JourneyStepper({
           /* @__PURE__ */ jsxRuntime.jsx(
             "span",
             {
-              className: clsx15__default.default(
+              className: clsx16__default.default(
                 "mt-2 px-0.5 text-center text-[11px] leading-tight sm:text-sm",
                 step.status === "upcoming" ? "text-trovio-light-text-muted dark:text-trovio-dark-text-muted" : "font-medium text-trovio-light-text dark:text-trovio-dark-text"
               ),
@@ -1115,7 +1187,7 @@ function PortraitHero({
   handles,
   action
 }) {
-  const [errored, setErrored] = react$1.useState(false);
+  const [errored, setErrored] = React2.useState(false);
   const showImage = Boolean(imageUrl) && !errored;
   return /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
     /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-trovio-primary/30 to-trovio-primary-dark/30 lg:aspect-[3/4]", children: [
@@ -1416,7 +1488,7 @@ function Drawer({
   footer,
   children
 }) {
-  react$1.useEffect(() => {
+  React2.useEffect(() => {
     if (!isOpen) return;
     const onKey = (e) => {
       if (e.key === "Escape") onClose();
@@ -1444,7 +1516,7 @@ function Drawer({
       /* @__PURE__ */ jsxRuntime.jsxs(
         "div",
         {
-          className: clsx15__default.default(
+          className: clsx16__default.default(
             "absolute inset-y-0 right-0 flex w-full flex-col bg-trovio-light-surface shadow-2xl dark:bg-trovio-dark-surface",
             "sm:max-w-[480px]"
           ),
@@ -1577,12 +1649,15 @@ var designTokens = {
 };
 
 exports.Avatar = Avatar;
+exports.BrandLogo = BrandLogo;
 exports.ClampText = ClampText;
 exports.Drawer = Drawer;
 exports.GeneratingBlock = GeneratingBlock;
+exports.GoalCard = GoalCard;
 exports.JourneyStepper = JourneyStepper;
 exports.LockChip = LockChip;
 exports.LockedFeatureCard = LockedFeatureCard;
+exports.OnboardingBrandHeader = OnboardingBrandHeader;
 exports.PillarChips = PillarChips;
 exports.PlatformIcon = PlatformIcon;
 exports.PortraitHero = PortraitHero;

@@ -45,3 +45,16 @@ export const ThreeStep: Story = {
     ],
   },
 };
+
+/** Current step still working — spinning arc instead of the static ring. Used
+ *  on the acquainted living screen while the analysis is being generated. */
+export const LoadingStep: Story = {
+  args: {
+    steps: [
+      { label: "Content", status: "completed" },
+      { label: "Strategy", status: "current", loading: true },
+      { label: "Activate", status: "upcoming" },
+      { label: "Grow", status: "upcoming" },
+    ],
+  },
+};

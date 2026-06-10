@@ -1,0 +1,47 @@
+name: Tag release on merge to main
+
+# Consumers (creator-dashboard, etc.) install @trovio/ui from a git tag, so every
+# merge to main that bumps package.json should produce a matching vX.Y.Z tag.
+# This runs on the merge commit itself and is idempotent — if the tag for the
+# current package.json version already exists, it does nothing.
+on:
+  push:
+    branches: [main]
+
+# Let the default GITHUB_TOKEN create the tag + release.
+# Requires repo Settings → Actions → General → Workflow permissions =
+# "Read and write permissions".
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with tags)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Read package version
+        id: ver
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag + release if it doesn't exist
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG="v${{ steps.ver.outputs.version }}"
+
+          if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
+            echo "Tag $TAG already exists — nothing to do."
+            exit 0
+          fi
+
+          echo "Tagging $TAG at ${{ github.sha }}"
+          gh release create "$TAG" \
+            --target "${{ github.sha }}" \
+            --title "$TAG" \
+            --generate-notes

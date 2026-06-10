@@ -1477,10 +1477,12 @@ function LockedFeatureCard({
   portraitUrl,
   creatorName,
   onActivate,
+  ctaLabel,
   loading
 }) {
   const meta = VARIANT_META[item.variant];
   const description = item.description?.trim() || meta.value;
+  const cta = ctaLabel?.trim();
   if (loading) return /* @__PURE__ */ jsxRuntime.jsx(LockedFeatureCardSkeleton, { variant: item.variant });
   return /* @__PURE__ */ jsxRuntime.jsxs(
     "button",
@@ -1519,7 +1521,17 @@ function LockedFeatureCard({
           }
         ),
         item.variant === "post_analyzer" && /* @__PURE__ */ jsxRuntime.jsx(PostAnalyzerPreview, { thumbnailUrl: item.sampleThumbnailUrl }),
-        item.variant === "brand_matcher" && /* @__PURE__ */ jsxRuntime.jsx(BrandMatcherPreview, {})
+        item.variant === "brand_matcher" && /* @__PURE__ */ jsxRuntime.jsx(BrandMatcherPreview, {}),
+        cta ? /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-3 flex justify-end", children: /* @__PURE__ */ jsxRuntime.jsxs("span", { className: "inline-flex items-center gap-1.5 text-sm font-semibold text-trovio-primary", children: [
+          cta,
+          /* @__PURE__ */ jsxRuntime.jsx(
+            pi.PiArrowRightBold,
+            {
+              className: "transition-transform group-hover:translate-x-0.5",
+              size: 13
+            }
+          )
+        ] }) }) : null
       ]
     }
   );

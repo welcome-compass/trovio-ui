@@ -18,6 +18,7 @@ import {
   PiMagnetDuotone,
   PiWaveSineDuotone,
   PiTargetDuotone,
+  PiArrowRightBold,
 } from "react-icons/pi";
 
 import { PlatformIcon } from "./platform-icon";
@@ -83,6 +84,10 @@ export interface LockedFeatureCardProps {
   creatorName?: string;
   /** Invoked on tap (e.g. open the upsell). Analytics live in the consumer. */
   onActivate?: () => void;
+  /** Right-aligned call-to-action label, written per feature by the consumer
+   *  (e.g. "Create my media kit", "See my matches"). Omitted → no CTA shown.
+   *  Visual only — the whole card already triggers `onActivate` on tap. */
+  ctaLabel?: string;
   /** Show the card's identity (icon + title + lock) over a breathing skeleton
    *  preview — for the living screen while the rest of the page is generating. */
   loading?: boolean;
@@ -475,10 +480,12 @@ export function LockedFeatureCard({
   portraitUrl,
   creatorName,
   onActivate,
+  ctaLabel,
   loading,
 }: LockedFeatureCardProps) {
   const meta = VARIANT_META[item.variant];
   const description = item.description?.trim() || meta.value;
+  const cta = ctaLabel?.trim();
 
   if (loading) return <LockedFeatureCardSkeleton variant={item.variant} />;
 
@@ -520,6 +527,18 @@ export function LockedFeatureCard({
         <PostAnalyzerPreview thumbnailUrl={item.sampleThumbnailUrl} />
       )}
       {item.variant === "brand_matcher" && <BrandMatcherPreview />}
+
+      {cta ? (
+        <div className="mt-3 flex justify-end">
+          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-trovio-primary">
+            {cta}
+            <PiArrowRightBold
+              className="transition-transform group-hover:translate-x-0.5"
+              size={13}
+            />
+          </span>
+        </div>
+      ) : null}
     </button>
   );
 }

@@ -541,11 +541,15 @@ interface LockedFeatureCardProps {
     creatorName?: string;
     /** Invoked on tap (e.g. open the upsell). Analytics live in the consumer. */
     onActivate?: () => void;
+    /** Right-aligned call-to-action label, written per feature by the consumer
+     *  (e.g. "Create my media kit", "See my matches"). Omitted → no CTA shown.
+     *  Visual only — the whole card already triggers `onActivate` on tap. */
+    ctaLabel?: string;
     /** Show the card's identity (icon + title + lock) over a breathing skeleton
      *  preview — for the living screen while the rest of the page is generating. */
     loading?: boolean;
 }
-declare function LockedFeatureCard({ item, portraitUrl, creatorName, onActivate, loading, }: LockedFeatureCardProps): React.JSX.Element;
+declare function LockedFeatureCard({ item, portraitUrl, creatorName, onActivate, ctaLabel, loading, }: LockedFeatureCardProps): React.JSX.Element;
 
 /**
  * Drawer (Component) — a right-side slide-over panel over a dimming scrim.

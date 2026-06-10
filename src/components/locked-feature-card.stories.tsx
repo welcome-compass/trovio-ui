@@ -53,28 +53,14 @@ export const BrandMatcher: Story = {
     item: {
       variant: "brand_matcher",
       treatment: "veiled",
-      description: "Real brands matched to your pillars, after you activate.",
-      pillars: [
-        { label: "Everyday AI", reason: "Your signature lane" },
-        { label: "Founder & creator tools", reason: "Builder-energy audience" },
-        { label: "Dad-life adventures", reason: "Relatable weekend content" },
-      ],
+      description:
+        "Find sponsors that fit your world — from **technical experiments** and **creative workflows** to **family life** and everything in between.",
     },
   },
 };
 
 export const PostAnalyzer: Story = {
   args: {
-    item: { variant: "post_analyzer", treatment: "veiled", analyzedCount: 15 },
+    item: { variant: "post_analyzer", treatment: "veiled" },
   },
-};
-
-// --- Illustrative fallback (no real fields → example data) ------------------
-
-export const MediaKitFallback: Story = {
-  args: { item: { variant: "media_kit", treatment: "crisp" } },
-};
-
-export const BrandMatcherFallback: Story = {
-  args: { item: { variant: "brand_matcher", treatment: "veiled" } },
 };

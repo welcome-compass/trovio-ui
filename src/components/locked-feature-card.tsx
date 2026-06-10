@@ -8,6 +8,16 @@ import {
   PiHandshakeDuotone,
   PiSparkleDuotone,
   PiLockSimpleDuotone,
+  PiUsersThreeDuotone,
+  PiTrendUpDuotone,
+  PiEyeDuotone,
+  PiStarDuotone,
+  PiLightningDuotone,
+  PiHeartDuotone,
+  PiClockDuotone,
+  PiMagnetDuotone,
+  PiWaveSineDuotone,
+  PiTargetDuotone,
 } from "react-icons/pi";
 
 import { PlatformIcon } from "./platform-icon";
@@ -56,10 +66,12 @@ export interface LockedFeatureItem {
   /** @deprecated No longer rendered — the Media Kit preview is an identity
    *  masthead (portfolio), not a post grid. Kept so existing payloads parse. */
   sampleImages?: string[];
-  /** Real content pillars → Media Kit "top pillar" + Brand Matcher rows
-   *  (grounded categories; no fabricated match scores until matching runs). */
+  /** @deprecated No longer rendered — Media Kit dropped its "top pillar" line
+   *  and Brand Matcher now uses fixed value-prop rows. Kept so existing payloads
+   *  parse. */
   pillars?: LockedFeaturePillar[];
-  /** Count of already-analyzed posts → real Post Analyzer teaser line. */
+  /** @deprecated No longer rendered — the Post Analyzer preview dropped its
+   *  "{n} videos analyzed" line. Kept so existing payloads parse. */
   analyzedCount?: number;
 }
 
@@ -130,9 +142,10 @@ function PlaceholderTile({ className }: { className?: string }) {
 }
 
 /**
- * Media Kit — the kit's own masthead, simplified: identity (portrait + name +
- * platforms) over the cross-platform metrics brands ask for, plus the top
- * pillar line. A portfolio cover, not a post grid.
+ * Media Kit — the kit's own cover, mirroring the real one-pager: a tinted
+ * identity masthead (portrait + name + platforms, with a soft dotted motif)
+ * over an icon-tile stat strip of the cross-platform metrics brands ask for.
+ * A portfolio cover, not a post grid.
  */
 function MediaKitPreview({
   portraitUrl,
@@ -141,7 +154,6 @@ function MediaKitPreview({
   platforms,
   engagementRate,
   avgViews,
-  topPillar,
 }: {
   portraitUrl?: string | null;
   name?: string;
@@ -149,12 +161,12 @@ function MediaKitPreview({
   platforms?: string[];
   engagementRate?: number | null;
   avgViews?: number | null;
-  topPillar?: string;
 }) {
   const metrics = [
     {
       label: "Followers",
       value: followers != null ? formatCompactNumber(followers) : "—",
+      Icon: PiUsersThreeDuotone,
     },
     {
       label: "Eng. rate",
@@ -162,153 +174,198 @@ function MediaKitPreview({
         engagementRate != null
           ? `${(engagementRate * 100).toFixed(1)}%`
           : "5.2%",
+      Icon: PiTrendUpDuotone,
     },
     {
       label: "Avg. views",
       value: avgViews != null ? formatCompactNumber(avgViews) : "8.4K",
+      Icon: PiEyeDuotone,
     },
   ];
 
   return (
-    <div className={PREVIEW_SHELL}>
-      {/* Masthead — reads like the top of the real one-pager */}
-      <div className="flex items-center gap-3">
-        <Avatar imageUrl={portraitUrl} name={name ?? ""} size={44} />
-        <div className="min-w-0 flex-1">
-          <SectionLabel tone="primary">Media Kit</SectionLabel>
-          {name ? (
-            <p className="truncate text-body font-semibold text-trovio-light-text dark:text-trovio-dark-text">
-              {name}
-            </p>
-          ) : null}
-          {platforms && platforms.length > 0 && (
-            <span className="mt-0.5 flex items-center gap-1.5 text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
-              {platforms.map((p) => (
-                <PlatformIcon key={p} platform={p} size={13} />
-              ))}
-            </span>
-          )}
+    <div className="overflow-hidden rounded-lg border border-trovio-light-border bg-trovio-light-bg dark:border-trovio-dark-border dark:bg-trovio-dark-bg">
+      {/* Masthead band — tinted cover with a soft dotted motif, top-right */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-trovio-primary/[0.07] to-trovio-primary/[0.03] px-4 py-4">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-3 top-1/2 h-20 w-36 -translate-y-1/2 text-trovio-primary/30"
+          style={{
+            backgroundImage:
+              "radial-gradient(currentColor 1.5px, transparent 1.5px)",
+            backgroundSize: "13px 13px",
+            maskImage: "linear-gradient(to left, black 35%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to left, black 35%, transparent 100%)",
+          }}
+        />
+        <div className="relative flex items-center gap-3.5">
+          <Avatar imageUrl={portraitUrl} name={name ?? ""} size={56} />
+          <div className="min-w-0 flex-1">
+            <SectionLabel tone="primary">Media Kit</SectionLabel>
+            {name ? (
+              <p className="truncate text-lg font-bold leading-tight text-trovio-light-text dark:text-trovio-dark-text">
+                {name}
+              </p>
+            ) : null}
+            {platforms && platforms.length > 0 && (
+              <span className="mt-1 flex items-center gap-1.5 text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
+                {platforms.map((p) => (
+                  <PlatformIcon key={p} platform={p} size={14} />
+                ))}
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
-      <div className="mt-3 grid grid-cols-3 gap-2 border-y border-trovio-light-border py-2.5 dark:border-trovio-dark-border">
+      {/* Stat strip — the cross-platform numbers brands ask for */}
+      <div className="grid grid-cols-3 divide-x divide-trovio-light-border dark:divide-trovio-dark-border">
         {metrics.map((m) => (
-          <div key={m.label}>
-            <p className="text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text">
-              {m.value}
-            </p>
-            <p className={META_TEXT}>{m.label}</p>
+          <div key={m.label} className="flex items-center gap-2 px-3 py-3">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-trovio-primary/10 text-trovio-primary">
+              <m.Icon size={17} />
+            </span>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-bold leading-tight text-trovio-light-text dark:text-trovio-dark-text">
+                {m.value}
+              </p>
+              <p className={`truncate ${META_TEXT}`}>{m.label}</p>
+            </div>
           </div>
         ))}
-      </div>
-
-      <div className={`mt-2.5 flex items-baseline justify-between gap-2 ${META_TEXT}`}>
-        <span className="shrink-0">{topPillar ? "Top pillar" : "Audience"}</span>
-        <span className="truncate text-right text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text">
-          {topPillar ?? "65% women · 25–34"}
-        </span>
       </div>
     </div>
   );
 }
 
 /**
- * Brand Matcher — personalized rows. With real pillars we show the creator's own
- * brand "spaces" + why (no fabricated scores until matching runs); without them
- * we fall back to illustrative category + score rows.
+ * Brand Matcher — the value the tool delivers, in three fixed rows (icon +
+ * headline + supporting line + an outcome badge). The copy is intentionally
+ * static marketing text about the feature itself (not creator data), so it's
+ * hardcoded here rather than threaded from pillars or the backend.
  */
-function BrandMatcherPreview({
-  categories,
-}: {
-  categories?: LockedFeaturePillar[];
-}) {
-  const hasReal = Boolean(categories && categories.length);
-  const rows = hasReal
-    ? categories!.slice(0, 3).map((c) => ({
-        category: c.label,
-        reason: c.reason ?? "A natural fit for your content",
-        score: null as number | null,
-      }))
-    : [
-        {
-          category: "Beauty & Skincare",
-          reason: "Aligns with your skincare content",
-          score: 94,
-        },
-        {
-          category: "Health & Wellness",
-          reason: "Strong fit for your audience",
-          score: 89,
-        },
-        {
-          category: "Travel & Lifestyle",
-          reason: "Matches your lifestyle pillar",
-          score: 86,
-        },
-      ];
+const BRAND_MATCHER_ROWS: {
+  Tile: IconType;
+  Badge: IconType;
+  title: string;
+  description: string;
+  badgeLabel: string;
+}[] = [
+  {
+    Tile: PiStarDuotone,
+    Badge: PiTrendUpDuotone,
+    title: "Practical. Helpful. Relevant.",
+    description:
+      "You share real solutions that make a difference. We match you with brands that do too.",
+    badgeLabel: "High alignment",
+  },
+  {
+    Tile: PiUsersThreeDuotone,
+    Badge: PiHeartDuotone,
+    title: "Built for Trust & Authenticity",
+    description:
+      "We look beyond keywords to find partners who fit your voice and values.",
+    badgeLabel: "Audience-first",
+  },
+  {
+    Tile: PiLightningDuotone,
+    Badge: PiClockDuotone,
+    title: "Opportunities Worth Your Time",
+    description:
+      "Get matched with brands that are ready, relevant, and a great fit.",
+    badgeLabel: "Save time",
+  },
+];
 
+function BrandMatcherPreview() {
   return (
-    <div className={PREVIEW_SHELL}>
-      <SectionLabel className="mb-2.5" tone="primary">
-        {hasReal ? "Brands in your spaces" : "12 potential matches"}
-      </SectionLabel>
-      <div className="space-y-2.5">
-        {rows.map((r) => (
-          <div key={r.category} className="flex items-center gap-2.5">
-            <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-trovio-primary/10">
-              <PiHandshakeDuotone className="absolute inset-0 m-auto h-4 w-4 text-trovio-primary/40" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text">
-                {r.category}
-              </p>
-              <p className={`truncate ${META_TEXT}`}>{r.reason}</p>
-            </div>
-            {r.score != null && (
-              <span className="shrink-0 text-sm font-bold text-trovio-primary">
-                {r.score}%
-              </span>
-            )}
+    <div className="divide-y divide-trovio-light-border overflow-hidden rounded-lg border border-trovio-light-border bg-trovio-light-bg dark:divide-trovio-dark-border dark:border-trovio-dark-border dark:bg-trovio-dark-bg">
+      {BRAND_MATCHER_ROWS.map((row) => (
+        <div key={row.title} className="flex items-center gap-3 p-3">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-trovio-primary/10 text-trovio-primary">
+            <row.Tile size={22} />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold text-trovio-light-text dark:text-trovio-dark-text">
+              {row.title}
+            </p>
+            <p className="mt-0.5 text-xs leading-snug text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
+              {row.description}
+            </p>
           </div>
-        ))}
-      </div>
+          <span className="flex shrink-0 items-center gap-1.5 rounded-lg bg-trovio-primary/10 px-2.5 py-1 text-trovio-primary">
+            <row.Badge className="shrink-0" size={13} />
+            <span className="whitespace-nowrap text-xs font-medium">
+              {row.badgeLabel}
+            </span>
+          </span>
+        </div>
+      ))}
     </div>
   );
 }
 
-/** Circular score ring for the Post Analyzer — RingGauge with the score inside. */
-function ScoreRing({ score, size = 52 }: { score: number; size?: number }) {
+/** Circular score ring for the Post Analyzer — RingGauge with the score + "/100"
+ *  stacked inside. */
+function ScoreRing({ score, size = 56 }: { score: number; size?: number }) {
   return (
     <RingGauge size={size} value={score / 100}>
-      <span className="text-sm font-bold text-trovio-light-text dark:text-trovio-dark-text">
-        {score}
+      <span className="flex flex-col items-center leading-none">
+        <span className="text-base font-bold text-trovio-light-text dark:text-trovio-dark-text">
+          {score}
+        </span>
+        <span className="mt-0.5 text-[9px] font-medium text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
+          /100
+        </span>
       </span>
     </RingGauge>
   );
 }
 
+/** Benchmark all three dimensions are measured against (illustrative). */
+const POST_ANALYZER_BENCHMARK = 80;
+const POST_ANALYZER_METRICS: {
+  Icon: IconType;
+  title: string;
+  subtitle: string;
+  pct: number;
+}[] = [
+  {
+    Icon: PiMagnetDuotone,
+    title: "Hook",
+    subtitle: "Grab attention early.",
+    pct: 86,
+  },
+  {
+    Icon: PiWaveSineDuotone,
+    title: "Pacing",
+    subtitle: "Keep momentum going.",
+    pct: 72,
+  },
+  {
+    Icon: PiTargetDuotone,
+    title: "Pillar fit",
+    subtitle: "Aligns with your core topics.",
+    pct: 64,
+  },
+];
+
 /**
- * Post Analyzer — score ring + AI insight + dimension bars. The score/bars stay
- * illustrative until the eval scorer runs; a real "{n} videos analyzed" line is
- * shown when the consumer supplies analyzedCount.
+ * Post Analyzer — an overall-score masthead (thumbnail + ring + AI verdict) over
+ * per-dimension sliders, each scored against an 80 benchmark. The score/verdict/
+ * dimensions are illustrative until the eval scorer runs.
  */
 function PostAnalyzerPreview({
   thumbnailUrl,
-  analyzedCount,
 }: {
   thumbnailUrl?: string | null;
-  analyzedCount?: number;
 }) {
-  const metrics = [
-    { label: "Hook", pct: 86 },
-    { label: "Pacing", pct: 72 },
-    { label: "Pillar fit", pct: 64 },
-  ];
-
   return (
     <div className={PREVIEW_SHELL}>
-      <div className="flex items-center gap-3">
-        <div className="relative aspect-[9/16] w-14 shrink-0 overflow-hidden rounded">
+      {/* Masthead — thumbnail + overall score ring + AI verdict */}
+      <div className="flex items-center gap-3.5">
+        <div className="relative aspect-[4/5] w-16 shrink-0 overflow-hidden rounded-lg">
           {thumbnailUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -322,31 +379,60 @@ function PostAnalyzerPreview({
         </div>
         <ScoreRing score={92} />
         <div className="min-w-0 flex-1">
-          <SectionLabel tone="primary">Overall score</SectionLabel>
-          <p className="mt-0.5 text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text">
+          <span className="inline-flex rounded-md bg-trovio-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-trovio-primary">
+            Overall score
+          </span>
+          <p className="mt-1.5 text-sm font-bold leading-snug text-trovio-light-text dark:text-trovio-dark-text">
             Strong hook — tighten the middle.
           </p>
-          {analyzedCount != null && analyzedCount > 0 && (
-            <p className={`mt-1 ${META_TEXT}`}>
-              {analyzedCount} of your videos analyzed
-            </p>
-          )}
+          <p className={`mt-1 leading-snug ${META_TEXT}`}>
+            Great start — your post is well-structured. A few tweaks will make it
+            even stronger.
+          </p>
         </div>
       </div>
 
-      <div className="mt-3 space-y-2">
-        {metrics.map((m) => (
-          <div key={m.label} className="flex items-center gap-2">
-            <span className={`w-16 shrink-0 ${META_TEXT}`}>{m.label}</span>
-            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-trovio-light-border dark:bg-trovio-dark-border">
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-trovio-primary/60 to-trovio-primary"
-                style={{ width: `${m.pct}%` }}
-              />
-            </div>
-            <span className="w-7 shrink-0 text-right text-[11px] font-medium text-trovio-light-text dark:text-trovio-dark-text">
-              {m.pct}
+      {/* Per-dimension sliders, each measured against the 80 benchmark tick */}
+      <div className="mt-4 space-y-1 border-t border-trovio-light-border pt-3 dark:border-trovio-dark-border">
+        {POST_ANALYZER_METRICS.map((m) => (
+          <div key={m.title} className="flex items-center gap-3 py-1.5">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-trovio-primary/10 text-trovio-primary">
+              <m.Icon size={18} />
             </span>
+            <div className="w-24 shrink-0">
+              <p className="text-sm font-semibold leading-tight text-trovio-light-text dark:text-trovio-dark-text">
+                {m.title}
+              </p>
+              <p className={`line-clamp-2 leading-snug ${META_TEXT}`}>
+                {m.subtitle}
+              </p>
+            </div>
+            <div className="relative flex-1">
+              <div className="relative h-1.5 w-full rounded-full bg-trovio-light-border dark:bg-trovio-dark-border">
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-trovio-primary/60 to-trovio-primary"
+                  style={{ width: `${m.pct}%` }}
+                />
+                {/* 80 benchmark tick */}
+                <span
+                  aria-hidden="true"
+                  className="absolute top-1/2 h-3.5 -translate-x-1/2 -translate-y-1/2 border-l border-dashed border-trovio-light-text-muted/50 dark:border-trovio-dark-text-muted/50"
+                  style={{ left: `${POST_ANALYZER_BENCHMARK}%` }}
+                />
+                {/* draggable-style knob at the score position */}
+                <span
+                  aria-hidden="true"
+                  className="absolute top-1/2 z-10 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-trovio-primary bg-white shadow-sm dark:bg-trovio-dark-surface"
+                  style={{ left: `${m.pct}%` }}
+                />
+              </div>
+            </div>
+            <div className="w-9 shrink-0 text-right">
+              <p className="text-sm font-bold leading-none text-trovio-light-text dark:text-trovio-dark-text">
+                {m.pct}
+              </p>
+              <p className={`mt-0.5 ${META_TEXT}`}>/100</p>
+            </div>
           </div>
         ))}
       </div>
@@ -428,18 +514,12 @@ export function LockedFeatureCard({
           name={creatorName}
           platforms={item.stats?.platforms}
           portraitUrl={portraitUrl}
-          topPillar={item.pillars?.[0]?.label}
         />
       )}
       {item.variant === "post_analyzer" && (
-        <PostAnalyzerPreview
-          analyzedCount={item.analyzedCount}
-          thumbnailUrl={item.sampleThumbnailUrl}
-        />
+        <PostAnalyzerPreview thumbnailUrl={item.sampleThumbnailUrl} />
       )}
-      {item.variant === "brand_matcher" && (
-        <BrandMatcherPreview categories={item.pillars} />
-      )}
+      {item.variant === "brand_matcher" && <BrandMatcherPreview />}
     </button>
   );
 }

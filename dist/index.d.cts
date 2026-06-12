@@ -497,7 +497,7 @@ interface BreadcrumbItem {
     /** When set, the crumb is a link. The last item is treated as the current page. */
     href?: string;
 }
-type LinkLike$1 = ComponentType<{
+type LinkLike$2 = ComponentType<{
     href: string;
     className?: string;
     children: ReactNode;
@@ -508,7 +508,7 @@ interface BreadcrumbsProps {
      * Link renderer. Pass your router's link (e.g. Next's `Link`) for client-side
      * navigation; defaults to a plain `<a>` so the primitive stays framework-free.
      */
-    linkComponent?: LinkLike$1;
+    linkComponent?: LinkLike$2;
     className?: string;
 }
 /**
@@ -517,6 +517,28 @@ interface BreadcrumbsProps {
  * meant to be reused across deeper pages.
  */
 declare function Breadcrumbs({ items, linkComponent, className }: BreadcrumbsProps): react.JSX.Element;
+
+type LinkLike$1 = ComponentType<{
+    href: string;
+    className?: string;
+    children?: ReactNode;
+}>;
+interface BackButtonProps {
+    label?: string;
+    /** In-place back (e.g. collapse an inline editor). */
+    onClick?: () => void;
+    /** Or navigate back to a route. Pass your router's link via `linkComponent`. */
+    href?: string;
+    linkComponent?: LinkLike$1;
+    className?: string;
+}
+/**
+ * BackButton — the one consistent "← Back" affordance. Muted to match the
+ * Breadcrumbs trail (wayfinding reads as one quiet family, not a loud button),
+ * with a clean (non-duotone) arrow so there's no icon background. Works as an
+ * in-place action (`onClick`) or a route link (`href` + `linkComponent`).
+ */
+declare function BackButton({ label, onClick, href, linkComponent, className, }: BackButtonProps): react.JSX.Element;
 
 interface EmailMessageProps {
     /** Subject line. Omitted for non-email channels (renders body-only). */
@@ -841,4 +863,4 @@ declare function Drawer({ isOpen, onClose, title, eyebrow, headerExtra, footer, 
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { Avatar, type AvatarProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, ClampText, type ClampTextProps, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, ClampText, type ClampTextProps, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

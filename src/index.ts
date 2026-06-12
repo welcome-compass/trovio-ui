@@ -61,6 +61,8 @@ export type { GoalCardProps } from "./components/goal-card";
 // ── Components (composed of primitives) ─────────────────────────────────────
 export { Breadcrumbs } from "./components/breadcrumbs";
 export type { BreadcrumbItem, BreadcrumbsProps } from "./components/breadcrumbs";
+export { BackButton } from "./components/back-button";
+export type { BackButtonProps } from "./components/back-button";
 export { EmailMessage } from "./components/email-message";
 export type { EmailMessageProps } from "./components/email-message";
 export { BrandCard } from "./components/brand-card";

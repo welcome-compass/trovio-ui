@@ -52,30 +52,30 @@ export function TrovioSelect({
           {label}
         </label>
       ) : null}
+      {/* Rely on HeroUI's themed `select__trigger` layout (value + indicator in
+          one row). Overriding the trigger's display utilities pushed the caret
+          under the value — so we only pass cosmetic size via the wrapper. */}
       <Select
         aria-label={ariaLabel ?? label ?? placeholder}
+        className={size === "sm" ? "text-caption" : undefined}
         isDisabled={isDisabled}
         placeholder={placeholder}
         selectedKey={selectedKey ?? null}
         onSelectionChange={(k) => onSelectionChange?.(k ? String(k) : "")}
       >
-        <Select.Trigger
-          className={clsx(
-            "inline-flex items-center gap-2 rounded-lg border border-trovio-light-border bg-trovio-light-surface font-medium text-trovio-light-text outline-none transition-colors hover:border-trovio-light-text-muted focus-visible:border-trovio-primary focus-visible:ring-2 focus-visible:ring-trovio-primary/40 disabled:cursor-not-allowed disabled:opacity-60 dark:border-trovio-dark-border dark:bg-trovio-dark-surface dark:text-trovio-dark-text",
-            size === "sm" ? "px-3 py-2 text-caption" : "px-3.5 py-2.5 text-sm",
-          )}
-        >
+        <Select.Trigger>
           <Select.Value />
           <Select.Indicator />
         </Select.Trigger>
-        <Select.Popover className="rounded-xl border border-trovio-light-border bg-trovio-light-surface p-1.5 shadow-lg dark:border-trovio-dark-border dark:bg-trovio-dark-surface">
+        <Select.Popover>
           <ListBox>
             {options.map((o) => (
               <ListBox.Item
                 key={o.key}
-                className="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-caption text-trovio-light-text outline-none data-[focused]:bg-trovio-light-bg dark:text-trovio-dark-text dark:data-[focused]:bg-trovio-dark-bg"
                 id={o.key}
-                textValue={o.textValue ?? (typeof o.label === "string" ? o.label : o.key)}
+                textValue={
+                  o.textValue ?? (typeof o.label === "string" ? o.label : o.key)
+                }
               >
                 {o.label}
                 <ListBox.ItemIndicator />

@@ -840,28 +840,19 @@ function TrovioSelect({
       react.Select,
       {
         "aria-label": ariaLabel ?? label ?? placeholder,
+        className: size === "sm" ? "text-caption" : void 0,
         isDisabled,
         placeholder,
         selectedKey: selectedKey ?? null,
         onSelectionChange: (k) => onSelectionChange?.(k ? String(k) : ""),
         children: [
-          /* @__PURE__ */ jsxRuntime.jsxs(
-            react.Select.Trigger,
-            {
-              className: clsx25__default.default(
-                "inline-flex items-center gap-2 rounded-lg border border-trovio-light-border bg-trovio-light-surface font-medium text-trovio-light-text outline-none transition-colors hover:border-trovio-light-text-muted focus-visible:border-trovio-primary focus-visible:ring-2 focus-visible:ring-trovio-primary/40 disabled:cursor-not-allowed disabled:opacity-60 dark:border-trovio-dark-border dark:bg-trovio-dark-surface dark:text-trovio-dark-text",
-                size === "sm" ? "px-3 py-2 text-caption" : "px-3.5 py-2.5 text-sm"
-              ),
-              children: [
-                /* @__PURE__ */ jsxRuntime.jsx(react.Select.Value, {}),
-                /* @__PURE__ */ jsxRuntime.jsx(react.Select.Indicator, {})
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxRuntime.jsx(react.Select.Popover, { className: "rounded-xl border border-trovio-light-border bg-trovio-light-surface p-1.5 shadow-lg dark:border-trovio-dark-border dark:bg-trovio-dark-surface", children: /* @__PURE__ */ jsxRuntime.jsx(react.ListBox, { children: options.map((o) => /* @__PURE__ */ jsxRuntime.jsxs(
+          /* @__PURE__ */ jsxRuntime.jsxs(react.Select.Trigger, { children: [
+            /* @__PURE__ */ jsxRuntime.jsx(react.Select.Value, {}),
+            /* @__PURE__ */ jsxRuntime.jsx(react.Select.Indicator, {})
+          ] }),
+          /* @__PURE__ */ jsxRuntime.jsx(react.Select.Popover, { children: /* @__PURE__ */ jsxRuntime.jsx(react.ListBox, { children: options.map((o) => /* @__PURE__ */ jsxRuntime.jsxs(
             react.ListBox.Item,
             {
-              className: "flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-caption text-trovio-light-text outline-none data-[focused]:bg-trovio-light-bg dark:text-trovio-dark-text dark:data-[focused]:bg-trovio-dark-bg",
               id: o.key,
               textValue: o.textValue ?? (typeof o.label === "string" ? o.label : o.key),
               children: [

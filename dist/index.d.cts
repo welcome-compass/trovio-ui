@@ -1,6 +1,6 @@
 import { ButtonProps, ChipProps, InputProps, CardProps } from '@heroui/react';
 import * as react from 'react';
-import react__default, { ReactNode } from 'react';
+import react__default, { ReactNode, ComponentType } from 'react';
 export { DesignTokens, brandColors, darkColors, designTokens, fonts, lightColors, radius, semanticColors, shadow, typeScale } from './tokens.cjs';
 
 interface TrovioButtonProps extends Omit<ButtonProps, "color" | "variant" | "className"> {
@@ -299,36 +299,33 @@ declare function SegmentedToggle<T extends string>({ options, value, onChange, c
     className?: string;
 }): react.JSX.Element;
 
-type StatusOption = {
-    /** Stable key returned to `onChange`. */
+interface TrovioSelectOption {
     key: string;
-    /** Human label shown in the pill + menu. */
-    label: string;
-    /** CSS color for the status dot (hex or a `var(--…)` token). */
-    color: string;
-};
-type StatusSelectProps = {
-    options: StatusOption[];
-    /** Currently-selected option key. Falls back to the first option. */
-    value: string;
-    onChange: (key: string) => void;
-    /** Disable the control (e.g. while a write is in flight). */
-    disabled?: boolean;
-    /** Accessible label for the trigger. */
+    label: ReactNode;
+    /** Plain-text label for type-ahead + the trigger value when `label` is a node. */
+    textValue?: string;
+}
+interface TrovioSelectProps {
+    options: TrovioSelectOption[];
+    /** Controlled selected key. */
+    selectedKey?: string | null;
+    onSelectionChange?: (key: string) => void;
+    placeholder?: string;
+    /** Field label rendered above the trigger. */
+    label?: string;
+    helperText?: string;
     ariaLabel?: string;
+    isDisabled?: boolean;
+    size?: "sm" | "md";
     className?: string;
-};
+}
 /**
- * StatusSelect — a compact pill that opens a menu of states, each tagged with a
- * colored dot. Presentation-only: the caller owns `value`, `onChange`, and
- * persistence. Built for the brand-workspace status selector but generic enough
- * for any small status workflow (pipeline columns share the same color map).
- *
- * Closes on outside-click and Escape. Not a full ARIA combobox — it's a menu of
- * mutually-exclusive actions — so it uses `listbox`/`option` roles for the
- * selected-state semantics without keyboard arrow navigation.
+ * TrovioSelect — the design-system wrapper around HeroUI's Select. A thin proxy
+ * for now (so we stop reaching for raw `@heroui/react` Select and forgetting the
+ * design system), with a simple `options` API instead of the compound children.
+ * Gives us one place to restyle every dropdown later.
  */
-declare function StatusSelect({ options, value, onChange, disabled, ariaLabel, className, }: StatusSelectProps): react.JSX.Element;
+declare function TrovioSelect({ options, selectedKey, onSelectionChange, placeholder, label, helperText, ariaLabel, isDisabled, size, className, }: TrovioSelectProps): react.JSX.Element;
 
 type TimelineItem = {
     /** Primary line — what happened. */
@@ -488,6 +485,91 @@ interface GoalCardProps extends react__default.HTMLAttributes<HTMLDivElement> {
  * spread props — the root element accepts everything `<div>` does.
  */
 declare const GoalCard: react__default.ForwardRefExoticComponent<GoalCardProps & react__default.RefAttributes<HTMLDivElement>>;
+
+interface BreadcrumbItem {
+    label: ReactNode;
+    /** When set, the crumb is a link. The last item is treated as the current page. */
+    href?: string;
+}
+type LinkLike$1 = ComponentType<{
+    href: string;
+    className?: string;
+    children: ReactNode;
+}>;
+interface BreadcrumbsProps {
+    items: BreadcrumbItem[];
+    /**
+     * Link renderer. Pass your router's link (e.g. Next's `Link`) for client-side
+     * navigation; defaults to a plain `<a>` so the primitive stays framework-free.
+     */
+    linkComponent?: LinkLike$1;
+    className?: string;
+}
+/**
+ * Breadcrumbs — a back/wayfinding trail. The last item is the current page
+ * (muted, not a link). Built for the brand workspace ("Brands / Glossier") and
+ * meant to be reused across deeper pages.
+ */
+declare function Breadcrumbs({ items, linkComponent, className }: BreadcrumbsProps): react.JSX.Element;
+
+interface EmailMessageProps {
+    /** Subject line. Omitted for non-email channels (renders body-only). */
+    subject?: string;
+    body: string;
+    /** Sender display name (e.g. the creator's name or "You"). */
+    fromName?: string;
+    /** Sender email, shown muted next to the name. */
+    fromEmail?: string;
+    /** Optional avatar image for the sender; falls back to an initial. */
+    fromAvatarUrl?: string;
+    /** Recipient label, e.g. "partnerships@glossier.com" or "Glossier team". */
+    to?: string;
+    /** Small eyebrow above the subject — e.g. the angle name or a "Recommended" tag. */
+    tag?: ReactNode;
+    /** Action row (Send / Copy / Rewrite). Rendered in the email "footer". */
+    actions?: ReactNode;
+    /** Emphasize as the primary/recommended draft. */
+    highlighted?: boolean;
+    className?: string;
+}
+/**
+ * EmailMessage — renders a drafted pitch the way it'll actually land in an
+ * inbox: a Gmail-style card with a sender row, subject, body, and an actions
+ * footer. Presentation-only; the consumer supplies copy + action buttons.
+ */
+declare function EmailMessage({ subject, body, fromName, fromEmail, fromAvatarUrl, to, tag, actions, highlighted, className, }: EmailMessageProps): react.JSX.Element;
+
+type LinkLike = ComponentType<{
+    href: string;
+    className?: string;
+    "aria-label"?: string;
+    children?: ReactNode;
+}>;
+interface BrandCardProps {
+    brandName: string;
+    description?: string;
+    /** Logo URL; falls back to brand initials. */
+    logoUrl?: string;
+    /** Lines to clamp the description to. Default 2. */
+    descriptionLines?: number;
+    /**
+     * Make the whole card navigate via the overlay-anchor pattern. Pass your
+     * router's link (e.g. Next's `Link`) as `linkComponent` for client-side nav.
+     */
+    href?: string;
+    linkComponent?: LinkLike;
+    /** When set, a small "x" shows top-right (dismiss). Lifted above the overlay. */
+    onDismiss?: () => void;
+    dismissLabel?: string;
+    className?: string;
+}
+/**
+ * BrandCard — the shared brand tile for the pipeline kanban (and anywhere a
+ * compact brand needs to read + link). Intentionally minimal: logo, name, a
+ * clamped description, and an optional dismiss "x". The whole card links to the
+ * brand workspace; the "x" sits above the overlay so it stays clickable.
+ */
+declare function BrandCard({ brandName, description, logoUrl, descriptionLines, href, linkComponent, onDismiss, dismissLabel, className, }: BrandCardProps): react.JSX.Element;
 
 /**
  * Type-scale sizes the headline can render at. Mirrors the `text-*` utilities
@@ -753,4 +835,4 @@ declare function Drawer({ isOpen, onClose, title, eyebrow, headerExtra, footer, 
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { Avatar, type AvatarProps, BrandLogo, type BrandLogoProps, ClampText, type ClampTextProps, Drawer, type DrawerProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, type StatusOption, StatusSelect, type StatusSelectProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, ClampText, type ClampTextProps, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

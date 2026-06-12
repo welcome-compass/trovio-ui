@@ -892,13 +892,14 @@ function Timeline({ items, className }) {
     }
   );
 }
-var SOURCE_WIDTH = 1100;
+var DEFAULT_SOURCE_WIDTH = 390;
 function MediaKitPreview({
   url,
   colors,
   badge,
   caption,
   aspect = 5 / 6,
+  sourceWidth = DEFAULT_SOURCE_WIDTH,
   className
 }) {
   const ref = useRef(null);
@@ -911,7 +912,7 @@ function MediaKitPreview({
     return () => ro.disconnect();
   }, []);
   const height = width > 0 ? Math.round(width / aspect) : 0;
-  const scale = width > 0 ? width / SOURCE_WIDTH : 0.25;
+  const scale = width > 0 ? width / sourceWidth : 0.25;
   return /* @__PURE__ */ jsxs(
     "div",
     {
@@ -928,7 +929,7 @@ function MediaKitPreview({
             className: "pointer-events-none absolute left-0 top-0 origin-top-left",
             src: url,
             style: {
-              width: SOURCE_WIDTH,
+              width: sourceWidth,
               height: height > 0 ? Math.ceil(height / scale) : "100%",
               transform: `scale(${scale})`
             },

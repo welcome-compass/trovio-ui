@@ -364,6 +364,12 @@ type MediaKitPreviewProps = {
      * itself is a mobile-optimized one-pager — it fits a rail naturally.
      */
     aspect?: number;
+    /**
+     * The width the kit is laid out at before being scaled to fit. The media kit
+     * is mobile-optimized, so the default renders its MOBILE layout (390px) —
+     * pass a larger value to preview the desktop layout instead.
+     */
+    sourceWidth?: number;
     className?: string;
 };
 /**
@@ -373,7 +379,7 @@ type MediaKitPreviewProps = {
  * page's media-kit rail). Measures its own width so the preview fills its column
  * at any size, from the desktop rail to the compact mobile bar.
  */
-declare function MediaKitPreview({ url, colors, badge, caption, aspect, className, }: MediaKitPreviewProps): react.JSX.Element;
+declare function MediaKitPreview({ url, colors, badge, caption, aspect, sourceWidth, className, }: MediaKitPreviewProps): react.JSX.Element;
 
 /**
  * ClampText (Primitive) — line-clamped text with a built-in expand affordance.

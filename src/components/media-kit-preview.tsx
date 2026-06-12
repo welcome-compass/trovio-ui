@@ -21,11 +21,17 @@ export type MediaKitPreviewProps = {
    * itself is a mobile-optimized one-pager — it fits a rail naturally.
    */
   aspect?: number;
+  /**
+   * The width the kit is laid out at before being scaled to fit. The media kit
+   * is mobile-optimized, so the default renders its MOBILE layout (390px) —
+   * pass a larger value to preview the desktop layout instead.
+   */
+  sourceWidth?: number;
   className?: string;
 };
 
-/** Source width the kit renders at before being scaled down to fit. */
-const SOURCE_WIDTH = 1100;
+/** Default source width — the kit's mobile layout (it's mobile-optimized). */
+const DEFAULT_SOURCE_WIDTH = 390;
 
 /**
  * MediaKitPreview — a scaled, non-interactive thumbnail of a creator's media
@@ -40,6 +46,7 @@ export function MediaKitPreview({
   badge,
   caption,
   aspect = 5 / 6,
+  sourceWidth = DEFAULT_SOURCE_WIDTH,
   className,
 }: MediaKitPreviewProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -58,7 +65,7 @@ export function MediaKitPreview({
   }, []);
 
   const height = width > 0 ? Math.round(width / aspect) : 0;
-  const scale = width > 0 ? width / SOURCE_WIDTH : 0.25;
+  const scale = width > 0 ? width / sourceWidth : 0.25;
 
   return (
     <div
@@ -74,7 +81,7 @@ export function MediaKitPreview({
           className="pointer-events-none absolute left-0 top-0 origin-top-left"
           src={url}
           style={{
-            width: SOURCE_WIDTH,
+            width: sourceWidth,
             height: height > 0 ? Math.ceil(height / scale) : "100%",
             transform: `scale(${scale})`,
           }}

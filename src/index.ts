@@ -41,6 +41,12 @@ export { Sparkline } from "./components/sparkline";
 export type { SparklineProps } from "./components/sparkline";
 export { SegmentedToggle } from "./components/segmented-toggle";
 export type { SegmentedToggleOption } from "./components/segmented-toggle";
+export { TrovioSelect } from "./components/trovio-select";
+export type { TrovioSelectOption, TrovioSelectProps } from "./components/trovio-select";
+export { Timeline } from "./components/timeline";
+export type { TimelineItem, TimelineProps } from "./components/timeline";
+export { MediaKitPreview } from "./components/media-kit-preview";
+export type { MediaKitPreviewProps } from "./components/media-kit-preview";
 export { ClampText } from "./components/clamp-text";
 export type { ClampTextProps } from "./components/clamp-text";
 export { GeneratingBlock } from "./components/generating-block";
@@ -53,6 +59,14 @@ export { GoalCard } from "./components/goal-card";
 export type { GoalCardProps } from "./components/goal-card";
 
 // ── Components (composed of primitives) ─────────────────────────────────────
+export { Breadcrumbs } from "./components/breadcrumbs";
+export type { BreadcrumbItem, BreadcrumbsProps } from "./components/breadcrumbs";
+export { BackButton } from "./components/back-button";
+export type { BackButtonProps } from "./components/back-button";
+export { EmailMessage } from "./components/email-message";
+export type { EmailMessageProps } from "./components/email-message";
+export { BrandCard } from "./components/brand-card";
+export type { BrandCardProps } from "./components/brand-card";
 export { HeadlineBlock } from "./components/headline-block";
 export type {
   HeadlineBlockProps,

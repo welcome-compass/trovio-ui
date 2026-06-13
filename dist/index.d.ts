@@ -1,6 +1,6 @@
 import { ButtonProps, ChipProps, InputProps, CardProps } from '@heroui/react';
-import * as React from 'react';
-import React__default, { ReactNode } from 'react';
+import * as react from 'react';
+import react__default, { ReactNode, ComponentType } from 'react';
 export { DesignTokens, brandColors, darkColors, designTokens, fonts, lightColors, radius, semanticColors, shadow, typeScale } from './tokens.js';
 
 interface TrovioButtonProps extends Omit<ButtonProps, "color" | "variant" | "className"> {
@@ -13,15 +13,15 @@ interface TrovioButtonProps extends Omit<ButtonProps, "color" | "variant" | "cla
     href?: string;
     target?: string;
     rel?: string;
-    children?: React__default.ReactNode;
+    children?: react__default.ReactNode;
     className?: string;
 }
-declare const TrovioButton: React__default.ForwardRefExoticComponent<Omit<TrovioButtonProps, "ref"> & React__default.RefAttributes<HTMLButtonElement>>;
+declare const TrovioButton: react__default.ForwardRefExoticComponent<Omit<TrovioButtonProps, "ref"> & react__default.RefAttributes<HTMLButtonElement>>;
 
 interface TrovioBadgeProps extends Omit<ChipProps, "color"> {
     status: "published" | "draft" | "archived" | "success" | "warning" | "error" | "info";
 }
-declare const TrovioBadge: React__default.FC<TrovioBadgeProps>;
+declare const TrovioBadge: react__default.FC<TrovioBadgeProps>;
 
 interface TrovioInputProps extends Omit<InputProps, "variant" | "size"> {
     label?: string;
@@ -30,7 +30,7 @@ interface TrovioInputProps extends Omit<InputProps, "variant" | "size"> {
     size?: "sm" | "md" | "lg";
     variant?: "default" | "dynamic";
 }
-declare const TrovioInput: React__default.FC<TrovioInputProps>;
+declare const TrovioInput: react__default.FC<TrovioInputProps>;
 
 interface TrovioTextAreaProps {
     label?: string;
@@ -42,10 +42,10 @@ interface TrovioTextAreaProps {
     value?: string;
     isDisabled?: boolean;
     isReadOnly?: boolean;
-    onBlur?: (e: React__default.FocusEvent<HTMLTextAreaElement>) => void;
-    onChange?: (e: React__default.ChangeEvent<HTMLTextAreaElement>) => void;
+    onBlur?: (e: react__default.FocusEvent<HTMLTextAreaElement>) => void;
+    onChange?: (e: react__default.ChangeEvent<HTMLTextAreaElement>) => void;
 }
-declare const TrovioTextArea: React__default.FC<TrovioTextAreaProps>;
+declare const TrovioTextArea: react__default.FC<TrovioTextAreaProps>;
 
 interface TrovioModalProps {
     /** Whether the modal is open */
@@ -55,9 +55,9 @@ interface TrovioModalProps {
     /** Modal title */
     title: string;
     /** Modal content */
-    children: React__default.ReactNode;
+    children: react__default.ReactNode;
     /** Optional footer with action buttons */
-    footer?: React__default.ReactNode;
+    footer?: react__default.ReactNode;
     /** Size of the modal */
     size?: "sm" | "md" | "lg";
     /** Whether the modal can be dismissed by clicking backdrop (default: true) */
@@ -78,7 +78,7 @@ interface TrovioModalProps {
  * TrovioModal component using HeroUI v3 Modal with Trovio branding.
  * Features backdrop, close button, customizable content/footer, and full accessibility.
  */
-declare const TrovioModal: React__default.FC<TrovioModalProps>;
+declare const TrovioModal: react__default.FC<TrovioModalProps>;
 
 interface TrovioCheckboxProps {
     checked: boolean;
@@ -94,7 +94,7 @@ interface TrovioCheckboxProps {
  * Thin wrapper around HeroUI v3 Checkbox.
  * We keep the default square checkbox visuals and only apply minimal Trovio theming.
  */
-declare function TrovioCheckbox({ checked, onChange, className, size, isDisabled, ...ariaProps }: TrovioCheckboxProps): React.JSX.Element;
+declare function TrovioCheckbox({ checked, onChange, className, size, isDisabled, ...ariaProps }: TrovioCheckboxProps): react.JSX.Element;
 
 interface TrovioSwitchProps {
     label?: string;
@@ -113,22 +113,22 @@ interface TrovioSwitchProps {
  * Themed toggle switch using HeroUI v3 Switch
  * Uses Trovio primary color and larger size for better visibility
  */
-declare const TrovioSwitch: React__default.FC<TrovioSwitchProps>;
+declare const TrovioSwitch: react__default.FC<TrovioSwitchProps>;
 
 interface TrovioSpinnerProps {
     size?: "sm" | "md" | "lg" | "xl";
     className?: string;
 }
-declare const TrovioSpinner: ({ size, className, }: TrovioSpinnerProps) => React.JSX.Element;
+declare const TrovioSpinner: ({ size, className, }: TrovioSpinnerProps) => react.JSX.Element;
 
 interface TrovioSkeletonProps {
     isLoaded?: boolean;
     disableAnimation?: boolean;
     className?: string;
-    children?: React__default.ReactNode;
+    children?: react__default.ReactNode;
     usePrimaryColor?: boolean;
 }
-declare const TrovioSkeleton: ({ isLoaded, disableAnimation, className, children, usePrimaryColor, }: TrovioSkeletonProps) => React__default.JSX.Element;
+declare const TrovioSkeleton: ({ isLoaded, disableAnimation, className, children, usePrimaryColor, }: TrovioSkeletonProps) => react__default.JSX.Element;
 
 interface TrovioProgressBarProps {
     /** Current value */
@@ -154,7 +154,7 @@ interface TrovioProgressBarProps {
  * - Rounded ends (rounded-full)
  * - Accessible with role="progressbar" and aria attributes
  */
-declare function TrovioProgressBar({ value, max, color, size, className, label, }: TrovioProgressBarProps): React.JSX.Element;
+declare function TrovioProgressBar({ value, max, color, size, className, label, }: TrovioProgressBarProps): react.JSX.Element;
 
 interface WidgetCardProps extends CardProps {
     /**
@@ -180,7 +180,7 @@ interface WidgetCardProps extends CardProps {
  * - Configurable minimum height
  * - Dark mode support
  */
-declare function WidgetCard({ children, className, noPadding, minHeight, ...props }: WidgetCardProps): React.JSX.Element;
+declare function WidgetCard({ children, className, noPadding, minHeight, ...props }: WidgetCardProps): react.JSX.Element;
 
 /**
  * SectionLabel — the one uppercase eyebrow used across dashboard states.
@@ -198,7 +198,7 @@ declare function SectionLabel({ children, tone, className, }: {
     children: ReactNode;
     tone?: "muted" | "primary";
     className?: string;
-}): React.JSX.Element;
+}): react.JSX.Element;
 
 /**
  * SectionHeading — the open, editorial section heading for the refreshed
@@ -216,7 +216,7 @@ declare function SectionHeading({ children, divider, hero, className, }: {
     /** Hero size for the lead heading on the screen. */
     hero?: boolean;
     className?: string;
-}): React.JSX.Element;
+}): react.JSX.Element;
 
 /**
  * LockChip — the small "locked" badge used on locked feature cards. Shared so
@@ -224,13 +224,13 @@ declare function SectionHeading({ children, divider, hero, className, }: {
  */
 declare function LockChip({ label }: {
     label?: string;
-}): React.JSX.Element;
+}): react.JSX.Element;
 
 declare function PlatformIcon({ platform, className, size, }: {
     platform: string;
     className?: string;
     size?: number;
-}): React.JSX.Element;
+}): react.JSX.Element;
 /** Human-readable platform name, e.g. "instagram" -> "Instagram". */
 declare function platformLabel(platform: string): string;
 
@@ -242,7 +242,7 @@ interface AvatarProps {
     size?: number;
     className?: string;
 }
-declare function Avatar({ imageUrl, name, size, className, }: AvatarProps): React.JSX.Element;
+declare function Avatar({ imageUrl, name, size, className, }: AvatarProps): react.JSX.Element;
 
 /**
  * RingGauge (Primitive) — a small circular (donut) progress gauge.
@@ -263,7 +263,7 @@ interface RingGaugeProps {
     className?: string;
     children?: ReactNode;
 }
-declare function RingGauge({ value, size, stroke, color, trackClassName, className, children, }: RingGaugeProps): React.JSX.Element;
+declare function RingGauge({ value, size, stroke, color, trackClassName, className, children, }: RingGaugeProps): react.JSX.Element;
 
 /**
  * Sparkline (Primitive) — a tiny inline trend line (no axes, no labels).
@@ -280,7 +280,7 @@ interface SparklineProps {
     color?: string;
     className?: string;
 }
-declare function Sparkline({ points, width, height, strokeWidth, color, className, }: SparklineProps): React.JSX.Element | null;
+declare function Sparkline({ points, width, height, strokeWidth, color, className, }: SparklineProps): react.JSX.Element | null;
 
 /**
  * SegmentedToggle (Primitive) — a small pill-style single-select control.
@@ -297,7 +297,89 @@ declare function SegmentedToggle<T extends string>({ options, value, onChange, c
     value: T;
     onChange: (value: T) => void;
     className?: string;
-}): React.JSX.Element;
+}): react.JSX.Element;
+
+interface TrovioSelectOption {
+    key: string;
+    label: ReactNode;
+    /** Plain-text label for type-ahead + the trigger value when `label` is a node. */
+    textValue?: string;
+}
+interface TrovioSelectProps {
+    options: TrovioSelectOption[];
+    /** Controlled selected key. */
+    selectedKey?: string | null;
+    onSelectionChange?: (key: string) => void;
+    placeholder?: string;
+    /** Field label rendered above the trigger. */
+    label?: string;
+    helperText?: string;
+    ariaLabel?: string;
+    isDisabled?: boolean;
+    size?: "sm" | "md";
+    className?: string;
+}
+/**
+ * TrovioSelect — the design-system wrapper around HeroUI's Select. A thin proxy
+ * for now (so we stop reaching for raw `@heroui/react` Select and forgetting the
+ * design system), with a simple `options` API instead of the compound children.
+ * Gives us one place to restyle every dropdown later.
+ */
+declare function TrovioSelect({ options, selectedKey, onSelectionChange, placeholder, label, helperText, ariaLabel, isDisabled, size, className, }: TrovioSelectProps): react.JSX.Element;
+
+type TimelineItem = {
+    /** Primary line — what happened. */
+    title: string;
+    /** Muted secondary line, e.g. a relative time. */
+    meta?: string;
+    /** Dot color (hex or `var(--…)`). Defaults to the primary token. */
+    color?: string;
+};
+type TimelineProps = {
+    /** Items, newest-first by the caller's convention. */
+    items: TimelineItem[];
+    className?: string;
+};
+/**
+ * Timeline — a compact vertical activity list with a connecting rail and a dot
+ * per entry. Presentation-only; used for the brand-workspace activity card and
+ * any future "what happened" log.
+ */
+declare function Timeline({ items, className }: TimelineProps): react.JSX.Element;
+
+type MediaKitPreviewProps = {
+    /**
+     * Live media-kit URL, rendered as a scaled, non-interactive iframe preview.
+     * When absent, a branded gradient fallback is shown instead.
+     */
+    url?: string | null;
+    /** Gradient fallback colors when there's no `url`. First color wins. */
+    colors?: string[];
+    /** Top-right badge, e.g. "Published" / "Draft". */
+    badge?: string;
+    /** Optional caption overlaid along the bottom (e.g. the creator name). */
+    caption?: string | null;
+    /**
+     * Aspect ratio as width/height. Defaults to a portrait `5/6` because the kit
+     * itself is a mobile-optimized one-pager — it fits a rail naturally.
+     */
+    aspect?: number;
+    /**
+     * The width the kit is laid out at before being scaled to fit. The media kit
+     * is mobile-optimized, so the default renders its MOBILE layout (390px) —
+     * pass a larger value to preview the desktop layout instead.
+     */
+    sourceWidth?: number;
+    className?: string;
+};
+/**
+ * MediaKitPreview — a scaled, non-interactive thumbnail of a creator's media
+ * kit (or a branded gradient when there's no published kit yet). Presentation-
+ * only: actions and status text live in the composing surface (e.g. the brand
+ * page's media-kit rail). Measures its own width so the preview fills its column
+ * at any size, from the desktop rail to the compact mobile bar.
+ */
+declare function MediaKitPreview({ url, colors, badge, caption, aspect, sourceWidth, className, }: MediaKitPreviewProps): react.JSX.Element;
 
 /**
  * ClampText (Primitive) — line-clamped text with a built-in expand affordance.
@@ -318,7 +400,7 @@ interface ClampTextProps {
     /** Class for the More/Less toggle button. */
     toggleClassName?: string;
 }
-declare function ClampText({ children, lines, moreLabel, lessLabel, className, toggleClassName, }: ClampTextProps): React.JSX.Element;
+declare function ClampText({ children, lines, moreLabel, lessLabel, className, toggleClassName, }: ClampTextProps): react.JSX.Element;
 
 /**
  * GeneratingBlock (Primitive) — placeholder for a dashboard section whose
@@ -336,15 +418,15 @@ interface GeneratingBlockProps {
     lines?: number;
     className?: string;
 }
-declare function GeneratingBlock({ message, lines, className, }: GeneratingBlockProps): React.JSX.Element;
+declare function GeneratingBlock({ message, lines, className, }: GeneratingBlockProps): react.JSX.Element;
 
 interface OnboardingBrandHeaderProps {
     /** Brand logo, rendered centered (e.g. an <Image>/<svg> logo element). */
-    logo: React__default.ReactNode;
+    logo: react__default.ReactNode;
     /** Optional left-aligned slot (e.g. a back button). */
-    left?: React__default.ReactNode;
+    left?: react__default.ReactNode;
     /** Optional right-aligned slot (e.g. a sign-out button). */
-    right?: React__default.ReactNode;
+    right?: react__default.ReactNode;
     className?: string;
 }
 /**
@@ -356,7 +438,7 @@ interface OnboardingBrandHeaderProps {
  * Presentation-only: the caller passes the logo and any actions as slots, so
  * this primitive stays free of app dependencies (routing, auth, analytics).
  */
-declare const OnboardingBrandHeader: React__default.FC<OnboardingBrandHeaderProps>;
+declare const OnboardingBrandHeader: react__default.FC<OnboardingBrandHeaderProps>;
 
 interface BrandLogoProps {
     /** Image source shown in light mode. */
@@ -383,13 +465,13 @@ interface BrandLogoProps {
  * (mirrors how Avatar/PortraitHero take an image src). trovio-ui ships no raster
  * assets, so the brand PNGs live in each app's `public/`.
  */
-declare const BrandLogo: React__default.FC<BrandLogoProps>;
+declare const BrandLogo: react__default.FC<BrandLogoProps>;
 
-interface GoalCardProps extends React__default.HTMLAttributes<HTMLDivElement> {
+interface GoalCardProps extends react__default.HTMLAttributes<HTMLDivElement> {
     /** Ranking number shown in the badge (1-based). */
     rank: number;
     /** Icon element rendered inside the gradient circle. */
-    icon: React__default.ReactNode;
+    icon: react__default.ReactNode;
     /** Goal title. */
     title: string;
     /** Goal description. */
@@ -408,7 +490,114 @@ interface GoalCardProps extends React__default.HTMLAttributes<HTMLDivElement> {
  * forward the resulting ref, listeners, `style`, and `isDragging` through the
  * spread props — the root element accepts everything `<div>` does.
  */
-declare const GoalCard: React__default.ForwardRefExoticComponent<GoalCardProps & React__default.RefAttributes<HTMLDivElement>>;
+declare const GoalCard: react__default.ForwardRefExoticComponent<GoalCardProps & react__default.RefAttributes<HTMLDivElement>>;
+
+interface BreadcrumbItem {
+    label: ReactNode;
+    /** When set, the crumb is a link. The last item is treated as the current page. */
+    href?: string;
+}
+type LinkLike$2 = ComponentType<{
+    href: string;
+    className?: string;
+    children: ReactNode;
+}>;
+interface BreadcrumbsProps {
+    items: BreadcrumbItem[];
+    /**
+     * Link renderer. Pass your router's link (e.g. Next's `Link`) for client-side
+     * navigation; defaults to a plain `<a>` so the primitive stays framework-free.
+     */
+    linkComponent?: LinkLike$2;
+    className?: string;
+}
+/**
+ * Breadcrumbs — a back/wayfinding trail. The last item is the current page
+ * (muted, not a link). Built for the brand workspace ("Brands / Glossier") and
+ * meant to be reused across deeper pages.
+ */
+declare function Breadcrumbs({ items, linkComponent, className }: BreadcrumbsProps): react.JSX.Element;
+
+type LinkLike$1 = ComponentType<{
+    href: string;
+    className?: string;
+    children?: ReactNode;
+}>;
+interface BackButtonProps {
+    label?: string;
+    /** In-place back (e.g. collapse an inline editor). */
+    onClick?: () => void;
+    /** Or navigate back to a route. Pass your router's link via `linkComponent`. */
+    href?: string;
+    linkComponent?: LinkLike$1;
+    className?: string;
+}
+/**
+ * BackButton — the one consistent "← Back" affordance. Muted to match the
+ * Breadcrumbs trail (wayfinding reads as one quiet family, not a loud button),
+ * with a clean (non-duotone) arrow so there's no icon background. Works as an
+ * in-place action (`onClick`) or a route link (`href` + `linkComponent`).
+ */
+declare function BackButton({ label, onClick, href, linkComponent, className, }: BackButtonProps): react.JSX.Element;
+
+interface EmailMessageProps {
+    /** Subject line. Omitted for non-email channels (renders body-only). */
+    subject?: string;
+    body: string;
+    /** Sender display name (e.g. the creator's name or "You"). */
+    fromName?: string;
+    /** Sender email, shown muted next to the name. */
+    fromEmail?: string;
+    /** Optional avatar image for the sender; falls back to an initial. */
+    fromAvatarUrl?: string;
+    /** Recipient label, e.g. "partnerships@glossier.com" or "Glossier team". */
+    to?: string;
+    /** Small eyebrow above the subject — e.g. the angle name or a "Recommended" tag. */
+    tag?: ReactNode;
+    /** Action row (Send / Copy / Rewrite). Rendered in the email "footer". */
+    actions?: ReactNode;
+    /** Emphasize as the primary/recommended draft. */
+    highlighted?: boolean;
+    className?: string;
+}
+/**
+ * EmailMessage — renders a drafted pitch the way it'll actually land in an
+ * inbox: a Gmail-style card with a sender row, subject, body, and an actions
+ * footer. Presentation-only; the consumer supplies copy + action buttons.
+ */
+declare function EmailMessage({ subject, body, fromName, fromEmail, fromAvatarUrl, to, tag, actions, highlighted, className, }: EmailMessageProps): react.JSX.Element;
+
+type LinkLike = ComponentType<{
+    href: string;
+    className?: string;
+    "aria-label"?: string;
+    children?: ReactNode;
+}>;
+interface BrandCardProps {
+    brandName: string;
+    description?: string;
+    /** Logo URL; falls back to brand initials. */
+    logoUrl?: string;
+    /** Lines to clamp the description to. Default 2. */
+    descriptionLines?: number;
+    /**
+     * Make the whole card navigate via the overlay-anchor pattern. Pass your
+     * router's link (e.g. Next's `Link`) as `linkComponent` for client-side nav.
+     */
+    href?: string;
+    linkComponent?: LinkLike;
+    /** When set, a small "x" shows top-right (dismiss). Lifted above the overlay. */
+    onDismiss?: () => void;
+    dismissLabel?: string;
+    className?: string;
+}
+/**
+ * BrandCard — the shared brand tile for the pipeline kanban (and anywhere a
+ * compact brand needs to read + link). Intentionally minimal: logo, name, a
+ * clamped description, and an optional dismiss "x". The whole card links to the
+ * brand workspace; the "x" sits above the overlay so it stays clickable.
+ */
+declare function BrandCard({ brandName, description, logoUrl, descriptionLines, href, linkComponent, onDismiss, dismissLabel, className, }: BrandCardProps): react.JSX.Element;
 
 /**
  * Type-scale sizes the headline can render at. Mirrors the `text-*` utilities
@@ -454,7 +643,7 @@ interface HeadlineBlockProps {
  * carries the moment. Size is configurable so the same block works as a hero
  * statement or a quieter section lead.
  */
-declare function HeadlineBlock({ children, size, weight, cta, className, }: HeadlineBlockProps): React.JSX.Element;
+declare function HeadlineBlock({ children, size, weight, cta, className, }: HeadlineBlockProps): react.JSX.Element;
 
 interface TitledPanelProps {
     /**
@@ -476,7 +665,7 @@ interface TitledPanelProps {
  * across surfaces. Presentation-only; borderless by default so it fits the
  * flat editorial direction — add card styling via `className` if needed.
  */
-declare function TitledPanel({ title, titleSize, titleWeight, children, className, }: TitledPanelProps): React.JSX.Element;
+declare function TitledPanel({ title, titleSize, titleWeight, children, className, }: TitledPanelProps): react.JSX.Element;
 
 interface LinkCardProps {
     /** Categorical label above the title (e.g. "Trovio Tip", "Course"). */
@@ -498,7 +687,7 @@ interface LinkCardProps {
  * shape carries a Trovio tip, a course, an article, etc. Presentation-only;
  * the consumer owns any click tracking via `onClick`.
  */
-declare function LinkCard({ eyebrow, title, imageUrl, href, newTab, onClick, className, }: LinkCardProps): React.JSX.Element;
+declare function LinkCard({ eyebrow, title, imageUrl, href, newTab, onClick, className, }: LinkCardProps): react.JSX.Element;
 
 /**
  * JourneyStepper — numbered step indicator for "where you stand". Editorial
@@ -531,7 +720,7 @@ interface JourneyStep {
 declare function JourneyStepper({ steps, onCurrentClick, }: {
     steps: JourneyStep[];
     onCurrentClick?: () => void;
-}): React.JSX.Element | null;
+}): react.JSX.Element | null;
 
 /**
  * PillarChips — the creator's content pillars as a clean, minimal list.
@@ -547,7 +736,7 @@ interface PillarChipItem {
 }
 declare function PillarChips({ pillars }: {
     pillars?: PillarChipItem[];
-}): React.JSX.Element | null;
+}): react.JSX.Element | null;
 
 /**
  * StatStrip — grounded vitals as a single borderless, muted inline line
@@ -562,7 +751,7 @@ interface StatStripProps {
     platforms?: string[];
     className?: string;
 }
-declare function StatStrip({ followers, posts, platforms, className, }: StatStripProps): React.JSX.Element | null;
+declare function StatStrip({ followers, posts, platforms, className, }: StatStripProps): react.JSX.Element | null;
 
 interface PortraitHandle {
     platform: string;
@@ -578,7 +767,7 @@ interface PortraitHeroProps {
     /** Optional top-right action (e.g. a share button) injected by the consumer. */
     action?: ReactNode;
 }
-declare function PortraitHero({ imageUrl, name, role, handles, action, }: PortraitHeroProps): React.JSX.Element;
+declare function PortraitHero({ imageUrl, name, role, handles, action, }: PortraitHeroProps): react.JSX.Element;
 
 /**
  * LockedFeatureCard (Component) — pre-paywall teaser for a tool that unlocks on
@@ -639,7 +828,7 @@ interface LockedFeatureCardProps {
      *  preview — for the living screen while the rest of the page is generating. */
     loading?: boolean;
 }
-declare function LockedFeatureCard({ item, portraitUrl, creatorName, onActivate, ctaLabel, loading, }: LockedFeatureCardProps): React.JSX.Element;
+declare function LockedFeatureCard({ item, portraitUrl, creatorName, onActivate, ctaLabel, loading, }: LockedFeatureCardProps): react.JSX.Element;
 
 /**
  * Drawer (Component) — a right-side slide-over panel over a dimming scrim.
@@ -659,7 +848,7 @@ interface DrawerProps {
     footer?: ReactNode;
     children: ReactNode;
 }
-declare function Drawer({ isOpen, onClose, title, eyebrow, headerExtra, footer, children, }: DrawerProps): React.ReactPortal | null;
+declare function Drawer({ isOpen, onClose, title, eyebrow, headerExtra, footer, children, }: DrawerProps): react.ReactPortal | null;
 
 /**
  * Compact number formatting for stat displays (followers, posts, etc.).
@@ -674,4 +863,4 @@ declare function Drawer({ isOpen, onClose, title, eyebrow, headerExtra, footer, 
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { Avatar, type AvatarProps, BrandLogo, type BrandLogoProps, ClampText, type ClampTextProps, Drawer, type DrawerProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, TitledPanel, type TitledPanelProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, ClampText, type ClampTextProps, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

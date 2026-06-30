@@ -709,6 +709,11 @@ declare function LinkCard({ eyebrow, title, imageUrl, href, newTab, onClick, cla
  * A `current` step may also set `loading` to swap its static ring for a
  * spinning indigo arc — use it while the work that step represents is still
  * being generated.
+ *
+ * An optional `note` renders a small, centered momentum chip beneath the rail —
+ * a calm, designed-in status badge (sparkle + soft surface pill, not a button)
+ * for "you're almost there"-style encouragement. Keep it short; it sits as part
+ * of the stepper's composition, not as free-floating text.
  */
 type JourneyStepStatus = "completed" | "current" | "upcoming";
 interface JourneyStep {
@@ -717,9 +722,11 @@ interface JourneyStep {
     /** Only meaningful on a `current` step: shows a spinning ring (work in progress). */
     loading?: boolean;
 }
-declare function JourneyStepper({ steps, onCurrentClick, }: {
+declare function JourneyStepper({ steps, onCurrentClick, note, }: {
     steps: JourneyStep[];
     onCurrentClick?: () => void;
+    /** Short momentum line rendered as a chip below the rail (e.g. "You're almost there"). */
+    note?: string;
 }): react.JSX.Element | null;
 
 /**

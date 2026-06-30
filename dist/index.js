@@ -1356,129 +1356,145 @@ function LinkCard({
 }
 function JourneyStepper({
   steps,
-  onCurrentClick
+  onCurrentClick,
+  note
 }) {
   if (!steps.length) return null;
   const lineClass = (done) => done ? "bg-trovio-primary" : "bg-trovio-light-border dark:bg-trovio-dark-border";
-  return /* @__PURE__ */ jsx("div", { className: "flex items-start", children: steps.map((step, idx) => {
-    const isFirst = idx === 0;
-    const isLast = idx === steps.length - 1;
-    const leftDone = idx > 0 && steps[idx - 1].status === "completed";
-    const rightDone = step.status === "completed";
-    const isLoading = step.status === "current" && Boolean(step.loading);
-    const circleBase = "relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors sm:h-10 sm:w-10 sm:text-sm";
-    const circle = clsx26(
-      circleBase,
-      step.status === "completed" && "bg-trovio-primary text-white",
-      // Loading current step drops the static border — the spinning arc
-      // overlay below provides the outline so the two don't double up.
-      step.status === "current" && !isLoading && "border-2 border-trovio-primary text-trovio-primary",
-      step.status === "current" && isLoading && "text-trovio-primary",
-      step.status === "upcoming" && "border border-trovio-light-border text-trovio-light-text-muted dark:border-trovio-dark-border dark:text-trovio-dark-text-muted"
-    );
-    const spinner = isLoading ? /* @__PURE__ */ jsx(
-      "span",
-      {
-        "aria-hidden": "true",
-        className: "pointer-events-none absolute inset-0 text-trovio-primary",
-        children: /* @__PURE__ */ jsxs(
-          "svg",
-          {
-            className: "h-full w-full animate-spin",
-            fill: "none",
-            viewBox: "0 0 40 40",
-            children: [
-              /* @__PURE__ */ jsx(
-                "circle",
-                {
-                  cx: "20",
-                  cy: "20",
-                  r: "18",
-                  stroke: "currentColor",
-                  strokeOpacity: "0.25",
-                  strokeWidth: "2"
-                }
-              ),
-              /* @__PURE__ */ jsx(
-                "circle",
-                {
-                  cx: "20",
-                  cy: "20",
-                  r: "18",
-                  stroke: "currentColor",
-                  strokeDasharray: "28 150",
-                  strokeLinecap: "round",
-                  strokeWidth: "2"
-                }
-              )
-            ]
-          }
-        )
-      }
-    ) : null;
-    const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
-      spinner,
-      /* @__PURE__ */ jsx("span", { className: "relative", children: idx + 1 })
-    ] });
-    const node = step.status === "current" && onCurrentClick ? /* @__PURE__ */ jsx(
-      "button",
-      {
-        "aria-label": `${step.label}, ${isLoading ? "in progress, " : ""}tap to activate`,
-        className: clsx26(circle, "cursor-pointer"),
-        type: "button",
-        onClick: onCurrentClick,
-        children: inner
-      }
-    ) : /* @__PURE__ */ jsx(
-      "div",
-      {
-        "aria-label": `${step.label}, ${isLoading ? "in progress" : step.status}`,
-        className: circle,
-        role: "img",
-        children: inner
-      }
-    );
-    return /* @__PURE__ */ jsxs(
-      "div",
-      {
-        className: "flex min-w-0 flex-1 flex-col items-center",
-        children: [
-          /* @__PURE__ */ jsxs("div", { className: "flex w-full items-center", children: [
-            /* @__PURE__ */ jsx(
-              "div",
-              {
-                className: clsx26(
-                  "h-px flex-1",
-                  isFirst ? "bg-transparent" : lineClass(leftDone)
-                )
-              }
-            ),
-            /* @__PURE__ */ jsx("div", { className: "mx-1.5 shrink-0", children: node }),
-            /* @__PURE__ */ jsx(
-              "div",
-              {
-                className: clsx26(
-                  "h-px flex-1",
-                  isLast ? "bg-transparent" : lineClass(rightDone)
-                )
-              }
-            )
-          ] }),
-          /* @__PURE__ */ jsx(
-            "span",
+  return /* @__PURE__ */ jsxs("div", { className: "flex flex-col", children: [
+    /* @__PURE__ */ jsx("div", { className: "flex items-start", children: steps.map((step, idx) => {
+      const isFirst = idx === 0;
+      const isLast = idx === steps.length - 1;
+      const leftDone = idx > 0 && steps[idx - 1].status === "completed";
+      const rightDone = step.status === "completed";
+      const isLoading = step.status === "current" && Boolean(step.loading);
+      const circleBase = "relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors sm:h-10 sm:w-10 sm:text-sm";
+      const circle = clsx26(
+        circleBase,
+        step.status === "completed" && "bg-trovio-primary text-white",
+        // Loading current step drops the static border — the spinning arc
+        // overlay below provides the outline so the two don't double up.
+        step.status === "current" && !isLoading && "border-2 border-trovio-primary text-trovio-primary",
+        step.status === "current" && isLoading && "text-trovio-primary",
+        step.status === "upcoming" && "border border-trovio-light-border text-trovio-light-text-muted dark:border-trovio-dark-border dark:text-trovio-dark-text-muted"
+      );
+      const spinner = isLoading ? /* @__PURE__ */ jsx(
+        "span",
+        {
+          "aria-hidden": "true",
+          className: "pointer-events-none absolute inset-0 text-trovio-primary",
+          children: /* @__PURE__ */ jsxs(
+            "svg",
             {
-              className: clsx26(
-                "mt-2 px-0.5 text-center text-[11px] leading-tight sm:text-sm",
-                step.status === "upcoming" ? "text-trovio-light-text-muted dark:text-trovio-dark-text-muted" : "font-medium text-trovio-light-text dark:text-trovio-dark-text"
-              ),
-              children: step.label
+              className: "h-full w-full animate-spin",
+              fill: "none",
+              viewBox: "0 0 40 40",
+              children: [
+                /* @__PURE__ */ jsx(
+                  "circle",
+                  {
+                    cx: "20",
+                    cy: "20",
+                    r: "18",
+                    stroke: "currentColor",
+                    strokeOpacity: "0.25",
+                    strokeWidth: "2"
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  "circle",
+                  {
+                    cx: "20",
+                    cy: "20",
+                    r: "18",
+                    stroke: "currentColor",
+                    strokeDasharray: "28 150",
+                    strokeLinecap: "round",
+                    strokeWidth: "2"
+                  }
+                )
+              ]
             }
           )
-        ]
-      },
-      step.label + idx
-    );
-  }) });
+        }
+      ) : null;
+      const inner = /* @__PURE__ */ jsxs(Fragment, { children: [
+        spinner,
+        /* @__PURE__ */ jsx("span", { className: "relative", children: idx + 1 })
+      ] });
+      const node = step.status === "current" && onCurrentClick ? /* @__PURE__ */ jsx(
+        "button",
+        {
+          "aria-label": `${step.label}, ${isLoading ? "in progress, " : ""}tap to activate`,
+          className: clsx26(circle, "cursor-pointer"),
+          type: "button",
+          onClick: onCurrentClick,
+          children: inner
+        }
+      ) : /* @__PURE__ */ jsx(
+        "div",
+        {
+          "aria-label": `${step.label}, ${isLoading ? "in progress" : step.status}`,
+          className: circle,
+          role: "img",
+          children: inner
+        }
+      );
+      return /* @__PURE__ */ jsxs(
+        "div",
+        {
+          className: "flex min-w-0 flex-1 flex-col items-center",
+          children: [
+            /* @__PURE__ */ jsxs("div", { className: "flex w-full items-center", children: [
+              /* @__PURE__ */ jsx(
+                "div",
+                {
+                  className: clsx26(
+                    "h-px flex-1",
+                    isFirst ? "bg-transparent" : lineClass(leftDone)
+                  )
+                }
+              ),
+              /* @__PURE__ */ jsx("div", { className: "mx-1.5 shrink-0", children: node }),
+              /* @__PURE__ */ jsx(
+                "div",
+                {
+                  className: clsx26(
+                    "h-px flex-1",
+                    isLast ? "bg-transparent" : lineClass(rightDone)
+                  )
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsx(
+              "span",
+              {
+                className: clsx26(
+                  "mt-2 px-0.5 text-center text-[11px] leading-tight sm:text-sm",
+                  step.status === "upcoming" ? "text-trovio-light-text-muted dark:text-trovio-dark-text-muted" : "font-medium text-trovio-light-text dark:text-trovio-dark-text"
+                ),
+                children: step.label
+              }
+            )
+          ]
+        },
+        step.label + idx
+      );
+    }) }),
+    note ? /* @__PURE__ */ jsx("div", { className: "mt-4 flex justify-center", children: /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 rounded-full bg-trovio-primary/10 px-3 py-1 text-caption font-medium text-trovio-primary dark:bg-trovio-primary/15", children: [
+      /* @__PURE__ */ jsx(
+        "svg",
+        {
+          "aria-hidden": "true",
+          className: "h-3.5 w-3.5",
+          fill: "currentColor",
+          viewBox: "0 0 24 24",
+          children: /* @__PURE__ */ jsx("path", { d: "M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z" })
+        }
+      ),
+      note
+    ] }) }) : null
+  ] });
 }
 function PillarChips({ pillars }) {
   if (!pillars || pillars.length === 0) return null;

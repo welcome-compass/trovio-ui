@@ -1481,12 +1481,12 @@ function JourneyStepper({
         step.label + idx
       );
     }) }),
-    note ? /* @__PURE__ */ jsx("div", { className: "mt-4 flex justify-center", children: /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 rounded-full bg-trovio-light-surface px-3 py-1 text-caption font-medium text-trovio-light-text dark:bg-trovio-dark-surface dark:text-trovio-dark-text", children: [
+    note ? /* @__PURE__ */ jsx("div", { className: "mt-4 flex justify-center", children: /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-1.5 rounded-full bg-trovio-primary/10 px-3 py-1 text-caption font-medium text-trovio-primary dark:bg-trovio-primary/15", children: [
       /* @__PURE__ */ jsx(
         "svg",
         {
           "aria-hidden": "true",
-          className: "h-3.5 w-3.5 text-trovio-primary",
+          className: "h-3.5 w-3.5",
           fill: "currentColor",
           viewBox: "0 0 24 24",
           children: /* @__PURE__ */ jsx("path", { d: "M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z" })

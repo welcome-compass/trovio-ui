@@ -22,6 +22,11 @@ import clsx from "clsx";
  * A `current` step may also set `loading` to swap its static ring for a
  * spinning indigo arc — use it while the work that step represents is still
  * being generated.
+ *
+ * An optional `note` renders a small, centered momentum chip beneath the rail —
+ * a calm, designed-in status badge (sparkle + soft surface pill, not a button)
+ * for "you're almost there"-style encouragement. Keep it short; it sits as part
+ * of the stepper's composition, not as free-floating text.
  */
 export type JourneyStepStatus = "completed" | "current" | "upcoming";
 
@@ -35,9 +40,12 @@ export interface JourneyStep {
 export function JourneyStepper({
   steps,
   onCurrentClick,
+  note,
 }: {
   steps: JourneyStep[];
   onCurrentClick?: () => void;
+  /** Short momentum line rendered as a chip below the rail (e.g. "You're almost there"). */
+  note?: string;
 }) {
   if (!steps.length) return null;
 
@@ -47,8 +55,9 @@ export function JourneyStepper({
       : "bg-trovio-light-border dark:bg-trovio-dark-border";
 
   return (
-    <div className="flex items-start">
-      {steps.map((step, idx) => {
+    <div className="flex flex-col">
+      <div className="flex items-start">
+        {steps.map((step, idx) => {
         const isFirst = idx === 0;
         const isLast = idx === steps.length - 1;
         // A connecting line is "done" (indigo) once its preceding step is done.
@@ -166,7 +175,24 @@ export function JourneyStepper({
             </span>
           </div>
         );
-      })}
+        })}
+      </div>
+
+      {note ? (
+        <div className="mt-4 flex justify-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-trovio-light-surface px-3 py-1 text-caption font-medium text-trovio-light-text dark:bg-trovio-dark-surface dark:text-trovio-dark-text">
+            <svg
+              aria-hidden="true"
+              className="h-3.5 w-3.5 text-trovio-primary"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z" />
+            </svg>
+            {note}
+          </span>
+        </div>
+      ) : null}
     </div>
   );
 }

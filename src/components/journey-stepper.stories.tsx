@@ -58,3 +58,19 @@ export const LoadingStep: Story = {
     ],
   },
 };
+
+/** With a momentum `note` chip below the rail — a calm "almost there" status
+ *  badge (sparkle + soft pill), not a button. Used to make a journey read as a
+ *  step toward something, not a finished state. */
+export const WithNote: Story = {
+  args: {
+    steps: [
+      { label: "Content", status: "completed" },
+      { label: "Strategy", status: "completed" },
+      { label: "Activate", status: "current" },
+      { label: "Your agent goes to work", status: "upcoming" },
+    ],
+    onCurrentClick: () => {},
+    note: "You're almost there",
+  },
+};

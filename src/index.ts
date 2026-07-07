@@ -57,6 +57,8 @@ export { BrandLogo } from "./components/brand-logo";
 export type { BrandLogoProps } from "./components/brand-logo";
 export { GoalCard } from "./components/goal-card";
 export type { GoalCardProps } from "./components/goal-card";
+export { QuoteCard } from "./components/quote-card";
+export type { QuoteCardProps } from "./components/quote-card";
 
 // ── Components (composed of primitives) ─────────────────────────────────────
 export { Breadcrumbs } from "./components/breadcrumbs";
@@ -94,6 +96,8 @@ export type {
 } from "./components/locked-feature-card";
 export { Drawer } from "./components/drawer";
 export type { DrawerProps } from "./components/drawer";
+export { CourseCallout } from "./components/course-callout";
+export type { CourseCalloutProps } from "./components/course-callout";
 
 // ── Utilities ───────────────────────────────────────────────────────────────
 export { formatCompactNumber } from "./utils/format-number";

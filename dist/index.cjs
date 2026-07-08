@@ -2145,6 +2145,78 @@ function CourseCallout({
     }
   );
 }
+function CoursePromoBanner({
+  eyebrow,
+  headline,
+  subhead,
+  imageUrl,
+  highlights,
+  priceLabel,
+  originalPriceLabel,
+  discountLabel,
+  ctaLabel,
+  ctaHref,
+  onCtaClick,
+  className
+}) {
+  const hasPrice = priceLabel != null || originalPriceLabel != null || discountLabel != null;
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "div",
+    {
+      className: clsx27__default.default(
+        "flex flex-col overflow-hidden rounded-3xl border border-trovio-light-border bg-gradient-to-br from-trovio-primary/10 via-trovio-primary/[0.04] to-transparent dark:border-trovio-dark-border dark:from-trovio-primary/20 dark:via-trovio-primary/[0.06]",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col lg:flex-row", children: [
+          imageUrl ? /* @__PURE__ */ jsxRuntime.jsx("div", { className: "relative aspect-[5/4] w-full shrink-0 sm:aspect-[16/9] lg:aspect-auto lg:w-[42%]", children: /* @__PURE__ */ jsxRuntime.jsx(
+            "img",
+            {
+              alt: "",
+              className: "absolute inset-0 h-full w-full object-cover object-top",
+              src: imageUrl
+            }
+          ) }) : null,
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-1 flex-col justify-center gap-4 px-6 pt-6 lg:px-8 lg:pt-8", children: [
+            eyebrow != null ? /* @__PURE__ */ jsxRuntime.jsxs("span", { className: "flex items-center gap-1.5", children: [
+              /* @__PURE__ */ jsxRuntime.jsx(pi.PiSparkleFill, { "aria-hidden": "true", className: "text-trovio-primary", size: 15 }),
+              /* @__PURE__ */ jsxRuntime.jsx(SectionLabel, { tone: "primary", children: eyebrow })
+            ] }) : null,
+            /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntime.jsx("h3", { className: "text-2xl font-bold leading-tight text-trovio-light-text dark:text-trovio-dark-text lg:text-3xl", children: headline }),
+              subhead != null ? /* @__PURE__ */ jsxRuntime.jsx("p", { className: "mt-2 text-sm leading-relaxed text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: subhead }) : null
+            ] }),
+            highlights && highlights.length > 0 ? /* @__PURE__ */ jsxRuntime.jsx("ul", { className: "flex flex-wrap gap-2", children: highlights.map((h, i) => /* @__PURE__ */ jsxRuntime.jsx(
+              "li",
+              {
+                className: "rounded-full bg-trovio-primary/10 px-3 py-1 text-xs font-semibold text-trovio-primary",
+                children: h
+              },
+              i
+            )) }) : null,
+            hasPrice ? /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-2", children: [
+              priceLabel != null ? /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-2xl font-bold text-trovio-light-text dark:text-trovio-dark-text", children: priceLabel }) : null,
+              originalPriceLabel != null ? /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm text-trovio-light-text-muted line-through dark:text-trovio-dark-text-muted", children: originalPriceLabel }) : null,
+              discountLabel != null ? /* @__PURE__ */ jsxRuntime.jsx("span", { className: "rounded-md bg-trovio-primary px-2 py-0.5 text-xs font-semibold text-white", children: discountLabel }) : null
+            ] }) : null
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "px-6 pb-6 pt-5 lg:px-8 lg:pb-8", children: /* @__PURE__ */ jsxRuntime.jsx(
+          TrovioButton,
+          {
+            fullWidth: true,
+            href: ctaHref,
+            rel: ctaHref ? "noopener noreferrer" : void 0,
+            size: "lg",
+            target: ctaHref ? "_blank" : void 0,
+            onClick: onCtaClick,
+            children: ctaLabel
+          }
+        ) })
+      ]
+    }
+  );
+}
 
 // src/tokens/design-tokens.ts
 var brandColors = {
@@ -2250,6 +2322,7 @@ exports.BrandLogo = BrandLogo;
 exports.Breadcrumbs = Breadcrumbs;
 exports.ClampText = ClampText;
 exports.CourseCallout = CourseCallout;
+exports.CoursePromoBanner = CoursePromoBanner;
 exports.Drawer = Drawer;
 exports.EmailMessage = EmailMessage;
 exports.GeneratingBlock = GeneratingBlock;

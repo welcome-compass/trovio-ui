@@ -927,6 +927,40 @@ interface CourseCalloutProps {
  */
 declare function CourseCallout({ eyebrow, title, description, imageUrl, media, priceLabel, originalPriceLabel, discountLabel, ctaLabel, ctaHref, onCtaClick, locked, className, }: CourseCalloutProps): react.JSX.Element;
 
+interface CoursePromoBannerProps {
+    /** Small accent label above the headline (e.g. "Trovio-exclusive"). */
+    eyebrow?: ReactNode;
+    headline: ReactNode;
+    /** Optional supporting line under the headline. */
+    subhead?: ReactNode;
+    /** Portrait/lifestyle image; shown full-bleed alongside the copy (not cropped
+     *  to a thin banner — a tall column on desktop, a 4:5 crop on mobile). */
+    imageUrl?: string;
+    /** Short proof points, rendered as a row of chips. */
+    highlights?: ReactNode[];
+    priceLabel?: ReactNode;
+    originalPriceLabel?: ReactNode;
+    discountLabel?: ReactNode;
+    ctaLabel: ReactNode;
+    /** External destination for the CTA. When set the CTA renders as a link. */
+    ctaHref?: string;
+    /** Presentation-only click hook — wire analytics/tracking in the consumer. */
+    onCtaClick?: () => void;
+    className?: string;
+}
+/**
+ * CoursePromoBanner — a bold, image-forward promo hero for a partner course.
+ * Distinct from the calmer CourseCallout: a tinted gradient panel with the
+ * creator's photo shown large (portrait column on desktop, 4:5 on mobile),
+ * a punchy headline, proof chips, a discounted-price row, and a prominent
+ * full-width CTA spanning the base of the card. Meant to grab attention
+ * pre-paywall.
+ *
+ * Presentation-only: all copy/pricing/image pass through verbatim; the consumer
+ * owns CTA behavior + analytics via `ctaHref` / `onCtaClick`.
+ */
+declare function CoursePromoBanner({ eyebrow, headline, subhead, imageUrl, highlights, priceLabel, originalPriceLabel, discountLabel, ctaLabel, ctaHref, onCtaClick, className, }: CoursePromoBannerProps): react.JSX.Element;
+
 /**
  * Compact number formatting for stat displays (followers, posts, etc.).
  *
@@ -940,4 +974,4 @@ declare function CourseCallout({ eyebrow, title, description, imageUrl, media, p
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, ClampText, type ClampTextProps, CourseCallout, type CourseCalloutProps, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, QuoteCard, type QuoteCardProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, ClampText, type ClampTextProps, CourseCallout, type CourseCalloutProps, CoursePromoBanner, type CoursePromoBannerProps, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, QuoteCard, type QuoteCardProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

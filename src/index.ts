@@ -98,6 +98,8 @@ export { Drawer } from "./components/drawer";
 export type { DrawerProps } from "./components/drawer";
 export { CourseCallout } from "./components/course-callout";
 export type { CourseCalloutProps } from "./components/course-callout";
+export { CoursePromoBanner } from "./components/course-promo-banner";
+export type { CoursePromoBannerProps } from "./components/course-promo-banner";
 
 // ── Utilities ───────────────────────────────────────────────────────────────
 export { formatCompactNumber } from "./utils/format-number";

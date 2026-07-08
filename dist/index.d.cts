@@ -492,6 +492,36 @@ interface GoalCardProps extends react__default.HTMLAttributes<HTMLDivElement> {
  */
 declare const GoalCard: react__default.ForwardRefExoticComponent<GoalCardProps & react__default.RefAttributes<HTMLDivElement>>;
 
+interface QuoteCardProps {
+    /** The quotation itself (rendered emphasized). */
+    quote: ReactNode;
+    /** Who said it, e.g. "Abigail Hannah". */
+    attribution?: ReactNode;
+    /** Where it's from, e.g. a course or publication name. Shown after the
+     *  attribution, separated by a dot. */
+    source?: ReactNode;
+    /** Categorical label above the quote (e.g. "From the course"). */
+    eyebrow?: ReactNode;
+    /** Optional call-to-action label (e.g. "Learn more"). Omitted → no CTA. */
+    ctaLabel?: ReactNode;
+    /** External destination for the CTA. When set the CTA renders as a link. */
+    ctaHref?: string;
+    /** Presentation-only click hook — wire analytics/tracking in the consumer.
+     *  Fires for both the link and button forms of the CTA. */
+    onCtaClick?: () => void;
+    className?: string;
+}
+/**
+ * QuoteCard — a compact card that surfaces a single expert quote at a relevant
+ * moment (e.g. a coaching tip beside the tool it applies to). Optional eyebrow,
+ * attribution/source line, and a CTA that links out to learn more.
+ *
+ * Presentation-only: the consumer owns any click tracking via `onCtaClick`, and
+ * the quote/attribution are passed verbatim (this component never transforms
+ * them).
+ */
+declare function QuoteCard({ quote, attribution, source, eyebrow, ctaLabel, ctaHref, onCtaClick, className, }: QuoteCardProps): react.JSX.Element;
+
 interface BreadcrumbItem {
     label: ReactNode;
     /** When set, the crumb is a link. The last item is treated as the current page. */
@@ -857,6 +887,80 @@ interface DrawerProps {
 }
 declare function Drawer({ isOpen, onClose, title, eyebrow, headerExtra, footer, children, }: DrawerProps): react.ReactPortal | null;
 
+interface CourseCalloutProps {
+    /** Categorical label above the title (e.g. "Partner course"). */
+    eyebrow?: ReactNode;
+    title: ReactNode;
+    description?: ReactNode;
+    /** Full-color hero image, shown when no `media` slot is supplied. */
+    imageUrl?: string;
+    /** Rich media rendered edge-to-edge at the top (e.g. an inline video player
+     *  supplied by the consumer). Takes precedence over `imageUrl`. */
+    media?: ReactNode;
+    /** Discounted price, e.g. "$399". */
+    priceLabel?: ReactNode;
+    /** Original price, struck through, e.g. "$549". */
+    originalPriceLabel?: ReactNode;
+    /** Discount badge, e.g. "20% off". */
+    discountLabel?: ReactNode;
+    /** Call-to-action label (e.g. "Enroll with your Trovio discount"). */
+    ctaLabel: ReactNode;
+    /** External destination for the CTA. When set the CTA renders as a link
+     *  (used post-paywall to deep-link the sales page). */
+    ctaHref?: string;
+    /** Presentation-only click hook — wire analytics/tracking in the consumer.
+     *  Pre-paywall consumers also open the paywall from here. */
+    onCtaClick?: () => void;
+    /** Pre-paywall treatment: shows a lock affordance and frames the price as an
+     *  after-activation incentive. The consumer still owns the CTA behavior. */
+    locked?: boolean;
+    className?: string;
+}
+/**
+ * CourseCallout — a featured partner-course card: hero media (or image), an
+ * eyebrow, headline, description, a discounted-price row, and a CTA. Used both
+ * post-paywall (unlocked, CTA links out to enroll) and pre-paywall (`locked`,
+ * CTA opens the activation paywall).
+ *
+ * Presentation-only: all copy/pricing/media are passed in verbatim and the
+ * consumer owns the CTA behavior + analytics via `ctaHref` / `onCtaClick`.
+ */
+declare function CourseCallout({ eyebrow, title, description, imageUrl, media, priceLabel, originalPriceLabel, discountLabel, ctaLabel, ctaHref, onCtaClick, locked, className, }: CourseCalloutProps): react.JSX.Element;
+
+interface CoursePromoBannerProps {
+    /** Small accent label above the headline (e.g. "Trovio-exclusive"). */
+    eyebrow?: ReactNode;
+    headline: ReactNode;
+    /** Optional supporting line under the headline. */
+    subhead?: ReactNode;
+    /** Portrait/lifestyle image; shown full-bleed alongside the copy (not cropped
+     *  to a thin banner — a tall column on desktop, a 4:5 crop on mobile). */
+    imageUrl?: string;
+    /** Short proof points, rendered as a row of chips. */
+    highlights?: ReactNode[];
+    priceLabel?: ReactNode;
+    originalPriceLabel?: ReactNode;
+    discountLabel?: ReactNode;
+    ctaLabel: ReactNode;
+    /** External destination for the CTA. When set the CTA renders as a link. */
+    ctaHref?: string;
+    /** Presentation-only click hook — wire analytics/tracking in the consumer. */
+    onCtaClick?: () => void;
+    className?: string;
+}
+/**
+ * CoursePromoBanner — a bold, image-forward promo hero for a partner course.
+ * Distinct from the calmer CourseCallout: a tinted gradient panel with the
+ * creator's photo shown large (portrait column on desktop, 4:5 on mobile),
+ * a punchy headline, proof chips, a discounted-price row, and a prominent
+ * full-width CTA spanning the base of the card. Meant to grab attention
+ * pre-paywall.
+ *
+ * Presentation-only: all copy/pricing/image pass through verbatim; the consumer
+ * owns CTA behavior + analytics via `ctaHref` / `onCtaClick`.
+ */
+declare function CoursePromoBanner({ eyebrow, headline, subhead, imageUrl, highlights, priceLabel, originalPriceLabel, discountLabel, ctaLabel, ctaHref, onCtaClick, className, }: CoursePromoBannerProps): react.JSX.Element;
+
 /**
  * Compact number formatting for stat displays (followers, posts, etc.).
  *
@@ -870,4 +974,4 @@ declare function Drawer({ isOpen, onClose, title, eyebrow, headerExtra, footer, 
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, ClampText, type ClampTextProps, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, ClampText, type ClampTextProps, CourseCallout, type CourseCalloutProps, CoursePromoBanner, type CoursePromoBannerProps, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, QuoteCard, type QuoteCardProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

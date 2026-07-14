@@ -28,11 +28,15 @@ export interface CreatorCardProps {
   handle: string;
   /** The match rationale — the star of the card. Clamped with an expand toggle. */
   oneLiner: string;
+  /** Lines the one-liner clamps to before a "More" toggle appears. Default 3. */
+  oneLinerLines?: number;
   /** Real profile photo; falls back to initials when absent. */
   avatarUrl?: string | null;
 
   /** Top posts on this theme (0–3). Strip + eyebrow hide when empty. */
   topPosts?: CreatorPost[];
+  /** Eyebrow above the top-posts strip. Default "Top posts · this theme". */
+  topPostsLabel?: string;
   onOpenPost?: (post: CreatorPost, index: number) => void;
 
   /** Personal-bookmark state + toggle. Save button shows only when `onSave` is set. */
@@ -51,8 +55,10 @@ export function CreatorCard({
   name,
   handle,
   oneLiner,
+  oneLinerLines = 3,
   avatarUrl,
   topPosts,
+  topPostsLabel = "Top posts · this theme",
   onOpenPost,
   saved = false,
   onSave,
@@ -99,14 +105,14 @@ export function CreatorCard({
 
       <ClampText
         className="text-caption leading-normal text-trovio-light-text dark:text-trovio-dark-text"
-        lines={3}
+        lines={oneLinerLines}
       >
         {oneLiner}
       </ClampText>
 
       {showPosts && (
         <div className="flex flex-col gap-2">
-          <SectionLabel>Top posts · this theme</SectionLabel>
+          <SectionLabel>{topPostsLabel}</SectionLabel>
           <TopPostsStrip onOpenPost={onOpenPost} posts={topPosts!} />
         </div>
       )}

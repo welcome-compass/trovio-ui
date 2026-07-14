@@ -1381,8 +1381,10 @@ function CreatorCard({
   name,
   handle,
   oneLiner,
+  oneLinerLines = 3,
   avatarUrl,
   topPosts,
+  topPostsLabel = "Top posts \xB7 this theme",
   onOpenPost,
   saved = false,
   onSave,
@@ -1426,12 +1428,12 @@ function CreatorCard({
           ClampText,
           {
             className: "text-caption leading-normal text-trovio-light-text dark:text-trovio-dark-text",
-            lines: 3,
+            lines: oneLinerLines,
             children: oneLiner
           }
         ),
         showPosts && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col gap-2", children: [
-          /* @__PURE__ */ jsxRuntime.jsx(SectionLabel, { children: "Top posts \xB7 this theme" }),
+          /* @__PURE__ */ jsxRuntime.jsx(SectionLabel, { children: topPostsLabel }),
           /* @__PURE__ */ jsxRuntime.jsx(TopPostsStrip, { onOpenPost, posts: topPosts })
         ] }),
         showActions && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mt-0.5 flex gap-2", children: [

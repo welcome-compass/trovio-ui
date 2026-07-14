@@ -1,12 +1,13 @@
 "use client";
 
-import { PiBookmarkSimple, PiBookmarkSimpleFill, PiCheckBold } from "react-icons/pi";
+import { PiBookmarkSimple, PiBookmarkSimpleFill } from "react-icons/pi";
 import clsx from "clsx";
 
 import { Avatar } from "./avatar";
 import { ClampText } from "./clamp-text";
 import { SectionLabel } from "./section-label";
 import { TrovioButton } from "./trovio-button";
+import { TrovioTextArea } from "./trovio-textarea";
 import { TopPostsStrip, type CreatorPost } from "./top-posts-strip";
 
 export type { CreatorPost };
@@ -16,11 +17,15 @@ export type { CreatorPost };
  * avatar + name/@handle, the genuine match one-liner (the hero copy), a strip of
  * top posts on this theme, and Save / Use-in-Campaign actions.
  *
- * Presentation-only: it holds no selection state. The consumer owns
- * `saved`/`selected` and reacts to `onSave`/`onUseInCampaign`; the avatar
- * resolves a real photo when `avatarUrl` is present and falls back to initials.
- * Post/deal enrichment is additive — the top-posts strip only renders when
+ * Presentation-only: it holds no state. The consumer owns `saved` and reacts to
+ * `onSave` (a toggle — the button reads "Save" when unsaved, "Unsave" when
+ * saved, so the same control saves on Explore and unsaves on the Saved tab).
+ * The avatar resolves a real photo when `avatarUrl` is present and falls back to
+ * initials. Post enrichment is additive — the top-posts strip only renders when
  * `topPosts` is supplied, so the card is valid at every data completeness level.
+ *
+ * The private note editor (Saved tab only) renders when `onNoteChange` is set;
+ * `note` is the controlled value.
  */
 export interface CreatorCardProps {
   name: string;
@@ -39,12 +44,24 @@ export interface CreatorCardProps {
   topPostsLabel?: string;
   onOpenPost?: (post: CreatorPost, index: number) => void;
 
-  /** Personal-bookmark state + toggle. Save button shows only when `onSave` is set. */
+  /**
+   * Saved state + toggle. The Save button renders only when `onSave` is set and
+   * reads "Save" when `saved` is false, "Unsave" when true.
+   */
   saved?: boolean;
   onSave?: () => void;
-  /** In-campaign-list state + toggle. Adds the selected ring + check badge. */
-  selected?: boolean;
+  /** "Use in Campaign" action. Button renders only when `onUseInCampaign` is set. */
   onUseInCampaign?: () => void;
+
+  /**
+   * Private per-creator note (Saved tab). The editor renders only when
+   * `onNoteChange` is provided; `note` is the controlled value.
+   */
+  note?: string;
+  onNoteChange?: (value: string) => void;
+  onNoteBlur?: () => void;
+  /** Placeholder for the note editor. Default "Add a private note…". */
+  notePlaceholder?: string;
 
   /** Fixed rail-column width (default 300) or e.g. "100%" in a grid. */
   width?: number | string;
@@ -62,35 +79,28 @@ export function CreatorCard({
   onOpenPost,
   saved = false,
   onSave,
-  selected = false,
   onUseInCampaign,
+  note = "",
+  onNoteChange,
+  onNoteBlur,
+  notePlaceholder = "Add a private note…",
   width = 300,
   className,
 }: CreatorCardProps) {
   const showPosts = Boolean(topPosts && topPosts.length > 0);
   const showActions = Boolean(onSave || onUseInCampaign);
+  const showNote = Boolean(onNoteChange);
 
   return (
     <article
       aria-label={name}
       className={clsx(
         "relative flex flex-col gap-3 rounded-2xl border bg-trovio-light-surface p-4 shadow-sm transition-all duration-150 dark:bg-trovio-dark-surface",
-        selected
-          ? "border-trovio-primary ring-1 ring-trovio-primary"
-          : "border-trovio-light-border hover:-translate-y-0.5 hover:border-trovio-primary/40 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none dark:border-trovio-dark-border",
+        "border-trovio-light-border hover:-translate-y-0.5 hover:border-trovio-primary/40 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none dark:border-trovio-dark-border",
         className,
       )}
       style={{ width }}
     >
-      {selected && (
-        <span
-          aria-hidden
-          className="absolute right-3 top-3 grid h-[22px] w-[22px] place-items-center rounded-full bg-trovio-primary text-white shadow-sm"
-        >
-          <PiCheckBold size={12} />
-        </span>
-      )}
-
       <div className="flex items-center gap-3">
         <Avatar imageUrl={avatarUrl} name={name} size={44} />
         <div className="min-w-0">
@@ -127,7 +137,7 @@ export function CreatorCard({
         <div className="mt-0.5 flex gap-2">
           {onSave && (
             <TrovioButton
-              aria-label={saved ? "Saved" : "Save creator"}
+              aria-label={saved ? "Unsave creator" : "Save creator"}
               className={clsx(
                 "flex-none gap-1.5",
                 saved && "border-trovio-primary/40 bg-trovio-primary/10 text-trovio-primary",
@@ -137,7 +147,7 @@ export function CreatorCard({
               onClick={onSave}
             >
               {saved ? <PiBookmarkSimpleFill size={14} /> : <PiBookmarkSimple size={14} />}
-              {saved ? "Saved" : "Save"}
+              {saved ? "Unsave" : "Save"}
             </TrovioButton>
           )}
           {onUseInCampaign && (
@@ -147,9 +157,22 @@ export function CreatorCard({
               variant="primary"
               onClick={onUseInCampaign}
             >
-              {selected ? "In list ✓" : "Use in Campaign"}
+              Use in Campaign
             </TrovioButton>
           )}
+        </div>
+      )}
+
+      {showNote && (
+        <div className="flex flex-col gap-1.5">
+          <SectionLabel>Your note</SectionLabel>
+          <TrovioTextArea
+            className="min-h-16 text-caption"
+            placeholder={notePlaceholder}
+            value={note}
+            onBlur={onNoteBlur}
+            onChange={(e) => onNoteChange?.(e.target.value)}
+          />
         </div>
       )}
     </article>

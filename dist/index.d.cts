@@ -607,11 +607,15 @@ declare function TopPostsStrip({ posts, onOpenPost, columns, className, }: TopPo
  * avatar + name/@handle, the genuine match one-liner (the hero copy), a strip of
  * top posts on this theme, and Save / Use-in-Campaign actions.
  *
- * Presentation-only: it holds no selection state. The consumer owns
- * `saved`/`selected` and reacts to `onSave`/`onUseInCampaign`; the avatar
- * resolves a real photo when `avatarUrl` is present and falls back to initials.
- * Post/deal enrichment is additive — the top-posts strip only renders when
+ * Presentation-only: it holds no state. The consumer owns `saved` and reacts to
+ * `onSave` (a toggle — the button reads "Save" when unsaved, "Unsave" when
+ * saved, so the same control saves on Explore and unsaves on the Saved tab).
+ * The avatar resolves a real photo when `avatarUrl` is present and falls back to
+ * initials. Post enrichment is additive — the top-posts strip only renders when
  * `topPosts` is supplied, so the card is valid at every data completeness level.
+ *
+ * The private note editor (Saved tab only) renders when `onNoteChange` is set;
+ * `note` is the controlled value.
  */
 interface CreatorCardProps {
     name: string;
@@ -628,17 +632,28 @@ interface CreatorCardProps {
     /** Eyebrow above the top-posts strip. Default "Top posts · this theme". */
     topPostsLabel?: string;
     onOpenPost?: (post: CreatorPost, index: number) => void;
-    /** Personal-bookmark state + toggle. Save button shows only when `onSave` is set. */
+    /**
+     * Saved state + toggle. The Save button renders only when `onSave` is set and
+     * reads "Save" when `saved` is false, "Unsave" when true.
+     */
     saved?: boolean;
     onSave?: () => void;
-    /** In-campaign-list state + toggle. Adds the selected ring + check badge. */
-    selected?: boolean;
+    /** "Use in Campaign" action. Button renders only when `onUseInCampaign` is set. */
     onUseInCampaign?: () => void;
+    /**
+     * Private per-creator note (Saved tab). The editor renders only when
+     * `onNoteChange` is provided; `note` is the controlled value.
+     */
+    note?: string;
+    onNoteChange?: (value: string) => void;
+    onNoteBlur?: () => void;
+    /** Placeholder for the note editor. Default "Add a private note…". */
+    notePlaceholder?: string;
     /** Fixed rail-column width (default 300) or e.g. "100%" in a grid. */
     width?: number | string;
     className?: string;
 }
-declare function CreatorCard({ name, handle, oneLiner, oneLinerLines, avatarUrl, topPosts, topPostsLabel, onOpenPost, saved, onSave, selected, onUseInCampaign, width, className, }: CreatorCardProps): react.JSX.Element;
+declare function CreatorCard({ name, handle, oneLiner, oneLinerLines, avatarUrl, topPosts, topPostsLabel, onOpenPost, saved, onSave, onUseInCampaign, note, onNoteChange, onNoteBlur, notePlaceholder, width, className, }: CreatorCardProps): react.JSX.Element;
 
 /**
  * CreatorCardSkeleton — the loading placeholder for CreatorCard, shaped to match

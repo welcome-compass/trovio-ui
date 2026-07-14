@@ -28,14 +28,28 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Full card: identity + one-liner + top-posts strip + actions. */
+/** Full card on Explore: identity + one-liner + top-posts strip + actions. */
 export const Default: Story = {
   args: { onSave: () => {}, onUseInCampaign: () => {} },
 };
 
-/** Selected into the campaign list — accent ring + check badge. */
-export const Selected: Story = {
-  args: { selected: true, saved: true, onSave: () => {}, onUseInCampaign: () => {} },
+/** Saved — the Save button flips to "Unsave" with the accent highlight. */
+export const Saved: Story = {
+  args: { saved: true, onSave: () => {}, onUseInCampaign: () => {} },
+};
+
+/**
+ * Saved tab: saved + the private note editor (renders only when `onNoteChange`
+ * is provided). No posts strip needed for the shortlist view.
+ */
+export const WithNote: Story = {
+  args: {
+    saved: true,
+    note: "Great fit for the spring launch — reach out after the March drop.",
+    onSave: () => {},
+    onUseInCampaign: () => {},
+    onNoteChange: () => {},
+  },
 };
 
 /** Identity + one-liner only (no posts payload yet) — still a valid card. */
@@ -53,19 +67,20 @@ export const CustomLabelAndClamp: Story = {
   },
 };
 
-/** Interactive — Save + Use-in-Campaign toggle their own state. */
+/** Interactive — Save/Unsave toggles, and an editable private note. */
 export const Interactive: Story = {
   render: (args) => {
     const [saved, setSaved] = useState(false);
-    const [selected, setSelected] = useState(false);
+    const [note, setNote] = useState("");
 
     return (
       <CreatorCard
         {...args}
+        note={note}
         saved={saved}
-        selected={selected}
+        onNoteChange={setNote}
         onSave={() => setSaved((v) => !v)}
-        onUseInCampaign={() => setSelected((v) => !v)}
+        onUseInCampaign={() => {}}
       />
     );
   },

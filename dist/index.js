@@ -4,7 +4,7 @@ import { buttonVariants, Button, Spinner, Chip, Input, TextArea, Modal, Checkbox
 import { tv } from 'tailwind-variants';
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import clsx31 from 'clsx';
-import { PiCaretLeftBold, PiCaretRightBold, PiLockKeyDuotone, PiYoutubeLogoDuotone, PiTiktokLogoDuotone, PiInstagramLogoDuotone, PiGlobeDuotone, PiQuotesFill, PiCheckBold, PiBookmarkSimpleFill, PiBookmarkSimple, PiXBold, PiSparkleDuotone, PiHandshakeDuotone, PiIdentificationCardDuotone, PiLockSimpleDuotone, PiArrowRightBold, PiSparkleFill, PiArrowLeftBold, PiPlayFill, PiUsersThreeDuotone, PiTrendUpDuotone, PiEyeDuotone, PiMagnetDuotone, PiWaveSineDuotone, PiTargetDuotone, PiStarDuotone, PiHeartDuotone, PiClockDuotone, PiLightningDuotone } from 'react-icons/pi';
+import { PiCaretLeftBold, PiCaretRightBold, PiLockKeyDuotone, PiYoutubeLogoDuotone, PiTiktokLogoDuotone, PiInstagramLogoDuotone, PiGlobeDuotone, PiQuotesFill, PiBookmarkSimpleFill, PiBookmarkSimple, PiXBold, PiSparkleDuotone, PiHandshakeDuotone, PiIdentificationCardDuotone, PiLockSimpleDuotone, PiArrowRightBold, PiSparkleFill, PiArrowLeftBold, PiPlayFill, PiUsersThreeDuotone, PiTrendUpDuotone, PiEyeDuotone, PiMagnetDuotone, PiWaveSineDuotone, PiTargetDuotone, PiStarDuotone, PiHeartDuotone, PiClockDuotone, PiLightningDuotone } from 'react-icons/pi';
 import { createPortal } from 'react-dom';
 
 var trovioButtonVariants = tv({
@@ -1381,32 +1381,28 @@ function CreatorCard({
   onOpenPost,
   saved = false,
   onSave,
-  selected = false,
   onUseInCampaign,
+  note = "",
+  onNoteChange,
+  onNoteBlur,
+  notePlaceholder = "Add a private note\u2026",
   width = 300,
   className
 }) {
   const showPosts = Boolean(topPosts && topPosts.length > 0);
   const showActions = Boolean(onSave || onUseInCampaign);
+  const showNote = Boolean(onNoteChange);
   return /* @__PURE__ */ jsxs(
     "article",
     {
       "aria-label": name,
       className: clsx31(
         "relative flex flex-col gap-3 rounded-2xl border bg-trovio-light-surface p-4 shadow-sm transition-all duration-150 dark:bg-trovio-dark-surface",
-        selected ? "border-trovio-primary ring-1 ring-trovio-primary" : "border-trovio-light-border hover:-translate-y-0.5 hover:border-trovio-primary/40 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none dark:border-trovio-dark-border",
+        "border-trovio-light-border hover:-translate-y-0.5 hover:border-trovio-primary/40 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none dark:border-trovio-dark-border",
         className
       ),
       style: { width },
       children: [
-        selected && /* @__PURE__ */ jsx(
-          "span",
-          {
-            "aria-hidden": true,
-            className: "absolute right-3 top-3 grid h-[22px] w-[22px] place-items-center rounded-full bg-trovio-primary text-white shadow-sm",
-            children: /* @__PURE__ */ jsx(PiCheckBold, { size: 12 })
-          }
-        ),
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
           /* @__PURE__ */ jsx(Avatar, { imageUrl: avatarUrl, name, size: 44 }),
           /* @__PURE__ */ jsxs("div", { className: "min-w-0", children: [
@@ -1433,7 +1429,7 @@ function CreatorCard({
           onSave && /* @__PURE__ */ jsxs(
             TrovioButton,
             {
-              "aria-label": saved ? "Saved" : "Save creator",
+              "aria-label": saved ? "Unsave creator" : "Save creator",
               className: clsx31(
                 "flex-none gap-1.5",
                 saved && "border-trovio-primary/40 bg-trovio-primary/10 text-trovio-primary"
@@ -1443,7 +1439,7 @@ function CreatorCard({
               onClick: onSave,
               children: [
                 saved ? /* @__PURE__ */ jsx(PiBookmarkSimpleFill, { size: 14 }) : /* @__PURE__ */ jsx(PiBookmarkSimple, { size: 14 }),
-                saved ? "Saved" : "Save"
+                saved ? "Unsave" : "Save"
               ]
             }
           ),
@@ -1454,7 +1450,20 @@ function CreatorCard({
               size: "sm",
               variant: "primary",
               onClick: onUseInCampaign,
-              children: selected ? "In list \u2713" : "Use in Campaign"
+              children: "Use in Campaign"
+            }
+          )
+        ] }),
+        showNote && /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-1.5", children: [
+          /* @__PURE__ */ jsx(SectionLabel, { children: "Your note" }),
+          /* @__PURE__ */ jsx(
+            TrovioTextArea,
+            {
+              className: "min-h-16 text-caption",
+              placeholder: notePlaceholder,
+              value: note,
+              onBlur: onNoteBlur,
+              onChange: (e) => onNoteChange?.(e.target.value)
             }
           )
         ] })

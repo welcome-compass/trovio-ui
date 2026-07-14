@@ -59,8 +59,20 @@ export { GoalCard } from "./components/goal-card";
 export type { GoalCardProps } from "./components/goal-card";
 export { QuoteCard } from "./components/quote-card";
 export type { QuoteCardProps } from "./components/quote-card";
+export { Carousel } from "./components/carousel";
+export type {
+  CarouselProps,
+  CarouselHandle,
+  CarouselScrollState,
+} from "./components/carousel";
 
 // ── Components (composed of primitives) ─────────────────────────────────────
+export { CreatorCard } from "./components/creator-card";
+export type { CreatorCardProps, CreatorPost } from "./components/creator-card";
+export { TopPostsStrip } from "./components/top-posts-strip";
+export type { TopPostsStripProps } from "./components/top-posts-strip";
+export { CreatorCardSkeleton } from "./components/creator-card-skeleton";
+export type { CreatorCardSkeletonProps } from "./components/creator-card-skeleton";
 export { Breadcrumbs } from "./components/breadcrumbs";
 export type { BreadcrumbItem, BreadcrumbsProps } from "./components/breadcrumbs";
 export { BackButton } from "./components/back-button";

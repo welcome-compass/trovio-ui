@@ -651,9 +651,11 @@ interface CreatorCardSkeletonProps {
     width?: number | string;
     showPosts?: boolean;
     showActions?: boolean;
+    /** Reserve the same one-liner slot as CreatorCard so there's no swap shift. Default 3. */
+    oneLinerLines?: number;
     className?: string;
 }
-declare function CreatorCardSkeleton({ width, showPosts, showActions, className, }: CreatorCardSkeletonProps): react.JSX.Element;
+declare function CreatorCardSkeleton({ width, showPosts, showActions, oneLinerLines, className, }: CreatorCardSkeletonProps): react.JSX.Element;
 
 interface BreadcrumbItem {
     label: ReactNode;

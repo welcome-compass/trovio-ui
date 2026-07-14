@@ -15,6 +15,8 @@ export interface CreatorCardSkeletonProps {
   width?: number | string;
   showPosts?: boolean;
   showActions?: boolean;
+  /** Reserve the same one-liner slot as CreatorCard so there's no swap shift. Default 3. */
+  oneLinerLines?: number;
   className?: string;
 }
 
@@ -22,6 +24,7 @@ export function CreatorCardSkeleton({
   width = 300,
   showPosts = true,
   showActions = true,
+  oneLinerLines = 3,
   className,
 }: CreatorCardSkeletonProps) {
   return (
@@ -41,7 +44,10 @@ export function CreatorCardSkeleton({
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div
+        className="text-caption space-y-2"
+        style={{ minHeight: `calc(${oneLinerLines} * 1.5em)` }}
+      >
         <TrovioSkeleton className="h-2.5 w-full rounded" />
         <TrovioSkeleton className="h-2.5 w-[88%] rounded" />
         <TrovioSkeleton className="h-2.5 w-3/5 rounded" />

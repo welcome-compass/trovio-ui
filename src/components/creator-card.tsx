@@ -103,12 +103,18 @@ export function CreatorCard({
         </div>
       </div>
 
-      <ClampText
-        className="text-caption leading-normal text-trovio-light-text dark:text-trovio-dark-text"
-        lines={oneLinerLines}
-      >
-        {oneLiner}
-      </ClampText>
+      {/* Reserve the full clamp height (oneLinerLines × the caption line box) so
+          every card lines its posts strip + actions up at the same offset —
+          shorter one-liners simply leave whitespace below. Keeps a rail of cards
+          the same height without a hard-coded card min-height. */}
+      <div className="text-caption" style={{ minHeight: `calc(${oneLinerLines} * 1.5em)` }}>
+        <ClampText
+          className="leading-normal text-trovio-light-text dark:text-trovio-dark-text"
+          lines={oneLinerLines}
+        >
+          {oneLiner}
+        </ClampText>
+      </div>
 
       {showPosts && (
         <div className="flex flex-col gap-2">

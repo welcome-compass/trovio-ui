@@ -1,6 +1,7 @@
 import { ButtonProps, ChipProps, InputProps, CardProps } from '@heroui/react';
 import * as react from 'react';
 import react__default, { ReactNode, ComponentType } from 'react';
+import { IconBaseProps, IconType } from 'react-icons';
 export { DesignTokens, brandColors, darkColors, designTokens, fonts, lightColors, radius, semanticColors, shadow, typeScale } from './tokens.cjs';
 
 interface TrovioButtonProps extends Omit<ButtonProps, "color" | "variant" | "className"> {
@@ -17,6 +18,36 @@ interface TrovioButtonProps extends Omit<ButtonProps, "color" | "variant" | "cla
     className?: string;
 }
 declare const TrovioButton: react__default.ForwardRefExoticComponent<Omit<TrovioButtonProps, "ref"> & react__default.RefAttributes<HTMLButtonElement>>;
+
+/**
+ * TrovioIcon — renders a Phosphor icon **flat by default**.
+ *
+ * Phosphor *Duotone* icons (`react-icons/pi` `*Duotone`) ship a translucent
+ * background layer — a `<path opacity="0.2">` behind the glyph — that reads as a
+ * stray tinted box behind utility icons (plus, pencil, trash, carets, refresh,
+ * upload). This primitive zeroes that layer so action/utility icons render
+ * clean, with no per-app `icon-flat` class to remember (and no way to get it
+ * subtly wrong — the class-on-the-svg form of `icon-flat` silently no-ops).
+ *
+ * Flattening is a self-contained Tailwind arbitrary variant baked into the
+ * class, so it works in any consumer that already sources `@trovio/ui/dist` —
+ * no extra CSS import.
+ *
+ * Pass `duotone` to KEEP the fill for decorative / feature icons where the
+ * duotone layer is intentional (hearts, sparkles, trophies, large hero checks).
+ *
+ * ```tsx
+ * <TrovioIcon icon={PiPlusDuotone} className="text-base" />   // flat "+"
+ * <TrovioIcon icon={PiHeartDuotone} duotone size={20} />      // keeps the fill
+ * ```
+ */
+interface TrovioIconProps extends IconBaseProps {
+    /** The Phosphor icon component, e.g. `PiPlusDuotone` from `react-icons/pi`. */
+    icon: IconType;
+    /** Keep the Duotone background fill (decorative / feature icons). Default off. */
+    duotone?: boolean;
+}
+declare function TrovioIcon({ icon: Icon, duotone, className, ...props }: TrovioIconProps): react.JSX.Element;
 
 interface TrovioBadgeProps extends Omit<ChipProps, "color"> {
     status: "published" | "draft" | "archived" | "success" | "warning" | "error" | "info";
@@ -1151,4 +1182,4 @@ declare function CoursePromoBanner({ eyebrow, headline, subhead, imageUrl, highl
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, Carousel, type CarouselHandle, type CarouselProps, type CarouselScrollState, ClampText, type ClampTextProps, ConversationCard, type ConversationCardProps, type ConversationStatus, CourseCallout, type CourseCalloutProps, CoursePromoBanner, type CoursePromoBannerProps, CreatorCard, type CreatorCardProps, CreatorCardSkeleton, type CreatorCardSkeletonProps, type CreatorPost, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, QuoteCard, type QuoteCardProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TopPostsStrip, type TopPostsStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, Carousel, type CarouselHandle, type CarouselProps, type CarouselScrollState, ClampText, type ClampTextProps, ConversationCard, type ConversationCardProps, type ConversationStatus, CourseCallout, type CourseCalloutProps, CoursePromoBanner, type CoursePromoBannerProps, CreatorCard, type CreatorCardProps, CreatorCardSkeleton, type CreatorCardSkeletonProps, type CreatorPost, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, QuoteCard, type QuoteCardProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TopPostsStrip, type TopPostsStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioIcon, type TrovioIconProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

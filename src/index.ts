@@ -10,6 +10,8 @@
 // ── Primitives (base, presentation-only) ───────────────────────────────────
 export { TrovioButton } from "./components/trovio-button";
 export type { TrovioButtonProps } from "./components/trovio-button";
+export { TrovioIcon } from "./components/trovio-icon";
+export type { TrovioIconProps } from "./components/trovio-icon";
 export { TrovioBadge } from "./components/trovio-badge";
 export type { TrovioBadgeProps } from "./components/trovio-badge";
 export { TrovioInput } from "./components/trovio-input";

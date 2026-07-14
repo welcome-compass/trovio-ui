@@ -3,7 +3,7 @@ import React2, { forwardRef, useRef, useState, useCallback, useImperativeHandle,
 import { buttonVariants, Button, Spinner, Chip, Input, TextArea, Modal, Checkbox, Switch, Skeleton, Card, Select, ListBox } from '@heroui/react';
 import { tv } from 'tailwind-variants';
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
-import clsx32 from 'clsx';
+import clsx33 from 'clsx';
 import { PiCaretLeftBold, PiCaretRightBold, PiLockKeyDuotone, PiYoutubeLogoDuotone, PiTiktokLogoDuotone, PiInstagramLogoDuotone, PiGlobeDuotone, PiQuotesFill, PiCheckBold, PiBookmarkSimpleFill, PiBookmarkSimple, PiPencilSimple, PiPlay, PiPause, PiTrash, PiXBold, PiSparkleDuotone, PiHandshakeDuotone, PiIdentificationCardDuotone, PiLockSimpleDuotone, PiArrowRightBold, PiSparkleFill, PiArrowLeftBold, PiPlayFill, PiUsersThreeDuotone, PiTrendUpDuotone, PiEyeDuotone, PiMagnetDuotone, PiWaveSineDuotone, PiTargetDuotone, PiStarDuotone, PiHeartDuotone, PiClockDuotone, PiLightningDuotone } from 'react-icons/pi';
 import { createPortal } from 'react-dom';
 
@@ -163,6 +163,15 @@ var TrovioButton = forwardRef(
   }
 );
 TrovioButton.displayName = "TrovioButton";
+var FLATTEN_DUOTONE = "[&_path[opacity]]:opacity-0";
+function TrovioIcon({
+  icon: Icon,
+  duotone = false,
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx(Icon, { className: clsx33(!duotone && FLATTEN_DUOTONE, className), ...props });
+}
 var trovioBadgeVariants = tv({
   base: "text-xs font-medium",
   variants: {
@@ -384,7 +393,7 @@ function TrovioCheckbox({
     Checkbox,
     {
       ...ariaProps,
-      className: clsx32(
+      className: clsx33(
         // Avoid extra spacing when used as an icon in a flex row
         "shrink-0 gap-0 group",
         className
@@ -395,7 +404,7 @@ function TrovioCheckbox({
       children: /* @__PURE__ */ jsx(
         Checkbox.Control,
         {
-          className: clsx32(
+          className: clsx33(
             controlSize,
             // Keep default square checkbox; apply Trovio colors.
             "rounded-md shadow-none",
@@ -412,7 +421,7 @@ function TrovioCheckbox({
           children: /* @__PURE__ */ jsx(
             Checkbox.Indicator,
             {
-              className: clsx32(
+              className: clsx33(
                 "flex items-center justify-center",
                 // keep the indicator container sized consistently
                 `[&_[data-slot='checkbox-default-indicator--checkmark']]:${checkmarkSize}`
@@ -421,7 +430,7 @@ function TrovioCheckbox({
                 "svg",
                 {
                   "aria-hidden": "true",
-                  className: clsx32(
+                  className: clsx33(
                     checkmarkSize,
                     isSelected ? "text-white" : "text-trovio-light-text-muted/40 dark:text-trovio-dark-text-muted/40"
                   ),
@@ -463,7 +472,7 @@ var TrovioSwitch = ({
   const switchElement = /* @__PURE__ */ jsx(
     Switch,
     {
-      className: clsx32("group", !label ? className : void 0),
+      className: clsx33("group", !label ? className : void 0),
       defaultSelected: checked === void 0 ? defaultChecked : void 0,
       id,
       isDisabled,
@@ -474,7 +483,7 @@ var TrovioSwitch = ({
       children: /* @__PURE__ */ jsx(
         Switch.Control,
         {
-          className: clsx32(
+          className: clsx33(
             // Default state
             "bg-trovio-light-border dark:bg-trovio-dark-border",
             // Hover state
@@ -491,7 +500,7 @@ var TrovioSwitch = ({
   if (!label) {
     return switchElement;
   }
-  return /* @__PURE__ */ jsxs("div", { className: clsx32("flex items-center gap-4", className), children: [
+  return /* @__PURE__ */ jsxs("div", { className: clsx33("flex items-center gap-4", className), children: [
     /* @__PURE__ */ jsxs("div", { className: "flex-1", children: [
       /* @__PURE__ */ jsx("div", { className: "text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text", children: label }),
       helperText && /* @__PURE__ */ jsx("p", { className: "text-xs text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: helperText })
@@ -512,7 +521,7 @@ var TrovioSpinner = ({
   return /* @__PURE__ */ jsx(
     Spinner,
     {
-      className: clsx32("text-trovio-primary", className),
+      className: clsx33("text-trovio-primary", className),
       color: "current",
       size: sizeMap[size] || "md"
     }
@@ -532,7 +541,7 @@ var TrovioSkeleton = ({
     Skeleton,
     {
       animationType: disableAnimation ? "none" : "pulse",
-      className: clsx32(
+      className: clsx33(
         className,
         usePrimaryColor && "bg-trovio-primary/15 dark:bg-trovio-primary/15"
       )
@@ -555,7 +564,7 @@ function TrovioProgressBar({
       "aria-valuemax": max,
       "aria-valuemin": 0,
       "aria-valuenow": value,
-      className: clsx32(
+      className: clsx33(
         "w-full rounded-full bg-trovio-light-border dark:bg-trovio-dark-border",
         size === "sm" ? "h-1.5" : "h-2.5",
         className
@@ -564,7 +573,7 @@ function TrovioProgressBar({
       children: /* @__PURE__ */ jsx(
         "div",
         {
-          className: clsx32(
+          className: clsx33(
             "rounded-full transition-all duration-500 ease-out",
             size === "sm" ? "h-1.5" : "h-2.5"
           ),
@@ -587,7 +596,7 @@ function WidgetCard({
   return /* @__PURE__ */ jsx(
     Card,
     {
-      className: clsx32("w-full overflow-hidden", !noPadding && "p-6", className),
+      className: clsx33("w-full overflow-hidden", !noPadding && "p-6", className),
       style: { minHeight },
       ...props,
       children
@@ -602,7 +611,7 @@ function SectionLabel({
   return /* @__PURE__ */ jsx(
     "p",
     {
-      className: clsx32(
+      className: clsx33(
         "text-micro uppercase",
         tone === "primary" ? "text-trovio-primary" : "text-trovio-light-text-muted dark:text-trovio-dark-text-muted",
         className
@@ -621,7 +630,7 @@ function SectionHeading({
   return /* @__PURE__ */ jsx(
     Tag,
     {
-      className: clsx32(
+      className: clsx33(
         "text-trovio-light-text dark:text-trovio-dark-text",
         hero ? "text-hero" : "text-section",
         divider && "border-b border-trovio-light-border pb-3 dark:border-trovio-dark-border",
@@ -676,7 +685,7 @@ function Avatar({
   return /* @__PURE__ */ jsx(
     "span",
     {
-      className: clsx32(
+      className: clsx33(
         "inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-trovio-light-bg font-bold text-trovio-light-text dark:bg-trovio-dark-bg dark:text-trovio-dark-text",
         className
       ),
@@ -712,7 +721,7 @@ function RingGauge({
   return /* @__PURE__ */ jsxs(
     "div",
     {
-      className: clsx32("relative inline-flex shrink-0", className),
+      className: clsx33("relative inline-flex shrink-0", className),
       style: { width: size, height: size },
       children: [
         /* @__PURE__ */ jsxs("svg", { height: size, width: size, children: [
@@ -772,7 +781,7 @@ function Sparkline({
     "svg",
     {
       "aria-hidden": "true",
-      className: clsx32("shrink-0", className),
+      className: clsx33("shrink-0", className),
       height,
       viewBox: `0 0 ${width} ${height}`,
       width,
@@ -796,13 +805,13 @@ function SegmentedToggle({
   onChange,
   className
 }) {
-  return /* @__PURE__ */ jsx("div", { className: clsx32("flex flex-wrap gap-2", className), role: "tablist", children: options.map((opt) => {
+  return /* @__PURE__ */ jsx("div", { className: clsx33("flex flex-wrap gap-2", className), role: "tablist", children: options.map((opt) => {
     const active = opt.value === value;
     return /* @__PURE__ */ jsx(
       "button",
       {
         "aria-selected": active,
-        className: clsx32(
+        className: clsx33(
           "rounded-full border px-3 py-1.5 text-caption font-semibold transition-colors",
           active ? "border-trovio-primary bg-trovio-primary text-white" : "border-trovio-light-border text-trovio-light-text-muted hover:border-trovio-primary/50 dark:border-trovio-dark-border dark:text-trovio-dark-text-muted"
         ),
@@ -827,7 +836,7 @@ function TrovioSelect({
   size = "md",
   className
 }) {
-  return /* @__PURE__ */ jsxs("div", { className: clsx32("flex flex-col gap-1.5", className), children: [
+  return /* @__PURE__ */ jsxs("div", { className: clsx33("flex flex-col gap-1.5", className), children: [
     label ? /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: label }) : null,
     /* @__PURE__ */ jsxs(
       Select,
@@ -865,7 +874,7 @@ function Timeline({ items, className }) {
   return /* @__PURE__ */ jsx(
     "ol",
     {
-      className: clsx32(
+      className: clsx33(
         "relative ml-1 border-l border-trovio-light-border pl-4 dark:border-trovio-dark-border",
         className
       ),
@@ -908,7 +917,7 @@ function MediaKitPreview({
     "div",
     {
       ref,
-      className: clsx32(
+      className: clsx33(
         "relative overflow-hidden rounded-xl border border-trovio-light-border dark:border-trovio-dark-border",
         className
       ),
@@ -981,7 +990,7 @@ function ClampText({
     (overflows || expanded) && /* @__PURE__ */ jsx(
       "button",
       {
-        className: clsx32(
+        className: clsx33(
           "mt-1 cursor-pointer text-caption font-semibold text-trovio-primary",
           toggleClassName
         ),
@@ -1001,7 +1010,7 @@ function GeneratingBlock({
   lines = 3,
   className
 }) {
-  return /* @__PURE__ */ jsxs("div", { className: clsx32("space-y-4", className), children: [
+  return /* @__PURE__ */ jsxs("div", { className: clsx33("space-y-4", className), children: [
     /* @__PURE__ */ jsx("div", { "aria-hidden": true, className: "space-y-2.5", children: Array.from({ length: lines }, (_, i) => /* @__PURE__ */ jsx(
       "div",
       {
@@ -1051,7 +1060,7 @@ var GoalCard = React2.forwardRef(
       "div",
       {
         ref,
-        className: clsx32(
+        className: clsx33(
           "relative select-none rounded-2xl bg-white shadow-sm dark:bg-trovio-dark-surface",
           "border border-trovio-light-border dark:border-trovio-dark-border",
           "transition-shadow duration-200",
@@ -1101,7 +1110,7 @@ function QuoteCard({
   return /* @__PURE__ */ jsxs(
     "div",
     {
-      className: clsx32(
+      className: clsx33(
         "rounded-2xl border border-trovio-light-border bg-trovio-light-surface p-4 dark:border-trovio-dark-border dark:bg-trovio-dark-surface",
         className
       ),
@@ -1256,7 +1265,7 @@ var Carousel = forwardRef(function Carousel2({
           "button",
           {
             "aria-label": "Scroll left",
-            className: clsx32(arrowClass, "left-1"),
+            className: clsx33(arrowClass, "left-1"),
             disabled: !state.canLeft,
             type: "button",
             onClick: () => scrollByDir(-1),
@@ -1267,7 +1276,7 @@ var Carousel = forwardRef(function Carousel2({
           "button",
           {
             "aria-label": "Scroll right",
-            className: clsx32(arrowClass, "right-1"),
+            className: clsx33(arrowClass, "right-1"),
             disabled: !state.canRight,
             type: "button",
             onClick: () => scrollByDir(1),
@@ -1357,7 +1366,7 @@ function TopPostsStrip({
   return /* @__PURE__ */ jsx(
     "div",
     {
-      className: clsx32("grid gap-2", className),
+      className: clsx33("grid gap-2", className),
       style: { gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` },
       children: posts.slice(0, columns).map((post, i) => /* @__PURE__ */ jsx(
         PostThumbnail,
@@ -1392,7 +1401,7 @@ function CreatorCard({
     "article",
     {
       "aria-label": name,
-      className: clsx32(
+      className: clsx33(
         "relative flex flex-col gap-3 rounded-2xl border bg-trovio-light-surface p-4 shadow-sm transition-all duration-150 dark:bg-trovio-dark-surface",
         selected ? "border-trovio-primary ring-1 ring-trovio-primary" : "border-trovio-light-border hover:-translate-y-0.5 hover:border-trovio-primary/40 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none dark:border-trovio-dark-border",
         className
@@ -1434,7 +1443,7 @@ function CreatorCard({
             TrovioButton,
             {
               "aria-label": saved ? "Saved" : "Save creator",
-              className: clsx32(
+              className: clsx33(
                 "flex-none gap-1.5",
                 saved && "border-trovio-primary/40 bg-trovio-primary/10 text-trovio-primary"
               ),
@@ -1488,7 +1497,7 @@ function ConversationCard({
     "article",
     {
       "aria-label": name,
-      className: clsx32(
+      className: clsx33(
         "flex flex-col gap-3 rounded-2xl border border-trovio-light-border bg-trovio-light-surface p-5 shadow-sm transition-colors dark:border-trovio-dark-border dark:bg-trovio-dark-surface",
         className
       ),
@@ -1566,7 +1575,7 @@ function CreatorCardSkeleton({
     "div",
     {
       "aria-hidden": true,
-      className: clsx32(
+      className: clsx33(
         "flex flex-col gap-3 rounded-2xl border border-trovio-light-border bg-trovio-light-surface p-4 shadow-sm dark:border-trovio-dark-border dark:bg-trovio-dark-surface",
         className
       ),
@@ -1611,7 +1620,7 @@ function Breadcrumbs({ items, linkComponent, className }) {
     "nav",
     {
       "aria-label": "Breadcrumb",
-      className: clsx32("flex items-center gap-1.5 text-caption", className),
+      className: clsx33("flex items-center gap-1.5 text-caption", className),
       children: items.map((item, i) => {
         const isLast = i === items.length - 1;
         return /* @__PURE__ */ jsxs(Fragment$1, { children: [
@@ -1643,7 +1652,7 @@ function BackButton({
   linkComponent,
   className
 }) {
-  const cls = clsx32(
+  const cls = clsx33(
     "inline-flex items-center gap-1.5 text-caption font-medium text-trovio-light-text-muted transition-colors hover:text-trovio-light-text dark:text-trovio-dark-text-muted dark:hover:text-trovio-dark-text",
     className
   );
@@ -1675,7 +1684,7 @@ function EmailMessage({
   return /* @__PURE__ */ jsxs(
     "div",
     {
-      className: clsx32(
+      className: clsx33(
         "overflow-hidden rounded-xl border bg-trovio-light-surface dark:bg-trovio-dark-surface",
         highlighted ? "border-trovio-primary shadow-[0_0_0_3px_rgba(102,102,255,0.08)]" : "border-trovio-light-border dark:border-trovio-dark-border",
         className
@@ -1729,7 +1738,7 @@ function BrandCard({
   return /* @__PURE__ */ jsxs(
     "div",
     {
-      className: clsx32(
+      className: clsx33(
         "relative flex flex-col gap-2 rounded-lg border border-trovio-light-border bg-trovio-light-surface p-3 transition-colors hover:border-trovio-primary/40 dark:border-trovio-dark-border dark:bg-trovio-dark-surface",
         className
       ),
@@ -1809,7 +1818,7 @@ function HeadlineBlock({
     /* @__PURE__ */ jsx(
       "h2",
       {
-        className: clsx32(
+        className: clsx33(
           SIZE_CLASS[size],
           weight ? WEIGHT_CLASS[weight] : null,
           "text-trovio-light-text dark:text-trovio-dark-text"
@@ -1830,7 +1839,7 @@ function TitledPanel({
   children,
   className
 }) {
-  return /* @__PURE__ */ jsxs("section", { className: clsx32("flex flex-col gap-4", className), children: [
+  return /* @__PURE__ */ jsxs("section", { className: clsx33("flex flex-col gap-4", className), children: [
     title != null ? /* @__PURE__ */ jsx(HeadlineBlock, { size: titleSize, weight: titleWeight, children: title }) : null,
     /* @__PURE__ */ jsx("div", { children })
   ] });
@@ -1847,7 +1856,7 @@ function LinkCard({
   return /* @__PURE__ */ jsxs(
     "a",
     {
-      className: clsx32(
+      className: clsx33(
         "block overflow-hidden rounded-2xl border border-trovio-light-border dark:border-trovio-dark-border",
         className
       ),
@@ -1886,7 +1895,7 @@ function JourneyStepper({
       const rightDone = step.status === "completed";
       const isLoading = step.status === "current" && Boolean(step.loading);
       const circleBase = "relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors sm:h-10 sm:w-10 sm:text-sm";
-      const circle = clsx32(
+      const circle = clsx33(
         circleBase,
         step.status === "completed" && "bg-trovio-primary text-white",
         // Loading current step drops the static border — the spinning arc
@@ -1943,7 +1952,7 @@ function JourneyStepper({
         "button",
         {
           "aria-label": `${step.label}, ${isLoading ? "in progress, " : ""}tap to activate`,
-          className: clsx32(circle, "cursor-pointer"),
+          className: clsx33(circle, "cursor-pointer"),
           type: "button",
           onClick: onCurrentClick,
           children: inner
@@ -1966,7 +1975,7 @@ function JourneyStepper({
               /* @__PURE__ */ jsx(
                 "div",
                 {
-                  className: clsx32(
+                  className: clsx33(
                     "h-px flex-1",
                     isFirst ? "bg-transparent" : lineClass(leftDone)
                   )
@@ -1976,7 +1985,7 @@ function JourneyStepper({
               /* @__PURE__ */ jsx(
                 "div",
                 {
-                  className: clsx32(
+                  className: clsx33(
                     "h-px flex-1",
                     isLast ? "bg-transparent" : lineClass(rightDone)
                   )
@@ -1986,7 +1995,7 @@ function JourneyStepper({
             /* @__PURE__ */ jsx(
               "span",
               {
-                className: clsx32(
+                className: clsx33(
                   "mt-2 px-0.5 text-center text-[11px] leading-tight sm:text-sm",
                   step.status === "upcoming" ? "text-trovio-light-text-muted dark:text-trovio-dark-text-muted" : "font-medium text-trovio-light-text dark:text-trovio-dark-text"
                 ),
@@ -2474,7 +2483,7 @@ function Drawer({
       /* @__PURE__ */ jsxs(
         "div",
         {
-          className: clsx32(
+          className: clsx33(
             "absolute inset-y-0 right-0 flex w-full flex-col bg-trovio-light-surface shadow-2xl dark:bg-trovio-dark-surface",
             "sm:max-w-[480px]"
           ),
@@ -2527,7 +2536,7 @@ function CourseCallout({
   return /* @__PURE__ */ jsxs(
     "div",
     {
-      className: clsx32(
+      className: clsx33(
         "overflow-hidden rounded-2xl border border-trovio-light-border bg-trovio-light-surface dark:border-trovio-dark-border dark:bg-trovio-dark-surface",
         className
       ),
@@ -2598,7 +2607,7 @@ function CoursePromoBanner({
   return /* @__PURE__ */ jsxs(
     "div",
     {
-      className: clsx32(
+      className: clsx33(
         "flex flex-col overflow-hidden rounded-3xl border border-trovio-light-border bg-gradient-to-br from-trovio-primary/10 via-trovio-primary/[0.04] to-transparent dark:border-trovio-dark-border dark:from-trovio-primary/20 dark:via-trovio-primary/[0.06]",
         className
       ),
@@ -2653,6 +2662,6 @@ function CoursePromoBanner({
   );
 }
 
-export { Avatar, BackButton, BrandCard, BrandLogo, Breadcrumbs, Carousel, ClampText, ConversationCard, CourseCallout, CoursePromoBanner, CreatorCard, CreatorCardSkeleton, Drawer, EmailMessage, GeneratingBlock, GoalCard, HeadlineBlock, JourneyStepper, LinkCard, LockChip, LockedFeatureCard, MediaKitPreview, OnboardingBrandHeader, PillarChips, PlatformIcon, PortraitHero, QuoteCard, RingGauge, SectionHeading, SectionLabel, SegmentedToggle, Sparkline, StatStrip, Timeline, TitledPanel, TopPostsStrip, TrovioBadge, TrovioButton, TrovioCheckbox, TrovioInput, TrovioModal, TrovioProgressBar, TrovioSelect, TrovioSkeleton, TrovioSpinner, TrovioSwitch, TrovioTextArea, WidgetCard, formatCompactNumber, platformLabel };
+export { Avatar, BackButton, BrandCard, BrandLogo, Breadcrumbs, Carousel, ClampText, ConversationCard, CourseCallout, CoursePromoBanner, CreatorCard, CreatorCardSkeleton, Drawer, EmailMessage, GeneratingBlock, GoalCard, HeadlineBlock, JourneyStepper, LinkCard, LockChip, LockedFeatureCard, MediaKitPreview, OnboardingBrandHeader, PillarChips, PlatformIcon, PortraitHero, QuoteCard, RingGauge, SectionHeading, SectionLabel, SegmentedToggle, Sparkline, StatStrip, Timeline, TitledPanel, TopPostsStrip, TrovioBadge, TrovioButton, TrovioCheckbox, TrovioIcon, TrovioInput, TrovioModal, TrovioProgressBar, TrovioSelect, TrovioSkeleton, TrovioSpinner, TrovioSwitch, TrovioTextArea, WidgetCard, formatCompactNumber, platformLabel };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

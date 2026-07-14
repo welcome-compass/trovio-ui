@@ -522,6 +522,135 @@ interface QuoteCardProps {
  */
 declare function QuoteCard({ quote, attribution, source, eyebrow, ctaLabel, ctaHref, onCtaClick, className, }: QuoteCardProps): react.JSX.Element;
 
+/**
+ * Carousel (Primitive) — a generic horizontal scroll-snap rail with directional
+ * edge-fades, arrow controls, and a slim progress indicator. Presentation-only
+ * and content-agnostic: it knows nothing about what it scrolls, so it works for
+ * any row of fixed-width items (creator cards, media kits, campaigns, …).
+ *
+ * Chrome is self-managing: fades, arrows, and the progress bar appear only when
+ * there is actually more to scroll, and the arrows disable at each end. The
+ * scroll-state math is encapsulated here so consumers never re-implement it.
+ *
+ * For layouts that place the prev/next controls outside the rail (e.g. in a
+ * section header), pass `showArrows={false}` and drive scrolling through the
+ * imperative `ref` (`scrollPrev` / `scrollNext`) using live state from
+ * `onScrollStateChange`.
+ */
+interface CarouselScrollState {
+    canLeft: boolean;
+    canRight: boolean;
+    scrollable: boolean;
+}
+interface CarouselHandle {
+    scrollPrev: () => void;
+    scrollNext: () => void;
+}
+interface CarouselProps {
+    children: react__default.ReactNode;
+    /** Gap between items, in px. Default 14. */
+    gap?: number;
+    /**
+     * The color the edge-fades blend into — MUST match the surrounding page
+     * background or the fade will look like a smudge. Default `var(--background)`
+     * (the theme-aware HeroUI surface token, flips for dark mode).
+     */
+    fadeColor?: string;
+    /** Render the built-in overlay arrows. Default true. Auto-hidden when content fits. */
+    showArrows?: boolean;
+    /** Render the slim progress indicator. Default true. */
+    showProgress?: boolean;
+    /**
+     * When false, suppresses all chrome (arrows/fades/progress) regardless of
+     * scrollability — use while the rail is loading skeletons. Default true.
+     */
+    chromeActive?: boolean;
+    /** Accessible label for the scroll region (e.g. the section name). */
+    ariaLabel?: string;
+    /** Fires on every scroll-state change — use to drive externally-placed controls. */
+    onScrollStateChange?: (state: CarouselScrollState) => void;
+    className?: string;
+}
+declare const Carousel: react__default.ForwardRefExoticComponent<CarouselProps & react__default.RefAttributes<CarouselHandle>>;
+
+/**
+ * A single top post surfaced on a creator card. `thumbnailUrl` and `href` are
+ * populated from the matches payload; when the thumbnail is absent a neutral
+ * placeholder tile renders so the strip keeps its shape.
+ */
+interface CreatorPost {
+    thumbnailUrl?: string | null;
+    caption?: string;
+    views?: number;
+    isVideo?: boolean;
+    /** Real post URL — consumers may open this directly or handle `onOpenPost`. */
+    href?: string;
+}
+interface TopPostsStripProps {
+    /** 0–`columns` posts; renders as many as present, nothing at 0. */
+    posts: CreatorPost[];
+    /** Fired when a thumbnail is activated — open the real post. */
+    onOpenPost?: (post: CreatorPost, index: number) => void;
+    /** Grid columns. Default 3. */
+    columns?: number;
+    className?: string;
+}
+/**
+ * TopPostsStrip — a compact N-up grid of a creator's top posts on a theme.
+ * Turns a one-liner claim into a receipt; each tile taps through to the real
+ * post. Presentation-only.
+ */
+declare function TopPostsStrip({ posts, onOpenPost, columns, className, }: TopPostsStripProps): react.JSX.Element | null;
+
+/**
+ * CreatorCard — one creator inside a conversation on the brand Explore surface:
+ * avatar + name/@handle, the genuine match one-liner (the hero copy), a strip of
+ * top posts on this theme, and Save / Use-in-Campaign actions.
+ *
+ * Presentation-only: it holds no selection state. The consumer owns
+ * `saved`/`selected` and reacts to `onSave`/`onUseInCampaign`; the avatar
+ * resolves a real photo when `avatarUrl` is present and falls back to initials.
+ * Post/deal enrichment is additive — the top-posts strip only renders when
+ * `topPosts` is supplied, so the card is valid at every data completeness level.
+ */
+interface CreatorCardProps {
+    name: string;
+    /** Handle without the leading "@". */
+    handle: string;
+    /** The match rationale — the star of the card. Clamped with an expand toggle. */
+    oneLiner: string;
+    /** Real profile photo; falls back to initials when absent. */
+    avatarUrl?: string | null;
+    /** Top posts on this theme (0–3). Strip + eyebrow hide when empty. */
+    topPosts?: CreatorPost[];
+    onOpenPost?: (post: CreatorPost, index: number) => void;
+    /** Personal-bookmark state + toggle. Save button shows only when `onSave` is set. */
+    saved?: boolean;
+    onSave?: () => void;
+    /** In-campaign-list state + toggle. Adds the selected ring + check badge. */
+    selected?: boolean;
+    onUseInCampaign?: () => void;
+    /** Fixed rail-column width (default 300) or e.g. "100%" in a grid. */
+    width?: number | string;
+    className?: string;
+}
+declare function CreatorCard({ name, handle, oneLiner, avatarUrl, topPosts, onOpenPost, saved, onSave, selected, onUseInCampaign, width, className, }: CreatorCardProps): react.JSX.Element;
+
+/**
+ * CreatorCardSkeleton — the loading placeholder for CreatorCard, shaped to match
+ * so the async "finding your creators…" populate doesn't shift layout. Composes
+ * TrovioSkeleton (brand shimmer, reduced-motion aware). Toggle `showPosts` /
+ * `showActions` to mirror whichever card variant is loading.
+ */
+interface CreatorCardSkeletonProps {
+    /** Match the card's width. Default 300. */
+    width?: number | string;
+    showPosts?: boolean;
+    showActions?: boolean;
+    className?: string;
+}
+declare function CreatorCardSkeleton({ width, showPosts, showActions, className, }: CreatorCardSkeletonProps): react.JSX.Element;
+
 interface BreadcrumbItem {
     label: ReactNode;
     /** When set, the crumb is a link. The last item is treated as the current page. */
@@ -974,4 +1103,4 @@ declare function CoursePromoBanner({ eyebrow, headline, subhead, imageUrl, highl
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, ClampText, type ClampTextProps, CourseCallout, type CourseCalloutProps, CoursePromoBanner, type CoursePromoBannerProps, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, QuoteCard, type QuoteCardProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, Carousel, type CarouselHandle, type CarouselProps, type CarouselScrollState, ClampText, type ClampTextProps, CourseCallout, type CourseCalloutProps, CoursePromoBanner, type CoursePromoBannerProps, CreatorCard, type CreatorCardProps, CreatorCardSkeleton, type CreatorCardSkeletonProps, type CreatorPost, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, QuoteCard, type QuoteCardProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TopPostsStrip, type TopPostsStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

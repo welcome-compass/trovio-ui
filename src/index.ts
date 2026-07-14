@@ -69,6 +69,11 @@ export type {
 // ── Components (composed of primitives) ─────────────────────────────────────
 export { CreatorCard } from "./components/creator-card";
 export type { CreatorCardProps, CreatorPost } from "./components/creator-card";
+export { ConversationCard } from "./components/conversation-card";
+export type {
+  ConversationCardProps,
+  ConversationStatus,
+} from "./components/conversation-card";
 export { TopPostsStrip } from "./components/top-posts-strip";
 export type { TopPostsStripProps } from "./components/top-posts-strip";
 export { CreatorCardSkeleton } from "./components/creator-card-skeleton";

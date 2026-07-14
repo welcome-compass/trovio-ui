@@ -640,6 +640,48 @@ interface CreatorCardProps {
 }
 declare function CreatorCard({ name, handle, oneLiner, oneLinerLines, avatarUrl, topPosts, topPostsLabel, onOpenPost, saved, onSave, selected, onUseInCampaign, width, className, }: CreatorCardProps): react.JSX.Element;
 
+/** Conversation lifecycle, mirroring the brands-API conversation status. */
+type ConversationStatus = "active" | "paused" | "archived" | "rejected";
+/**
+ * ConversationCard — one conversation in a brand's manage-conversations list:
+ * the theme name, its description (the section blurb creators get matched
+ * against), a status badge, and the Edit / Pause·Resume / Remove actions.
+ *
+ * The conversation is a brand's unit of intent ("a theme, not a campaign"), so
+ * this is its presentation analog to CreatorCard on the Explore surface.
+ *
+ * Presentation-only: it holds no state. The consumer owns the data and reacts
+ * to the callbacks; each action button renders only when its handler is given,
+ * so the card is valid read-only (no handlers) or fully editable. `isBusy`
+ * disables the actions while a mutation is in flight.
+ */
+interface ConversationCardProps {
+    /** Theme name — the card's heading. */
+    name: string;
+    /** The conversation description / blurb. Clamped with an inline expand. */
+    description: string;
+    /** Lifecycle status; drives the badge. Omit to hide the badge. */
+    status?: ConversationStatus;
+    /** Lines the description clamps to before a "More" toggle. Default 2. */
+    descriptionLines?: number;
+    /** Show an Edit button wired to this handler. */
+    onEdit?: () => void;
+    /** Show a Remove button wired to this handler. */
+    onDelete?: () => void;
+    /**
+     * Show a Pause/Resume button wired to this handler. The label follows
+     * `status` (Pause when active, Resume when paused); hidden for
+     * archived/rejected conversations.
+     */
+    onTogglePause?: () => void;
+    /** Disable the action buttons (e.g. while saving/deleting). */
+    isBusy?: boolean;
+    /** Extra content rendered below the description (e.g. metadata). */
+    children?: ReactNode;
+    className?: string;
+}
+declare function ConversationCard({ name, description, status, descriptionLines, onEdit, onDelete, onTogglePause, isBusy, children, className, }: ConversationCardProps): react.JSX.Element;
+
 /**
  * CreatorCardSkeleton — the loading placeholder for CreatorCard, shaped to match
  * so the async "finding your creators…" populate doesn't shift layout. Composes
@@ -1109,4 +1151,4 @@ declare function CoursePromoBanner({ eyebrow, headline, subhead, imageUrl, highl
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, Carousel, type CarouselHandle, type CarouselProps, type CarouselScrollState, ClampText, type ClampTextProps, CourseCallout, type CourseCalloutProps, CoursePromoBanner, type CoursePromoBannerProps, CreatorCard, type CreatorCardProps, CreatorCardSkeleton, type CreatorCardSkeletonProps, type CreatorPost, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, QuoteCard, type QuoteCardProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TopPostsStrip, type TopPostsStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, Carousel, type CarouselHandle, type CarouselProps, type CarouselScrollState, ClampText, type ClampTextProps, ConversationCard, type ConversationCardProps, type ConversationStatus, CourseCallout, type CourseCalloutProps, CoursePromoBanner, type CoursePromoBannerProps, CreatorCard, type CreatorCardProps, CreatorCardSkeleton, type CreatorCardSkeletonProps, type CreatorPost, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, QuoteCard, type QuoteCardProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TopPostsStrip, type TopPostsStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

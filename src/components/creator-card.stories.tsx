@@ -38,6 +38,11 @@ export const Saved: Story = {
   args: { saved: true, onSave: () => {}, onUseInCampaign: () => {} },
 };
 
+/** Selected into the campaign list — accent ring + check badge. */
+export const Selected: Story = {
+  args: { selected: true, saved: true, onSave: () => {}, onUseInCampaign: () => {} },
+};
+
 /**
  * Saved tab: saved + the private note editor (renders only when `onNoteChange`
  * is provided). No posts strip needed for the shortlist view.
@@ -67,10 +72,11 @@ export const CustomLabelAndClamp: Story = {
   },
 };
 
-/** Interactive — Save/Unsave toggles, and an editable private note. */
+/** Interactive — Save/Unsave, campaign selection, and an editable private note. */
 export const Interactive: Story = {
   render: (args) => {
     const [saved, setSaved] = useState(false);
+    const [selected, setSelected] = useState(false);
     const [note, setNote] = useState("");
 
     return (
@@ -78,9 +84,10 @@ export const Interactive: Story = {
         {...args}
         note={note}
         saved={saved}
+        selected={selected}
         onNoteChange={setNote}
         onSave={() => setSaved((v) => !v)}
-        onUseInCampaign={() => {}}
+        onUseInCampaign={() => setSelected((v) => !v)}
       />
     );
   },

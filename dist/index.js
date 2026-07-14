@@ -1392,11 +1392,16 @@ function CreatorCard({
   onSave,
   selected = false,
   onUseInCampaign,
+  note = "",
+  onNoteChange,
+  onNoteBlur,
+  notePlaceholder = "Add a private note\u2026",
   width = 300,
   className
 }) {
   const showPosts = Boolean(topPosts && topPosts.length > 0);
   const showActions = Boolean(onSave || onUseInCampaign);
+  const showNote = Boolean(onNoteChange);
   return /* @__PURE__ */ jsxs(
     "article",
     {
@@ -1442,7 +1447,7 @@ function CreatorCard({
           onSave && /* @__PURE__ */ jsxs(
             TrovioButton,
             {
-              "aria-label": saved ? "Saved" : "Save creator",
+              "aria-label": saved ? "Unsave creator" : "Save creator",
               className: clsx33(
                 "flex-none gap-1.5",
                 saved && "border-trovio-primary/40 bg-trovio-primary/10 text-trovio-primary"
@@ -1452,7 +1457,7 @@ function CreatorCard({
               onClick: onSave,
               children: [
                 saved ? /* @__PURE__ */ jsx(PiBookmarkSimpleFill, { size: 14 }) : /* @__PURE__ */ jsx(PiBookmarkSimple, { size: 14 }),
-                saved ? "Saved" : "Save"
+                saved ? "Unsave" : "Save"
               ]
             }
           ),
@@ -1464,6 +1469,19 @@ function CreatorCard({
               variant: "primary",
               onClick: onUseInCampaign,
               children: selected ? "In list \u2713" : "Use in Campaign"
+            }
+          )
+        ] }),
+        showNote && /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-1.5", children: [
+          /* @__PURE__ */ jsx(SectionLabel, { children: "Your note" }),
+          /* @__PURE__ */ jsx(
+            TrovioTextArea,
+            {
+              className: "min-h-16 text-caption",
+              placeholder: notePlaceholder,
+              value: note,
+              onBlur: onNoteBlur,
+              onChange: (e) => onNoteChange?.(e.target.value)
             }
           )
         ] })

@@ -43,6 +43,16 @@ export const NoPosts: Story = {
   args: { topPosts: undefined, onSave: () => {}, onUseInCampaign: () => {} },
 };
 
+/** Custom strip eyebrow + a looser one-liner clamp (5 lines). */
+export const CustomLabelAndClamp: Story = {
+  args: {
+    topPostsLabel: "See examples",
+    oneLinerLines: 5,
+    onSave: () => {},
+    onUseInCampaign: () => {},
+  },
+};
+
 /** Interactive — Save + Use-in-Campaign toggle their own state. */
 export const Interactive: Story = {
   render: (args) => {

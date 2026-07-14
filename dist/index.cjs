@@ -1381,8 +1381,10 @@ function CreatorCard({
   name,
   handle,
   oneLiner,
+  oneLinerLines = 3,
   avatarUrl,
   topPosts,
+  topPostsLabel = "Top posts \xB7 this theme",
   onOpenPost,
   saved = false,
   onSave,
@@ -1422,16 +1424,16 @@ function CreatorCard({
             ] })
           ] })
         ] }),
-        /* @__PURE__ */ jsxRuntime.jsx(
+        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-caption", style: { minHeight: `calc(${oneLinerLines} * 1.5em)` }, children: /* @__PURE__ */ jsxRuntime.jsx(
           ClampText,
           {
-            className: "text-caption leading-normal text-trovio-light-text dark:text-trovio-dark-text",
-            lines: 3,
+            className: "leading-normal text-trovio-light-text dark:text-trovio-dark-text",
+            lines: oneLinerLines,
             children: oneLiner
           }
-        ),
+        ) }),
         showPosts && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col gap-2", children: [
-          /* @__PURE__ */ jsxRuntime.jsx(SectionLabel, { children: "Top posts \xB7 this theme" }),
+          /* @__PURE__ */ jsxRuntime.jsx(SectionLabel, { children: topPostsLabel }),
           /* @__PURE__ */ jsxRuntime.jsx(TopPostsStrip, { onOpenPost, posts: topPosts })
         ] }),
         showActions && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mt-0.5 flex gap-2", children: [
@@ -1471,6 +1473,7 @@ function CreatorCardSkeleton({
   width = 300,
   showPosts = true,
   showActions = true,
+  oneLinerLines = 3,
   className
 }) {
   return /* @__PURE__ */ jsxRuntime.jsxs(
@@ -1490,11 +1493,18 @@ function CreatorCardSkeleton({
             /* @__PURE__ */ jsxRuntime.jsx(TrovioSkeleton, { className: "h-2.5 w-1/3 rounded" })
           ] })
         ] }),
-        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "space-y-2", children: [
-          /* @__PURE__ */ jsxRuntime.jsx(TrovioSkeleton, { className: "h-2.5 w-full rounded" }),
-          /* @__PURE__ */ jsxRuntime.jsx(TrovioSkeleton, { className: "h-2.5 w-[88%] rounded" }),
-          /* @__PURE__ */ jsxRuntime.jsx(TrovioSkeleton, { className: "h-2.5 w-3/5 rounded" })
-        ] }),
+        /* @__PURE__ */ jsxRuntime.jsxs(
+          "div",
+          {
+            className: "text-caption space-y-2",
+            style: { minHeight: `calc(${oneLinerLines} * 1.5em)` },
+            children: [
+              /* @__PURE__ */ jsxRuntime.jsx(TrovioSkeleton, { className: "h-2.5 w-full rounded" }),
+              /* @__PURE__ */ jsxRuntime.jsx(TrovioSkeleton, { className: "h-2.5 w-[88%] rounded" }),
+              /* @__PURE__ */ jsxRuntime.jsx(TrovioSkeleton, { className: "h-2.5 w-3/5 rounded" })
+            ]
+          }
+        ),
         showPosts && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "grid grid-cols-3 gap-2", children: [
           /* @__PURE__ */ jsxRuntime.jsx(TrovioSkeleton, { className: "aspect-square rounded-lg" }),
           /* @__PURE__ */ jsxRuntime.jsx(TrovioSkeleton, { className: "aspect-square rounded-lg" }),

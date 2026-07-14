@@ -619,10 +619,14 @@ interface CreatorCardProps {
     handle: string;
     /** The match rationale — the star of the card. Clamped with an expand toggle. */
     oneLiner: string;
+    /** Lines the one-liner clamps to before a "More" toggle appears. Default 3. */
+    oneLinerLines?: number;
     /** Real profile photo; falls back to initials when absent. */
     avatarUrl?: string | null;
     /** Top posts on this theme (0–3). Strip + eyebrow hide when empty. */
     topPosts?: CreatorPost[];
+    /** Eyebrow above the top-posts strip. Default "Top posts · this theme". */
+    topPostsLabel?: string;
     onOpenPost?: (post: CreatorPost, index: number) => void;
     /** Personal-bookmark state + toggle. Save button shows only when `onSave` is set. */
     saved?: boolean;
@@ -634,7 +638,7 @@ interface CreatorCardProps {
     width?: number | string;
     className?: string;
 }
-declare function CreatorCard({ name, handle, oneLiner, avatarUrl, topPosts, onOpenPost, saved, onSave, selected, onUseInCampaign, width, className, }: CreatorCardProps): react.JSX.Element;
+declare function CreatorCard({ name, handle, oneLiner, oneLinerLines, avatarUrl, topPosts, topPostsLabel, onOpenPost, saved, onSave, selected, onUseInCampaign, width, className, }: CreatorCardProps): react.JSX.Element;
 
 /**
  * CreatorCardSkeleton — the loading placeholder for CreatorCard, shaped to match
@@ -647,9 +651,11 @@ interface CreatorCardSkeletonProps {
     width?: number | string;
     showPosts?: boolean;
     showActions?: boolean;
+    /** Reserve the same one-liner slot as CreatorCard so there's no swap shift. Default 3. */
+    oneLinerLines?: number;
     className?: string;
 }
-declare function CreatorCardSkeleton({ width, showPosts, showActions, className, }: CreatorCardSkeletonProps): react.JSX.Element;
+declare function CreatorCardSkeleton({ width, showPosts, showActions, oneLinerLines, className, }: CreatorCardSkeletonProps): react.JSX.Element;
 
 interface BreadcrumbItem {
     label: ReactNode;

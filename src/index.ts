@@ -39,12 +39,21 @@ export { Avatar } from "./components/avatar";
 export type { AvatarProps } from "./components/avatar";
 export { RingGauge } from "./components/ring-gauge";
 export type { RingGaugeProps } from "./components/ring-gauge";
+export { ScoreRing } from "./components/score-ring";
+export type { ScoreRingProps } from "./components/score-ring";
 export { Sparkline } from "./components/sparkline";
 export type { SparklineProps } from "./components/sparkline";
 export { SegmentedToggle } from "./components/segmented-toggle";
-export type { SegmentedToggleOption } from "./components/segmented-toggle";
+export type {
+  SegmentedToggleOption,
+  SegmentedToggleProps,
+} from "./components/segmented-toggle";
 export { TrovioSelect } from "./components/trovio-select";
 export type { TrovioSelectOption, TrovioSelectProps } from "./components/trovio-select";
+export { TrovioDatePicker } from "./components/trovio-date-picker";
+export type { TrovioDatePickerProps } from "./components/trovio-date-picker";
+export { OfferField } from "./components/offer-field";
+export type { OfferFieldProps } from "./components/offer-field";
 export { Timeline } from "./components/timeline";
 export type { TimelineItem, TimelineProps } from "./components/timeline";
 export { MediaKitPreview } from "./components/media-kit-preview";

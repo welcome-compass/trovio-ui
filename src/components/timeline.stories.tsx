@@ -33,3 +33,18 @@ export const ColoredDots: Story = {
     ],
   },
 };
+
+/**
+ * A forward-looking schedule, oldest-first — the list renders in the order it
+ * is given. `note` chips mark the steps Trovio runs rather than the brand.
+ */
+export const WithNotes: Story = {
+  args: {
+    items: [
+      { title: "Deal signed", meta: "Jul 17", note: "Trovio" },
+      { title: "Production", meta: "Jul 18 – Jul 27" },
+      { title: "Review & revisions", meta: "Jul 28", note: "Trovio" },
+      { title: "Delivery", meta: "Jul 30" },
+    ],
+  },
+};

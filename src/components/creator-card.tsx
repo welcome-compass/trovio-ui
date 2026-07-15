@@ -1,6 +1,6 @@
 "use client";
 
-import { PiBookmarkSimple, PiBookmarkSimpleFill, PiCheckBold } from "react-icons/pi";
+import { PiBookmarkSimple, PiBookmarkSimpleFill } from "react-icons/pi";
 import clsx from "clsx";
 
 import { Avatar } from "./avatar";
@@ -15,15 +15,16 @@ export type { CreatorPost };
 /**
  * CreatorCard — one creator inside a conversation on the brand Explore surface:
  * avatar + name/@handle, the genuine match one-liner (the hero copy), a strip of
- * top posts on this theme, and Save / Use-in-Campaign actions.
+ * top posts on this theme, and Save / Start-campaign actions.
  *
- * Presentation-only: it holds no state. The consumer owns `saved`/`selected`
- * and reacts to `onSave` / `onUseInCampaign`. The Save button reads "Save" when
- * unsaved, "Unsave" when saved, so the same control saves on Explore and
- * unsaves on the Saved tab. The avatar resolves a real photo when `avatarUrl` is
- * present and falls back to initials. Post enrichment is additive — the
- * top-posts strip only renders when `topPosts` is supplied, so the card is valid
- * at every data completeness level.
+ * Presentation-only: it holds no state. The consumer owns `saved` and reacts to
+ * `onSave` (a toggle — the button reads "Save" when unsaved, "Unsave" when
+ * saved, so the same control saves on Explore and unsaves on the Saved tab).
+ * `onStartCampaign` is a one-shot action, not a toggle: it opens the campaign
+ * builder for this creator, so the card has no selected state of its own. The
+ * avatar resolves a real photo when `avatarUrl` is present and falls back to
+ * initials. Post enrichment is additive — the top-posts strip only renders when
+ * `topPosts` is supplied, so the card is valid at every data completeness level.
  *
  * The private note editor (Saved tab only) renders when `onNoteChange` is set;
  * `note` is the controlled value.
@@ -51,10 +52,8 @@ export interface CreatorCardProps {
    */
   saved?: boolean;
   onSave?: () => void;
-  /** In-campaign-list state + toggle. Adds the selected ring + check badge. */
-  selected?: boolean;
-  /** "Use in Campaign" action. Button renders only when `onUseInCampaign` is set. */
-  onUseInCampaign?: () => void;
+  /** "Start campaign" action. Button renders only when `onStartCampaign` is set. */
+  onStartCampaign?: () => void;
 
   /**
    * Private per-creator note (Saved tab). The editor renders only when
@@ -82,8 +81,7 @@ export function CreatorCard({
   onOpenPost,
   saved = false,
   onSave,
-  selected = false,
-  onUseInCampaign,
+  onStartCampaign,
   note = "",
   onNoteChange,
   onNoteBlur,
@@ -92,7 +90,7 @@ export function CreatorCard({
   className,
 }: CreatorCardProps) {
   const showPosts = Boolean(topPosts && topPosts.length > 0);
-  const showActions = Boolean(onSave || onUseInCampaign);
+  const showActions = Boolean(onSave || onStartCampaign);
   const showNote = Boolean(onNoteChange);
 
   return (
@@ -100,22 +98,11 @@ export function CreatorCard({
       aria-label={name}
       className={clsx(
         "relative flex flex-col gap-3 rounded-2xl border bg-trovio-light-surface p-4 shadow-sm transition-all duration-150 dark:bg-trovio-dark-surface",
-        selected
-          ? "border-trovio-primary ring-1 ring-trovio-primary"
-          : "border-trovio-light-border hover:-translate-y-0.5 hover:border-trovio-primary/40 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none dark:border-trovio-dark-border",
+        "border-trovio-light-border hover:-translate-y-0.5 hover:border-trovio-primary/40 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none dark:border-trovio-dark-border",
         className,
       )}
       style={{ width }}
     >
-      {selected && (
-        <span
-          aria-hidden
-          className="absolute right-3 top-3 grid h-[22px] w-[22px] place-items-center rounded-full bg-trovio-primary text-white shadow-sm"
-        >
-          <PiCheckBold size={12} />
-        </span>
-      )}
-
       <div className="flex items-center gap-3">
         <Avatar imageUrl={avatarUrl} name={name} size={44} />
         <div className="min-w-0">
@@ -165,14 +152,14 @@ export function CreatorCard({
               {saved ? "Unsave" : "Save"}
             </TrovioButton>
           )}
-          {onUseInCampaign && (
+          {onStartCampaign && (
             <TrovioButton
               className="flex-1"
               size="sm"
               variant="primary"
-              onClick={onUseInCampaign}
+              onClick={onStartCampaign}
             >
-              {selected ? "In list ✓" : "Use in Campaign"}
+              Start campaign
             </TrovioButton>
           )}
         </div>

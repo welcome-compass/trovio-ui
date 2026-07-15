@@ -1,10 +1,11 @@
 export { brandColors, darkColors, designTokens, fonts, lightColors, radius, semanticColors, shadow, typeScale } from './chunk-SMQSL3K6.js';
 import React2, { forwardRef, useRef, useState, useCallback, useImperativeHandle, useEffect, Fragment as Fragment$1 } from 'react';
-import { buttonVariants, Button, Spinner, Chip, Input, TextArea, Modal, Checkbox, Switch, Skeleton, Card, Select, ListBox } from '@heroui/react';
+import { buttonVariants, Button, Spinner, Chip, Input, TextArea, Modal, Checkbox, Switch, Skeleton, Card, Select, ListBox, DatePicker, Calendar, NumberField } from '@heroui/react';
 import { tv } from 'tailwind-variants';
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
-import clsx33 from 'clsx';
-import { PiCaretLeftBold, PiCaretRightBold, PiLockKeyDuotone, PiYoutubeLogoDuotone, PiTiktokLogoDuotone, PiInstagramLogoDuotone, PiGlobeDuotone, PiQuotesFill, PiCheckBold, PiBookmarkSimpleFill, PiBookmarkSimple, PiPencilSimple, PiPlay, PiPause, PiTrash, PiXBold, PiSparkleDuotone, PiHandshakeDuotone, PiIdentificationCardDuotone, PiLockSimpleDuotone, PiArrowRightBold, PiSparkleFill, PiArrowLeftBold, PiPlayFill, PiUsersThreeDuotone, PiTrendUpDuotone, PiEyeDuotone, PiMagnetDuotone, PiWaveSineDuotone, PiTargetDuotone, PiStarDuotone, PiHeartDuotone, PiClockDuotone, PiLightningDuotone } from 'react-icons/pi';
+import clsx35 from 'clsx';
+import { PiCaretLeftBold, PiCaretRightBold, PiLockKeyDuotone, PiYoutubeLogoDuotone, PiTiktokLogoDuotone, PiInstagramLogoDuotone, PiGlobeDuotone, PiQuotesFill, PiBookmarkSimpleFill, PiBookmarkSimple, PiPencilSimple, PiPlay, PiPause, PiTrash, PiXBold, PiSparkleDuotone, PiHandshakeDuotone, PiIdentificationCardDuotone, PiLockSimpleDuotone, PiArrowRightBold, PiSparkleFill, PiArrowLeftBold, PiPlayFill, PiUsersThreeDuotone, PiTrendUpDuotone, PiEyeDuotone, PiMagnetDuotone, PiWaveSineDuotone, PiTargetDuotone, PiStarDuotone, PiHeartDuotone, PiClockDuotone, PiLightningDuotone } from 'react-icons/pi';
+import { parseDate } from '@internationalized/date';
 import { createPortal } from 'react-dom';
 
 var trovioButtonVariants = tv({
@@ -170,7 +171,7 @@ function TrovioIcon({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ jsx(Icon, { className: clsx33(!duotone && FLATTEN_DUOTONE, className), ...props });
+  return /* @__PURE__ */ jsx(Icon, { className: clsx35(!duotone && FLATTEN_DUOTONE, className), ...props });
 }
 var trovioBadgeVariants = tv({
   base: "text-xs font-medium",
@@ -393,7 +394,7 @@ function TrovioCheckbox({
     Checkbox,
     {
       ...ariaProps,
-      className: clsx33(
+      className: clsx35(
         // Avoid extra spacing when used as an icon in a flex row
         "shrink-0 gap-0 group",
         className
@@ -404,7 +405,7 @@ function TrovioCheckbox({
       children: /* @__PURE__ */ jsx(
         Checkbox.Control,
         {
-          className: clsx33(
+          className: clsx35(
             controlSize,
             // Keep default square checkbox; apply Trovio colors.
             "rounded-md shadow-none",
@@ -421,7 +422,7 @@ function TrovioCheckbox({
           children: /* @__PURE__ */ jsx(
             Checkbox.Indicator,
             {
-              className: clsx33(
+              className: clsx35(
                 "flex items-center justify-center",
                 // keep the indicator container sized consistently
                 `[&_[data-slot='checkbox-default-indicator--checkmark']]:${checkmarkSize}`
@@ -430,7 +431,7 @@ function TrovioCheckbox({
                 "svg",
                 {
                   "aria-hidden": "true",
-                  className: clsx33(
+                  className: clsx35(
                     checkmarkSize,
                     isSelected ? "text-white" : "text-trovio-light-text-muted/40 dark:text-trovio-dark-text-muted/40"
                   ),
@@ -472,7 +473,7 @@ var TrovioSwitch = ({
   const switchElement = /* @__PURE__ */ jsx(
     Switch,
     {
-      className: clsx33("group", !label ? className : void 0),
+      className: clsx35("group", !label ? className : void 0),
       defaultSelected: checked === void 0 ? defaultChecked : void 0,
       id,
       isDisabled,
@@ -483,7 +484,7 @@ var TrovioSwitch = ({
       children: /* @__PURE__ */ jsx(
         Switch.Control,
         {
-          className: clsx33(
+          className: clsx35(
             // Default state
             "bg-trovio-light-border dark:bg-trovio-dark-border",
             // Hover state
@@ -500,7 +501,7 @@ var TrovioSwitch = ({
   if (!label) {
     return switchElement;
   }
-  return /* @__PURE__ */ jsxs("div", { className: clsx33("flex items-center gap-4", className), children: [
+  return /* @__PURE__ */ jsxs("div", { className: clsx35("flex items-center gap-4", className), children: [
     /* @__PURE__ */ jsxs("div", { className: "flex-1", children: [
       /* @__PURE__ */ jsx("div", { className: "text-sm font-medium text-trovio-light-text dark:text-trovio-dark-text", children: label }),
       helperText && /* @__PURE__ */ jsx("p", { className: "text-xs text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: helperText })
@@ -521,7 +522,7 @@ var TrovioSpinner = ({
   return /* @__PURE__ */ jsx(
     Spinner,
     {
-      className: clsx33("text-trovio-primary", className),
+      className: clsx35("text-trovio-primary", className),
       color: "current",
       size: sizeMap[size] || "md"
     }
@@ -541,7 +542,7 @@ var TrovioSkeleton = ({
     Skeleton,
     {
       animationType: disableAnimation ? "none" : "pulse",
-      className: clsx33(
+      className: clsx35(
         className,
         usePrimaryColor && "bg-trovio-primary/15 dark:bg-trovio-primary/15"
       )
@@ -564,7 +565,7 @@ function TrovioProgressBar({
       "aria-valuemax": max,
       "aria-valuemin": 0,
       "aria-valuenow": value,
-      className: clsx33(
+      className: clsx35(
         "w-full rounded-full bg-trovio-light-border dark:bg-trovio-dark-border",
         size === "sm" ? "h-1.5" : "h-2.5",
         className
@@ -573,7 +574,7 @@ function TrovioProgressBar({
       children: /* @__PURE__ */ jsx(
         "div",
         {
-          className: clsx33(
+          className: clsx35(
             "rounded-full transition-all duration-500 ease-out",
             size === "sm" ? "h-1.5" : "h-2.5"
           ),
@@ -596,7 +597,7 @@ function WidgetCard({
   return /* @__PURE__ */ jsx(
     Card,
     {
-      className: clsx33("w-full overflow-hidden", !noPadding && "p-6", className),
+      className: clsx35("w-full overflow-hidden", !noPadding && "p-6", className),
       style: { minHeight },
       ...props,
       children
@@ -611,7 +612,7 @@ function SectionLabel({
   return /* @__PURE__ */ jsx(
     "p",
     {
-      className: clsx33(
+      className: clsx35(
         "text-micro uppercase",
         tone === "primary" ? "text-trovio-primary" : "text-trovio-light-text-muted dark:text-trovio-dark-text-muted",
         className
@@ -630,7 +631,7 @@ function SectionHeading({
   return /* @__PURE__ */ jsx(
     Tag,
     {
-      className: clsx33(
+      className: clsx35(
         "text-trovio-light-text dark:text-trovio-dark-text",
         hero ? "text-hero" : "text-section",
         divider && "border-b border-trovio-light-border pb-3 dark:border-trovio-dark-border",
@@ -685,7 +686,7 @@ function Avatar({
   return /* @__PURE__ */ jsx(
     "span",
     {
-      className: clsx33(
+      className: clsx35(
         "inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-trovio-light-bg font-bold text-trovio-light-text dark:bg-trovio-dark-bg dark:text-trovio-dark-text",
         className
       ),
@@ -721,7 +722,7 @@ function RingGauge({
   return /* @__PURE__ */ jsxs(
     "div",
     {
-      className: clsx33("relative inline-flex shrink-0", className),
+      className: clsx35("relative inline-flex shrink-0", className),
       style: { width: size, height: size },
       children: [
         /* @__PURE__ */ jsxs("svg", { height: size, width: size, children: [
@@ -757,6 +758,17 @@ function RingGauge({
     }
   );
 }
+function ScoreRing({
+  score,
+  size = 56,
+  loading = false,
+  className
+}) {
+  return /* @__PURE__ */ jsx(RingGauge, { className, size, value: loading ? 0 : score / 100, children: /* @__PURE__ */ jsxs("span", { className: "flex flex-col items-center leading-none", children: [
+    loading ? /* @__PURE__ */ jsx("span", { className: "h-4 w-5 animate-pulse rounded bg-trovio-light-text/10 dark:bg-trovio-dark-text/10" }) : /* @__PURE__ */ jsx("span", { className: "text-base font-bold text-trovio-light-text dark:text-trovio-dark-text", children: score }),
+    /* @__PURE__ */ jsx("span", { className: "mt-0.5 text-[9px] font-medium text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: "/100" })
+  ] }) });
+}
 function Sparkline({
   points,
   width = 90,
@@ -781,7 +793,7 @@ function Sparkline({
     "svg",
     {
       "aria-hidden": "true",
-      className: clsx33("shrink-0", className),
+      className: clsx35("shrink-0", className),
       height,
       viewBox: `0 0 ${width} ${height}`,
       width,
@@ -803,26 +815,36 @@ function SegmentedToggle({
   options,
   value,
   onChange,
+  fullWidth = false,
   className
 }) {
-  return /* @__PURE__ */ jsx("div", { className: clsx33("flex flex-wrap gap-2", className), role: "tablist", children: options.map((opt) => {
-    const active = opt.value === value;
-    return /* @__PURE__ */ jsx(
-      "button",
-      {
-        "aria-selected": active,
-        className: clsx33(
-          "rounded-full border px-3 py-1.5 text-caption font-semibold transition-colors",
-          active ? "border-trovio-primary bg-trovio-primary text-white" : "border-trovio-light-border text-trovio-light-text-muted hover:border-trovio-primary/50 dark:border-trovio-dark-border dark:text-trovio-dark-text-muted"
-        ),
-        role: "tab",
-        type: "button",
-        onClick: () => onChange(opt.value),
-        children: opt.label
-      },
-      opt.value
-    );
-  }) });
+  return /* @__PURE__ */ jsx(
+    "div",
+    {
+      className: clsx35("flex gap-2", fullWidth ? "w-full" : "flex-wrap", className),
+      role: "tablist",
+      children: options.map((opt) => {
+        const active = opt.value === value;
+        return /* @__PURE__ */ jsx(
+          "button",
+          {
+            "aria-selected": active,
+            className: clsx35(
+              "rounded-full border px-3 py-1.5 text-caption font-semibold transition-colors disabled:pointer-events-none disabled:opacity-40",
+              fullWidth && "flex-1",
+              active ? "border-trovio-primary bg-trovio-primary text-white" : "border-trovio-light-border text-trovio-light-text-muted hover:border-trovio-primary/50 dark:border-trovio-dark-border dark:text-trovio-dark-text-muted"
+            ),
+            disabled: opt.disabled,
+            role: "tab",
+            type: "button",
+            onClick: () => onChange(opt.value),
+            children: opt.label
+          },
+          opt.value
+        );
+      })
+    }
+  );
 }
 function TrovioSelect({
   options,
@@ -836,7 +858,7 @@ function TrovioSelect({
   size = "md",
   className
 }) {
-  return /* @__PURE__ */ jsxs("div", { className: clsx33("flex flex-col gap-1.5", className), children: [
+  return /* @__PURE__ */ jsxs("div", { className: clsx35("flex flex-col gap-1.5", className), children: [
     label ? /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: label }) : null,
     /* @__PURE__ */ jsxs(
       Select,
@@ -870,11 +892,199 @@ function TrovioSelect({
     helperText ? /* @__PURE__ */ jsx("p", { className: "text-micro text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: helperText }) : null
   ] });
 }
+var DISPLAY_FORMAT = {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  timeZone: "UTC"
+};
+function toCalendarDate(iso) {
+  if (!iso) return null;
+  try {
+    return parseDate(iso);
+  } catch {
+    return null;
+  }
+}
+function formatCalendarDate(date) {
+  return new Intl.DateTimeFormat(void 0, DISPLAY_FORMAT).format(
+    new Date(Date.UTC(date.year, date.month - 1, date.day))
+  );
+}
+function TrovioDatePicker({
+  value,
+  onChange,
+  minValue,
+  label,
+  helperText,
+  ariaLabel,
+  isDisabled,
+  placeholder = "Select a date\u2026",
+  className
+}) {
+  const selected = toCalendarDate(value);
+  const earliest = toCalendarDate(minValue);
+  return /* @__PURE__ */ jsxs("div", { className: clsx35("flex flex-col gap-1.5", className), children: [
+    label ? /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: label }) : null,
+    /* @__PURE__ */ jsxs(
+      DatePicker,
+      {
+        "aria-label": ariaLabel ?? label ?? placeholder,
+        isDisabled,
+        minValue: earliest ?? void 0,
+        value: selected,
+        onChange: (next) => onChange?.(next ? next.toString() : null),
+        children: [
+          /* @__PURE__ */ jsxs(DatePicker.Trigger, { children: [
+            selected ? formatCalendarDate(selected) : /* @__PURE__ */ jsx("span", { className: "text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: placeholder }),
+            /* @__PURE__ */ jsx(DatePicker.TriggerIndicator, {})
+          ] }),
+          /* @__PURE__ */ jsx(DatePicker.Popover, { children: /* @__PURE__ */ jsxs(Calendar, { children: [
+            /* @__PURE__ */ jsxs(Calendar.Header, { children: [
+              /* @__PURE__ */ jsx(Calendar.NavButton, { slot: "previous" }),
+              /* @__PURE__ */ jsx(Calendar.Heading, {}),
+              /* @__PURE__ */ jsx(Calendar.NavButton, { slot: "next" })
+            ] }),
+            /* @__PURE__ */ jsxs(Calendar.Grid, { children: [
+              /* @__PURE__ */ jsx(Calendar.GridHeader, { children: (day) => /* @__PURE__ */ jsx(Calendar.HeaderCell, { children: day }) }),
+              /* @__PURE__ */ jsx(Calendar.GridBody, { children: (date) => /* @__PURE__ */ jsx(Calendar.Cell, { date }) })
+            ] })
+          ] }) })
+        ]
+      }
+    ),
+    helperText ? /* @__PURE__ */ jsx("p", { className: "text-micro text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: helperText }) : null
+  ] });
+}
+var VERDICT_COPY = {
+  below: "your offer is below it",
+  within: "your offer is inside it",
+  above: "your offer is above it"
+};
+var VERDICT_TONE = {
+  below: "text-yellow-700 dark:text-yellow-400",
+  within: "text-trovio-primary",
+  above: "text-trovio-light-text-muted dark:text-trovio-dark-text-muted"
+};
+var money = (n) => `$${n.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+var toBound = (n) => typeof n === "number" && Number.isFinite(n) ? n : null;
+function resolveRange(rangeMin, rangeMax) {
+  const min = toBound(rangeMin);
+  const max = toBound(rangeMax);
+  if (min !== null && max !== null) return min > max ? null : { min, max };
+  if (min !== null) return { min, max: null };
+  if (max !== null) return { min: null, max };
+  return null;
+}
+function describeRange(range) {
+  if (range.min !== null && range.max !== null) {
+    return `${money(range.min)}\u2013${money(range.max)}`;
+  }
+  if (range.min !== null) return `${money(range.min)}+`;
+  return `up to ${money(range.max)}`;
+}
+function verdictFor(value, range) {
+  if (value === null) return null;
+  if (range.min !== null && value < range.min) return "below";
+  if (range.max !== null && value > range.max) return "above";
+  return "within";
+}
+function RangeMeter({
+  range,
+  value
+}) {
+  const points = [range.min, range.max, value].filter(
+    (n) => n !== null
+  );
+  const lo = Math.min(...points);
+  const hi = Math.max(...points);
+  const span = hi - lo;
+  const pad = span > 0 ? span * 0.25 : Math.max(hi * 0.25, 1);
+  const domainLo = Math.max(0, lo - pad);
+  const domainHi = hi + pad;
+  const pct = (n) => Math.max(0, Math.min(100, (n - domainLo) / (domainHi - domainLo) * 100));
+  const left = range.min !== null ? pct(range.min) : 0;
+  const right = range.max !== null ? pct(range.max) : 100;
+  return /* @__PURE__ */ jsxs(
+    "div",
+    {
+      "aria-hidden": true,
+      className: "relative h-1.5 w-full rounded-full bg-trovio-light-border dark:bg-trovio-dark-border",
+      children: [
+        /* @__PURE__ */ jsx(
+          "span",
+          {
+            className: "absolute inset-y-0 rounded-full bg-trovio-primary/25",
+            style: { left: `${left}%`, width: `${right - left}%` }
+          }
+        ),
+        value !== null ? /* @__PURE__ */ jsx(
+          "span",
+          {
+            className: "absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-trovio-light-surface bg-trovio-primary shadow-sm dark:border-trovio-dark-surface",
+            style: { left: `${pct(value)}%` }
+          }
+        ) : null
+      ]
+    }
+  );
+}
+function OfferField({
+  value,
+  onChange,
+  label = "Offer amount",
+  rangeMin,
+  rangeMax,
+  rangeLabel = "Accepts",
+  helperText,
+  ariaLabel,
+  isDisabled,
+  className
+}) {
+  const range = resolveRange(rangeMin, rangeMax);
+  const verdict = range ? verdictFor(value, range) : null;
+  return /* @__PURE__ */ jsxs("div", { className: clsx35("flex flex-col gap-1.5", className), children: [
+    label ? /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: label }) : null,
+    /* @__PURE__ */ jsx(
+      NumberField,
+      {
+        "aria-label": ariaLabel ?? label,
+        formatOptions: {
+          style: "currency",
+          currency: "USD",
+          maximumFractionDigits: 0
+        },
+        isDisabled,
+        minValue: 0,
+        value: value ?? Number.NaN,
+        onChange: (next) => onChange(Number.isNaN(next) ? null : next),
+        children: /* @__PURE__ */ jsxs(NumberField.Group, { children: [
+          /* @__PURE__ */ jsx(NumberField.DecrementButton, {}),
+          /* @__PURE__ */ jsx(NumberField.Input, {}),
+          /* @__PURE__ */ jsx(NumberField.IncrementButton, {})
+        ] })
+      }
+    ),
+    range ? /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-1.5 pt-1", children: [
+      /* @__PURE__ */ jsx(RangeMeter, { range, value }),
+      /* @__PURE__ */ jsxs("p", { className: "text-micro text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: [
+        rangeLabel,
+        " ",
+        describeRange(range),
+        verdict ? /* @__PURE__ */ jsxs("span", { className: clsx35("ml-1 font-medium", VERDICT_TONE[verdict]), children: [
+          "\xB7 ",
+          VERDICT_COPY[verdict]
+        ] }) : null
+      ] })
+    ] }) : null,
+    helperText ? /* @__PURE__ */ jsx("p", { className: "text-micro text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: helperText }) : null
+  ] });
+}
 function Timeline({ items, className }) {
   return /* @__PURE__ */ jsx(
     "ol",
     {
-      className: clsx33(
+      className: clsx35(
         "relative ml-1 border-l border-trovio-light-border pl-4 dark:border-trovio-dark-border",
         className
       ),
@@ -886,7 +1096,10 @@ function Timeline({ items, className }) {
             style: { background: it.color ?? "var(--color-trovio-primary)" }
           }
         ),
-        /* @__PURE__ */ jsx("div", { className: "text-caption font-medium text-trovio-light-text dark:text-trovio-dark-text", children: it.title }),
+        /* @__PURE__ */ jsxs("div", { className: "text-caption font-medium text-trovio-light-text dark:text-trovio-dark-text", children: [
+          it.title,
+          it.note ? /* @__PURE__ */ jsx("span", { className: "ml-1.5 inline-flex rounded-full bg-trovio-primary/10 px-1.5 py-0.5 align-middle text-micro font-medium text-trovio-primary", children: it.note }) : null
+        ] }),
         it.meta ? /* @__PURE__ */ jsx("div", { className: "text-micro text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: it.meta }) : null
       ] }, i))
     }
@@ -917,7 +1130,7 @@ function MediaKitPreview({
     "div",
     {
       ref,
-      className: clsx33(
+      className: clsx35(
         "relative overflow-hidden rounded-xl border border-trovio-light-border dark:border-trovio-dark-border",
         className
       ),
@@ -990,7 +1203,7 @@ function ClampText({
     (overflows || expanded) && /* @__PURE__ */ jsx(
       "button",
       {
-        className: clsx33(
+        className: clsx35(
           "mt-1 cursor-pointer text-caption font-semibold text-trovio-primary",
           toggleClassName
         ),
@@ -1010,7 +1223,7 @@ function GeneratingBlock({
   lines = 3,
   className
 }) {
-  return /* @__PURE__ */ jsxs("div", { className: clsx33("space-y-4", className), children: [
+  return /* @__PURE__ */ jsxs("div", { className: clsx35("space-y-4", className), children: [
     /* @__PURE__ */ jsx("div", { "aria-hidden": true, className: "space-y-2.5", children: Array.from({ length: lines }, (_, i) => /* @__PURE__ */ jsx(
       "div",
       {
@@ -1060,7 +1273,7 @@ var GoalCard = React2.forwardRef(
       "div",
       {
         ref,
-        className: clsx33(
+        className: clsx35(
           "relative select-none rounded-2xl bg-white shadow-sm dark:bg-trovio-dark-surface",
           "border border-trovio-light-border dark:border-trovio-dark-border",
           "transition-shadow duration-200",
@@ -1110,7 +1323,7 @@ function QuoteCard({
   return /* @__PURE__ */ jsxs(
     "div",
     {
-      className: clsx33(
+      className: clsx35(
         "rounded-2xl border border-trovio-light-border bg-trovio-light-surface p-4 dark:border-trovio-dark-border dark:bg-trovio-dark-surface",
         className
       ),
@@ -1265,7 +1478,7 @@ var Carousel = forwardRef(function Carousel2({
           "button",
           {
             "aria-label": "Scroll left",
-            className: clsx33(arrowClass, "left-1"),
+            className: clsx35(arrowClass, "left-1"),
             disabled: !state.canLeft,
             type: "button",
             onClick: () => scrollByDir(-1),
@@ -1276,7 +1489,7 @@ var Carousel = forwardRef(function Carousel2({
           "button",
           {
             "aria-label": "Scroll right",
-            className: clsx33(arrowClass, "right-1"),
+            className: clsx35(arrowClass, "right-1"),
             disabled: !state.canRight,
             type: "button",
             onClick: () => scrollByDir(1),
@@ -1366,7 +1579,7 @@ function TopPostsStrip({
   return /* @__PURE__ */ jsx(
     "div",
     {
-      className: clsx33("grid gap-2", className),
+      className: clsx35("grid gap-2", className),
       style: { gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` },
       children: posts.slice(0, columns).map((post, i) => /* @__PURE__ */ jsx(
         PostThumbnail,
@@ -1390,8 +1603,7 @@ function CreatorCard({
   onOpenPost,
   saved = false,
   onSave,
-  selected = false,
-  onUseInCampaign,
+  onStartCampaign,
   note = "",
   onNoteChange,
   onNoteBlur,
@@ -1400,27 +1612,19 @@ function CreatorCard({
   className
 }) {
   const showPosts = Boolean(topPosts && topPosts.length > 0);
-  const showActions = Boolean(onSave || onUseInCampaign);
+  const showActions = Boolean(onSave || onStartCampaign);
   const showNote = Boolean(onNoteChange);
   return /* @__PURE__ */ jsxs(
     "article",
     {
       "aria-label": name,
-      className: clsx33(
+      className: clsx35(
         "relative flex flex-col gap-3 rounded-2xl border bg-trovio-light-surface p-4 shadow-sm transition-all duration-150 dark:bg-trovio-dark-surface",
-        selected ? "border-trovio-primary ring-1 ring-trovio-primary" : "border-trovio-light-border hover:-translate-y-0.5 hover:border-trovio-primary/40 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none dark:border-trovio-dark-border",
+        "border-trovio-light-border hover:-translate-y-0.5 hover:border-trovio-primary/40 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none dark:border-trovio-dark-border",
         className
       ),
       style: { width },
       children: [
-        selected && /* @__PURE__ */ jsx(
-          "span",
-          {
-            "aria-hidden": true,
-            className: "absolute right-3 top-3 grid h-[22px] w-[22px] place-items-center rounded-full bg-trovio-primary text-white shadow-sm",
-            children: /* @__PURE__ */ jsx(PiCheckBold, { size: 12 })
-          }
-        ),
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
           /* @__PURE__ */ jsx(Avatar, { imageUrl: avatarUrl, name, size: 44 }),
           /* @__PURE__ */ jsxs("div", { className: "min-w-0", children: [
@@ -1448,7 +1652,7 @@ function CreatorCard({
             TrovioButton,
             {
               "aria-label": saved ? "Unsave creator" : "Save creator",
-              className: clsx33(
+              className: clsx35(
                 "flex-none gap-1.5",
                 saved && "border-trovio-primary/40 bg-trovio-primary/10 text-trovio-primary"
               ),
@@ -1461,14 +1665,14 @@ function CreatorCard({
               ]
             }
           ),
-          onUseInCampaign && /* @__PURE__ */ jsx(
+          onStartCampaign && /* @__PURE__ */ jsx(
             TrovioButton,
             {
               className: "flex-1",
               size: "sm",
               variant: "primary",
-              onClick: onUseInCampaign,
-              children: selected ? "In list \u2713" : "Use in Campaign"
+              onClick: onStartCampaign,
+              children: "Start campaign"
             }
           )
         ] }),
@@ -1515,7 +1719,7 @@ function ConversationCard({
     "article",
     {
       "aria-label": name,
-      className: clsx33(
+      className: clsx35(
         "flex flex-col gap-3 rounded-2xl border border-trovio-light-border bg-trovio-light-surface p-5 shadow-sm transition-colors dark:border-trovio-dark-border dark:bg-trovio-dark-surface",
         className
       ),
@@ -1593,7 +1797,7 @@ function CreatorCardSkeleton({
     "div",
     {
       "aria-hidden": true,
-      className: clsx33(
+      className: clsx35(
         "flex flex-col gap-3 rounded-2xl border border-trovio-light-border bg-trovio-light-surface p-4 shadow-sm dark:border-trovio-dark-border dark:bg-trovio-dark-surface",
         className
       ),
@@ -1638,7 +1842,7 @@ function Breadcrumbs({ items, linkComponent, className }) {
     "nav",
     {
       "aria-label": "Breadcrumb",
-      className: clsx33("flex items-center gap-1.5 text-caption", className),
+      className: clsx35("flex items-center gap-1.5 text-caption", className),
       children: items.map((item, i) => {
         const isLast = i === items.length - 1;
         return /* @__PURE__ */ jsxs(Fragment$1, { children: [
@@ -1670,7 +1874,7 @@ function BackButton({
   linkComponent,
   className
 }) {
-  const cls = clsx33(
+  const cls = clsx35(
     "inline-flex items-center gap-1.5 text-caption font-medium text-trovio-light-text-muted transition-colors hover:text-trovio-light-text dark:text-trovio-dark-text-muted dark:hover:text-trovio-dark-text",
     className
   );
@@ -1702,7 +1906,7 @@ function EmailMessage({
   return /* @__PURE__ */ jsxs(
     "div",
     {
-      className: clsx33(
+      className: clsx35(
         "overflow-hidden rounded-xl border bg-trovio-light-surface dark:bg-trovio-dark-surface",
         highlighted ? "border-trovio-primary shadow-[0_0_0_3px_rgba(102,102,255,0.08)]" : "border-trovio-light-border dark:border-trovio-dark-border",
         className
@@ -1756,7 +1960,7 @@ function BrandCard({
   return /* @__PURE__ */ jsxs(
     "div",
     {
-      className: clsx33(
+      className: clsx35(
         "relative flex flex-col gap-2 rounded-lg border border-trovio-light-border bg-trovio-light-surface p-3 transition-colors hover:border-trovio-primary/40 dark:border-trovio-dark-border dark:bg-trovio-dark-surface",
         className
       ),
@@ -1836,7 +2040,7 @@ function HeadlineBlock({
     /* @__PURE__ */ jsx(
       "h2",
       {
-        className: clsx33(
+        className: clsx35(
           SIZE_CLASS[size],
           weight ? WEIGHT_CLASS[weight] : null,
           "text-trovio-light-text dark:text-trovio-dark-text"
@@ -1857,7 +2061,7 @@ function TitledPanel({
   children,
   className
 }) {
-  return /* @__PURE__ */ jsxs("section", { className: clsx33("flex flex-col gap-4", className), children: [
+  return /* @__PURE__ */ jsxs("section", { className: clsx35("flex flex-col gap-4", className), children: [
     title != null ? /* @__PURE__ */ jsx(HeadlineBlock, { size: titleSize, weight: titleWeight, children: title }) : null,
     /* @__PURE__ */ jsx("div", { children })
   ] });
@@ -1874,7 +2078,7 @@ function LinkCard({
   return /* @__PURE__ */ jsxs(
     "a",
     {
-      className: clsx33(
+      className: clsx35(
         "block overflow-hidden rounded-2xl border border-trovio-light-border dark:border-trovio-dark-border",
         className
       ),
@@ -1913,7 +2117,7 @@ function JourneyStepper({
       const rightDone = step.status === "completed";
       const isLoading = step.status === "current" && Boolean(step.loading);
       const circleBase = "relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors sm:h-10 sm:w-10 sm:text-sm";
-      const circle = clsx33(
+      const circle = clsx35(
         circleBase,
         step.status === "completed" && "bg-trovio-primary text-white",
         // Loading current step drops the static border — the spinning arc
@@ -1970,7 +2174,7 @@ function JourneyStepper({
         "button",
         {
           "aria-label": `${step.label}, ${isLoading ? "in progress, " : ""}tap to activate`,
-          className: clsx33(circle, "cursor-pointer"),
+          className: clsx35(circle, "cursor-pointer"),
           type: "button",
           onClick: onCurrentClick,
           children: inner
@@ -1993,7 +2197,7 @@ function JourneyStepper({
               /* @__PURE__ */ jsx(
                 "div",
                 {
-                  className: clsx33(
+                  className: clsx35(
                     "h-px flex-1",
                     isFirst ? "bg-transparent" : lineClass(leftDone)
                   )
@@ -2003,7 +2207,7 @@ function JourneyStepper({
               /* @__PURE__ */ jsx(
                 "div",
                 {
-                  className: clsx33(
+                  className: clsx35(
                     "h-px flex-1",
                     isLast ? "bg-transparent" : lineClass(rightDone)
                   )
@@ -2013,7 +2217,7 @@ function JourneyStepper({
             /* @__PURE__ */ jsx(
               "span",
               {
-                className: clsx33(
+                className: clsx35(
                   "mt-2 px-0.5 text-center text-[11px] leading-tight sm:text-sm",
                   step.status === "upcoming" ? "text-trovio-light-text-muted dark:text-trovio-dark-text-muted" : "font-medium text-trovio-light-text dark:text-trovio-dark-text"
                 ),
@@ -2285,12 +2489,6 @@ function BrandMatcherPreview() {
     ] })
   ] }, row.title)) });
 }
-function ScoreRing({ score, size = 56 }) {
-  return /* @__PURE__ */ jsx(RingGauge, { size, value: score / 100, children: /* @__PURE__ */ jsxs("span", { className: "flex flex-col items-center leading-none", children: [
-    /* @__PURE__ */ jsx("span", { className: "text-base font-bold text-trovio-light-text dark:text-trovio-dark-text", children: score }),
-    /* @__PURE__ */ jsx("span", { className: "mt-0.5 text-[9px] font-medium text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: "/100" })
-  ] }) });
-}
 var POST_ANALYZER_BENCHMARK = 80;
 var POST_ANALYZER_METRICS = [
   {
@@ -2501,7 +2699,7 @@ function Drawer({
       /* @__PURE__ */ jsxs(
         "div",
         {
-          className: clsx33(
+          className: clsx35(
             "absolute inset-y-0 right-0 flex w-full flex-col bg-trovio-light-surface shadow-2xl dark:bg-trovio-dark-surface",
             "sm:max-w-[480px]"
           ),
@@ -2554,7 +2752,7 @@ function CourseCallout({
   return /* @__PURE__ */ jsxs(
     "div",
     {
-      className: clsx33(
+      className: clsx35(
         "overflow-hidden rounded-2xl border border-trovio-light-border bg-trovio-light-surface dark:border-trovio-dark-border dark:bg-trovio-dark-surface",
         className
       ),
@@ -2625,7 +2823,7 @@ function CoursePromoBanner({
   return /* @__PURE__ */ jsxs(
     "div",
     {
-      className: clsx33(
+      className: clsx35(
         "flex flex-col overflow-hidden rounded-3xl border border-trovio-light-border bg-gradient-to-br from-trovio-primary/10 via-trovio-primary/[0.04] to-transparent dark:border-trovio-dark-border dark:from-trovio-primary/20 dark:via-trovio-primary/[0.06]",
         className
       ),
@@ -2680,6 +2878,6 @@ function CoursePromoBanner({
   );
 }
 
-export { Avatar, BackButton, BrandCard, BrandLogo, Breadcrumbs, Carousel, ClampText, ConversationCard, CourseCallout, CoursePromoBanner, CreatorCard, CreatorCardSkeleton, Drawer, EmailMessage, GeneratingBlock, GoalCard, HeadlineBlock, JourneyStepper, LinkCard, LockChip, LockedFeatureCard, MediaKitPreview, OnboardingBrandHeader, PillarChips, PlatformIcon, PortraitHero, QuoteCard, RingGauge, SectionHeading, SectionLabel, SegmentedToggle, Sparkline, StatStrip, Timeline, TitledPanel, TopPostsStrip, TrovioBadge, TrovioButton, TrovioCheckbox, TrovioIcon, TrovioInput, TrovioModal, TrovioProgressBar, TrovioSelect, TrovioSkeleton, TrovioSpinner, TrovioSwitch, TrovioTextArea, WidgetCard, formatCompactNumber, platformLabel };
+export { Avatar, BackButton, BrandCard, BrandLogo, Breadcrumbs, Carousel, ClampText, ConversationCard, CourseCallout, CoursePromoBanner, CreatorCard, CreatorCardSkeleton, Drawer, EmailMessage, GeneratingBlock, GoalCard, HeadlineBlock, JourneyStepper, LinkCard, LockChip, LockedFeatureCard, MediaKitPreview, OfferField, OnboardingBrandHeader, PillarChips, PlatformIcon, PortraitHero, QuoteCard, RingGauge, ScoreRing, SectionHeading, SectionLabel, SegmentedToggle, Sparkline, StatStrip, Timeline, TitledPanel, TopPostsStrip, TrovioBadge, TrovioButton, TrovioCheckbox, TrovioDatePicker, TrovioIcon, TrovioInput, TrovioModal, TrovioProgressBar, TrovioSelect, TrovioSkeleton, TrovioSpinner, TrovioSwitch, TrovioTextArea, WidgetCard, formatCompactNumber, platformLabel };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

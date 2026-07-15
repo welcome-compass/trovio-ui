@@ -703,8 +703,9 @@ declare const Carousel: react__default.ForwardRefExoticComponent<CarouselProps &
 
 /**
  * A single top post surfaced on a creator card. `thumbnailUrl` and `href` are
- * populated from the matches payload; when the thumbnail is absent a neutral
- * placeholder tile renders so the strip keeps its shape.
+ * populated from the matches payload; when the thumbnail is absent — or its URL
+ * fails to load, e.g. an expired signed URL — a neutral placeholder tile renders
+ * so the strip keeps its shape.
  */
 interface CreatorPost {
     thumbnailUrl?: string | null;

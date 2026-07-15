@@ -30,17 +30,12 @@ type Story = StoryObj<typeof meta>;
 
 /** Full card on Explore: identity + one-liner + top-posts strip + actions. */
 export const Default: Story = {
-  args: { onSave: () => {}, onUseInCampaign: () => {} },
+  args: { onSave: () => {}, onStartCampaign: () => {} },
 };
 
 /** Saved — the Save button flips to "Unsave" with the accent highlight. */
 export const Saved: Story = {
-  args: { saved: true, onSave: () => {}, onUseInCampaign: () => {} },
-};
-
-/** Selected into the campaign list — accent ring + check badge. */
-export const Selected: Story = {
-  args: { selected: true, saved: true, onSave: () => {}, onUseInCampaign: () => {} },
+  args: { saved: true, onSave: () => {}, onStartCampaign: () => {} },
 };
 
 /**
@@ -52,14 +47,14 @@ export const WithNote: Story = {
     saved: true,
     note: "Great fit for the spring launch — reach out after the March drop.",
     onSave: () => {},
-    onUseInCampaign: () => {},
+    onStartCampaign: () => {},
     onNoteChange: () => {},
   },
 };
 
 /** Identity + one-liner only (no posts payload yet) — still a valid card. */
 export const NoPosts: Story = {
-  args: { topPosts: undefined, onSave: () => {}, onUseInCampaign: () => {} },
+  args: { topPosts: undefined, onSave: () => {}, onStartCampaign: () => {} },
 };
 
 /** Custom strip eyebrow + a looser one-liner clamp (5 lines). */
@@ -68,15 +63,14 @@ export const CustomLabelAndClamp: Story = {
     topPostsLabel: "See examples",
     oneLinerLines: 5,
     onSave: () => {},
-    onUseInCampaign: () => {},
+    onStartCampaign: () => {},
   },
 };
 
-/** Interactive — Save/Unsave, campaign selection, and an editable private note. */
+/** Interactive — Save/Unsave toggles, and an editable private note. */
 export const Interactive: Story = {
   render: (args) => {
     const [saved, setSaved] = useState(false);
-    const [selected, setSelected] = useState(false);
     const [note, setNote] = useState("");
 
     return (
@@ -84,10 +78,9 @@ export const Interactive: Story = {
         {...args}
         note={note}
         saved={saved}
-        selected={selected}
         onNoteChange={setNote}
         onSave={() => setSaved((v) => !v)}
-        onUseInCampaign={() => setSelected((v) => !v)}
+        onStartCampaign={() => {}}
       />
     );
   },

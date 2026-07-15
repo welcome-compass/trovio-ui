@@ -23,7 +23,7 @@ import {
 
 import { PlatformIcon } from "./platform-icon";
 import { Avatar } from "./avatar";
-import { RingGauge } from "./ring-gauge";
+import { ScoreRing } from "./score-ring";
 import { SectionLabel } from "./section-label";
 import { formatCompactNumber } from "../utils/format-number";
 
@@ -308,23 +308,6 @@ function BrandMatcherPreview() {
         </div>
       ))}
     </div>
-  );
-}
-
-/** Circular score ring for the Post Analyzer — RingGauge with the score + "/100"
- *  stacked inside. */
-function ScoreRing({ score, size = 56 }: { score: number; size?: number }) {
-  return (
-    <RingGauge size={size} value={score / 100}>
-      <span className="flex flex-col items-center leading-none">
-        <span className="text-base font-bold text-trovio-light-text dark:text-trovio-dark-text">
-          {score}
-        </span>
-        <span className="mt-0.5 text-[9px] font-medium text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
-          /100
-        </span>
-      </span>
-    </RingGauge>
   );
 }
 

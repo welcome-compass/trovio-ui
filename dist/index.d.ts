@@ -297,6 +297,25 @@ interface RingGaugeProps {
 declare function RingGauge({ value, size, stroke, color, trackClassName, className, children, }: RingGaugeProps): react.JSX.Element;
 
 /**
+ * ScoreRing (Primitive) — a 0–100 score inside a circular gauge, the number and
+ * "/100" stacked in the middle. Used for the Post Analyzer's overall score and
+ * the campaign builder's brand-fit score.
+ *
+ * `loading` is the beat before a score resolves: the arc stays empty and a
+ * pulsing placeholder stands in for the number, so the ring holds its slot in
+ * the layout instead of popping in once the value lands.
+ */
+interface ScoreRingProps {
+    /** Score out of 100. Ignored while `loading`. */
+    score: number;
+    size?: number;
+    /** Calculating beat — empty arc + a pulsing placeholder instead of `score`. */
+    loading?: boolean;
+    className?: string;
+}
+declare function ScoreRing({ score, size, loading, className, }: ScoreRingProps): react.JSX.Element;
+
+/**
  * Sparkline (Primitive) — a tiny inline trend line (no axes, no labels).
  *
  * Pure SVG, no deps. Renders nothing when there are fewer than 2 points
@@ -322,13 +341,25 @@ declare function Sparkline({ points, width, height, strokeWidth, color, classNam
 interface SegmentedToggleOption<T extends string> {
     value: T;
     label: string;
+    /**
+     * Render the option muted and unclickable while keeping it visible — the
+     * option stays part of the choice on offer, it just isn't available. Used
+     * where a creator's stated deal preferences exclude one of the options.
+     */
+    disabled?: boolean;
 }
-declare function SegmentedToggle<T extends string>({ options, value, onChange, className, }: {
+interface SegmentedToggleProps<T extends string> {
     options: SegmentedToggleOption<T>[];
     value: T;
     onChange: (value: T) => void;
+    /**
+     * Stretch the options to share the full row width. Default false — options
+     * size to their label and wrap.
+     */
+    fullWidth?: boolean;
     className?: string;
-}): react.JSX.Element;
+}
+declare function SegmentedToggle<T extends string>({ options, value, onChange, fullWidth, className, }: SegmentedToggleProps<T>): react.JSX.Element;
 
 interface TrovioSelectOption {
     key: string;
@@ -358,23 +389,89 @@ interface TrovioSelectProps {
  */
 declare function TrovioSelect({ options, selectedKey, onSelectionChange, placeholder, label, helperText, ariaLabel, isDisabled, size, className, }: TrovioSelectProps): react.JSX.Element;
 
+interface TrovioDatePickerProps {
+    /** Controlled value — an ISO calendar day, "YYYY-MM-DD". null when unset. */
+    value?: string | null;
+    /** Fires with an ISO calendar day, or null when the day is cleared. */
+    onChange?: (value: string | null) => void;
+    /** Earliest selectable day, "YYYY-MM-DD". Earlier days render unclickable. */
+    minValue?: string;
+    /** Field label rendered above the trigger. */
+    label?: string;
+    helperText?: string;
+    ariaLabel?: string;
+    isDisabled?: boolean;
+    /** Trigger text when no day is picked. */
+    placeholder?: string;
+    className?: string;
+}
+/**
+ * TrovioDatePicker — the design-system wrapper around HeroUI's DatePicker, with
+ * a flat ISO-string API instead of the compound children (mirrors TrovioSelect).
+ *
+ * The value is a **calendar day** ("YYYY-MM-DD") — never a `Date`, never an
+ * instant. A delivery date is a square on a calendar, not a moment in time; the
+ * moment you round-trip one through a timestamp it starts landing on the wrong
+ * day either side of UTC. `@internationalized/date` models the day itself, so
+ * what gets picked is what gets stored.
+ */
+declare function TrovioDatePicker({ value, onChange, minValue, label, helperText, ariaLabel, isDisabled, placeholder, className, }: TrovioDatePickerProps): react.JSX.Element;
+
+interface OfferFieldProps {
+    /** The offer in whole dollars; null when unset. Never seeded — the brand
+     *  names its own number. */
+    value: number | null;
+    onChange: (value: number | null) => void;
+    /** Field label. Default "Offer amount". */
+    label?: string;
+    /**
+     * The creator's stated bounds, in whole dollars. Independently nullable, and
+     * most creators have neither. They are context only: they feed the caption
+     * and the meter, and never restrict what can be entered.
+     */
+    rangeMin?: number | null;
+    rangeMax?: number | null;
+    /** Lead-in for the range caption. Default "Accepts". */
+    rangeLabel?: string;
+    helperText?: string;
+    ariaLabel?: string;
+    isDisabled?: boolean;
+    className?: string;
+}
+/**
+ * OfferField — the campaign builder's offer control: a number field, plus a
+ * read-only meter showing the range the creator said they accept.
+ *
+ * The brand's input and the creator's range are kept strictly apart. The range
+ * is *data the creator gave us*, so it is rendered as context and nothing more:
+ * it never becomes the input's domain, never seeds a default, and never blocks
+ * a number. Trovio does not compute a price, and a control whose limits come
+ * from the creator's bounds would be quietly doing exactly that — as well as
+ * having nothing to show for the many creators who have stated no range at all.
+ * That case is the ordinary one: no caption, no meter, just the field.
+ */
+declare function OfferField({ value, onChange, label, rangeMin, rangeMax, rangeLabel, helperText, ariaLabel, isDisabled, className, }: OfferFieldProps): react.JSX.Element;
+
 type TimelineItem = {
     /** Primary line — what happened. */
     title: string;
     /** Muted secondary line, e.g. a relative time. */
     meta?: string;
+    /** Accent chip after the title, e.g. "Trovio" on a step Trovio owns. */
+    note?: string;
     /** Dot color (hex or `var(--…)`). Defaults to the primary token. */
     color?: string;
 };
 type TimelineProps = {
-    /** Items, newest-first by the caller's convention. */
+    /** Items, rendered in the order given — the component does not sort. */
     items: TimelineItem[];
     className?: string;
 };
 /**
- * Timeline — a compact vertical activity list with a connecting rail and a dot
- * per entry. Presentation-only; used for the brand-workspace activity card and
- * any future "what happened" log.
+ * Timeline — a compact vertical list with a connecting rail and a dot per
+ * entry, rendered in the order supplied. Presentation-only; used for the
+ * brand-workspace activity card, any "what happened" log, and forward-looking
+ * schedules where `note` marks who owns each step.
  */
 declare function Timeline({ items, className }: TimelineProps): react.JSX.Element;
 
@@ -636,15 +733,16 @@ declare function TopPostsStrip({ posts, onOpenPost, columns, className, }: TopPo
 /**
  * CreatorCard — one creator inside a conversation on the brand Explore surface:
  * avatar + name/@handle, the genuine match one-liner (the hero copy), a strip of
- * top posts on this theme, and Save / Use-in-Campaign actions.
+ * top posts on this theme, and Save / Start-campaign actions.
  *
- * Presentation-only: it holds no state. The consumer owns `saved`/`selected`
- * and reacts to `onSave` / `onUseInCampaign`. The Save button reads "Save" when
- * unsaved, "Unsave" when saved, so the same control saves on Explore and
- * unsaves on the Saved tab. The avatar resolves a real photo when `avatarUrl` is
- * present and falls back to initials. Post enrichment is additive — the
- * top-posts strip only renders when `topPosts` is supplied, so the card is valid
- * at every data completeness level.
+ * Presentation-only: it holds no state. The consumer owns `saved` and reacts to
+ * `onSave` (a toggle — the button reads "Save" when unsaved, "Unsave" when
+ * saved, so the same control saves on Explore and unsaves on the Saved tab).
+ * `onStartCampaign` is a one-shot action, not a toggle: it opens the campaign
+ * builder for this creator, so the card has no selected state of its own. The
+ * avatar resolves a real photo when `avatarUrl` is present and falls back to
+ * initials. Post enrichment is additive — the top-posts strip only renders when
+ * `topPosts` is supplied, so the card is valid at every data completeness level.
  *
  * The private note editor (Saved tab only) renders when `onNoteChange` is set;
  * `note` is the controlled value.
@@ -670,10 +768,8 @@ interface CreatorCardProps {
      */
     saved?: boolean;
     onSave?: () => void;
-    /** In-campaign-list state + toggle. Adds the selected ring + check badge. */
-    selected?: boolean;
-    /** "Use in Campaign" action. Button renders only when `onUseInCampaign` is set. */
-    onUseInCampaign?: () => void;
+    /** "Start campaign" action. Button renders only when `onStartCampaign` is set. */
+    onStartCampaign?: () => void;
     /**
      * Private per-creator note (Saved tab). The editor renders only when
      * `onNoteChange` is provided; `note` is the controlled value.
@@ -687,7 +783,7 @@ interface CreatorCardProps {
     width?: number | string;
     className?: string;
 }
-declare function CreatorCard({ name, handle, oneLiner, oneLinerLines, avatarUrl, topPosts, topPostsLabel, onOpenPost, saved, onSave, selected, onUseInCampaign, note, onNoteChange, onNoteBlur, notePlaceholder, width, className, }: CreatorCardProps): react.JSX.Element;
+declare function CreatorCard({ name, handle, oneLiner, oneLinerLines, avatarUrl, topPosts, topPostsLabel, onOpenPost, saved, onSave, onStartCampaign, note, onNoteChange, onNoteBlur, notePlaceholder, width, className, }: CreatorCardProps): react.JSX.Element;
 
 /** Conversation lifecycle, mirroring the brands-API conversation status. */
 type ConversationStatus = "active" | "paused" | "archived" | "rejected";
@@ -1200,4 +1296,4 @@ declare function CoursePromoBanner({ eyebrow, headline, subhead, imageUrl, highl
  */
 declare function formatCompactNumber(n?: number | null): string;
 
-export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, Carousel, type CarouselHandle, type CarouselProps, type CarouselScrollState, ClampText, type ClampTextProps, ConversationCard, type ConversationCardProps, type ConversationStatus, CourseCallout, type CourseCalloutProps, CoursePromoBanner, type CoursePromoBannerProps, CreatorCard, type CreatorCardProps, CreatorCardSkeleton, type CreatorCardSkeletonProps, type CreatorPost, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, QuoteCard, type QuoteCardProps, RingGauge, type RingGaugeProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TopPostsStrip, type TopPostsStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioIcon, type TrovioIconProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };
+export { Avatar, type AvatarProps, BackButton, type BackButtonProps, BrandCard, type BrandCardProps, BrandLogo, type BrandLogoProps, type BreadcrumbItem, Breadcrumbs, type BreadcrumbsProps, Carousel, type CarouselHandle, type CarouselProps, type CarouselScrollState, ClampText, type ClampTextProps, ConversationCard, type ConversationCardProps, type ConversationStatus, CourseCallout, type CourseCalloutProps, CoursePromoBanner, type CoursePromoBannerProps, CreatorCard, type CreatorCardProps, CreatorCardSkeleton, type CreatorCardSkeletonProps, type CreatorPost, Drawer, type DrawerProps, EmailMessage, type EmailMessageProps, GeneratingBlock, type GeneratingBlockProps, GoalCard, type GoalCardProps, HeadlineBlock, type HeadlineBlockProps, type HeadlineBlockSize, type HeadlineBlockWeight, type JourneyStep, type JourneyStepStatus, JourneyStepper, LinkCard, type LinkCardProps, LockChip, LockedFeatureCard, type LockedFeatureCardProps, type LockedFeatureItem, type LockedFeatureTreatment, type LockedFeatureVariant, MediaKitPreview, type MediaKitPreviewProps, OfferField, type OfferFieldProps, OnboardingBrandHeader, type OnboardingBrandHeaderProps, type PillarChipItem, PillarChips, PlatformIcon, type PortraitHandle, PortraitHero, type PortraitHeroProps, QuoteCard, type QuoteCardProps, RingGauge, type RingGaugeProps, ScoreRing, type ScoreRingProps, SectionHeading, SectionLabel, SegmentedToggle, type SegmentedToggleOption, type SegmentedToggleProps, Sparkline, type SparklineProps, StatStrip, type StatStripProps, Timeline, type TimelineItem, type TimelineProps, TitledPanel, type TitledPanelProps, TopPostsStrip, type TopPostsStripProps, TrovioBadge, type TrovioBadgeProps, TrovioButton, type TrovioButtonProps, TrovioCheckbox, type TrovioCheckboxProps, TrovioDatePicker, type TrovioDatePickerProps, TrovioIcon, type TrovioIconProps, TrovioInput, type TrovioInputProps, TrovioModal, type TrovioModalProps, TrovioProgressBar, type TrovioProgressBarProps, TrovioSelect, type TrovioSelectOption, type TrovioSelectProps, TrovioSkeleton, type TrovioSkeletonProps, TrovioSpinner, TrovioSwitch, type TrovioSwitchProps, TrovioTextArea, type TrovioTextAreaProps, WidgetCard, type WidgetCardProps, formatCompactNumber, platformLabel };

@@ -45,7 +45,7 @@ export const CreatorRail: Story = {
           oneLiner={c.oneLiner}
           topPosts={POSTS}
           onSave={() => {}}
-          onUseInCampaign={() => {}}
+          onStartCampaign={() => {}}
         />
       ))}
     </Carousel>
@@ -73,7 +73,7 @@ export const FitsNoChrome: Story = {
           handle={c.handle}
           name={c.name}
           oneLiner={c.oneLiner}
-          onUseInCampaign={() => {}}
+          onStartCampaign={() => {}}
         />
       ))}
     </Carousel>

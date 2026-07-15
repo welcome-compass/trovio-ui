@@ -27,3 +27,52 @@ export const Default: Story = {
     return <SegmentedToggle {...args} value={value} onChange={setValue} />;
   },
 };
+
+/**
+ * `fullWidth` — options share the row instead of sizing to their label. Used
+ * for the campaign builder's two-option deal toggles.
+ */
+export const FullWidth: Story = {
+  args: {
+    options: [
+      { value: "ugc", label: "UGC" },
+      { value: "audience", label: "Audience" },
+    ],
+    value: "ugc",
+    fullWidth: true,
+  },
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
+
+    return (
+      <div className="w-80">
+        <SegmentedToggle {...args} value={value} onChange={setValue} />
+      </div>
+    );
+  },
+};
+
+/**
+ * A per-option `disabled` — the option stays visible but unavailable. Here the
+ * creator's stated deal preferences rule out product exchange, so the choice is
+ * still shown while only Payment can be picked.
+ */
+export const OptionDisabled: Story = {
+  args: {
+    options: [
+      { value: "product", label: "Product exchange", disabled: true },
+      { value: "payment", label: "Payment" },
+    ],
+    value: "payment",
+    fullWidth: true,
+  },
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
+
+    return (
+      <div className="w-80">
+        <SegmentedToggle {...args} value={value} onChange={setValue} />
+      </div>
+    );
+  },
+};

@@ -1541,6 +1541,8 @@ function PostThumbnail({
   post,
   onOpen
 }) {
+  const [failedUrl, setFailedUrl] = useState(null);
+  const showImage = Boolean(post.thumbnailUrl) && post.thumbnailUrl !== failedUrl;
   const viewsLabel = post.views != null ? `${formatCompactNumber(post.views)} views` : void 0;
   const title = [post.caption, viewsLabel].filter(Boolean).join(" \u2014 ") || void 0;
   return /* @__PURE__ */ jsxs(
@@ -1552,14 +1554,15 @@ function PostThumbnail({
       type: "button",
       onClick: onOpen,
       children: [
-        post.thumbnailUrl ? (
+        showImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           /* @__PURE__ */ jsx(
             "img",
             {
               alt: "",
               className: "h-full w-full object-cover",
-              src: post.thumbnailUrl
+              src: post.thumbnailUrl,
+              onError: () => setFailedUrl(post.thumbnailUrl)
             }
           )
         ) : null,

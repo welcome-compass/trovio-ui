@@ -39,3 +39,26 @@ export const Partial: Story = {
 
 /** No posts renders nothing (the card drops its eyebrow too). */
 export const Empty: Story = { args: { posts: [] } };
+
+/**
+ * Dead thumbnail URLs (expired signed URLs) fall back to the placeholder tile
+ * instead of a broken image.
+ */
+export const BrokenThumbnails: Story = {
+  args: {
+    posts: [
+      {
+        caption: "15-min one-pan chicken",
+        views: 82000,
+        isVideo: true,
+        thumbnailUrl: "https://example.invalid/expired.jpg",
+      },
+      {
+        caption: "Sheet-pan dinner for 4",
+        views: 140000,
+        isVideo: true,
+        thumbnailUrl: "https://example.invalid/expired-2.jpg",
+      },
+    ],
+  },
+};

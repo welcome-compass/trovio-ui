@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { PiPlayFill } from "react-icons/pi";
 import clsx from "clsx";
 
@@ -7,8 +8,9 @@ import { formatCompactNumber } from "../utils/format-number";
 
 /**
  * A single top post surfaced on a creator card. `thumbnailUrl` and `href` are
- * populated from the matches payload; when the thumbnail is absent a neutral
- * placeholder tile renders so the strip keeps its shape.
+ * populated from the matches payload; when the thumbnail is absent — or its URL
+ * fails to load, e.g. an expired signed URL — a neutral placeholder tile renders
+ * so the strip keeps its shape.
  */
 export interface CreatorPost {
   thumbnailUrl?: string | null;
@@ -36,6 +38,12 @@ function PostThumbnail({
   post: CreatorPost;
   onOpen?: () => void;
 }) {
+  // Tracks the URL that failed rather than a boolean: tiles are keyed by index,
+  // so a polling refresh can hand this instance a different post, and a flag
+  // would suppress the new post's perfectly good thumbnail.
+  const [failedUrl, setFailedUrl] = useState<string | null>(null);
+  const showImage = Boolean(post.thumbnailUrl) && post.thumbnailUrl !== failedUrl;
+
   const viewsLabel = post.views != null ? `${formatCompactNumber(post.views)} views` : undefined;
   const title = [post.caption, viewsLabel].filter(Boolean).join(" — ") || undefined;
 
@@ -47,12 +55,13 @@ function PostThumbnail({
       type="button"
       onClick={onOpen}
     >
-      {post.thumbnailUrl ? (
+      {showImage ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           alt=""
           className="h-full w-full object-cover"
-          src={post.thumbnailUrl}
+          src={post.thumbnailUrl as string}
+          onError={() => setFailedUrl(post.thumbnailUrl as string)}
         />
       ) : null}
 

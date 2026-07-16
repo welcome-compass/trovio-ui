@@ -57,6 +57,14 @@ export const NoPosts: Story = {
   args: { topPosts: undefined, onSave: () => {}, onStartCampaign: () => {} },
 };
 
+/**
+ * Empty handle: the "@" line is suppressed entirely rather than rendering a bare
+ * "@" (BD-29). Name still shows via its own row.
+ */
+export const NoHandle: Story = {
+  args: { handle: "", onSave: () => {}, onStartCampaign: () => {} },
+};
+
 /** Custom strip eyebrow + a looser one-liner clamp (5 lines). */
 export const CustomLabelAndClamp: Story = {
   args: {

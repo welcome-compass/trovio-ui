@@ -109,9 +109,11 @@ export function CreatorCard({
           <div className="truncate text-caption font-semibold text-trovio-light-text dark:text-trovio-dark-text">
             {name}
           </div>
-          <div className="text-xs text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
-            @{handle}
-          </div>
+          {handle ? (
+            <div className="text-xs text-trovio-light-text-muted dark:text-trovio-dark-text-muted">
+              @{handle}
+            </div>
+          ) : null}
         </div>
       </div>
 

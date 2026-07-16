@@ -1639,10 +1639,10 @@ function CreatorCard({
           /* @__PURE__ */ jsxRuntime.jsx(Avatar, { imageUrl: avatarUrl, name, size: 44 }),
           /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "min-w-0", children: [
             /* @__PURE__ */ jsxRuntime.jsx("div", { className: "truncate text-caption font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: name }),
-            /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "text-xs text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: [
+            handle ? /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "text-xs text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: [
               "@",
               handle
-            ] })
+            ] }) : null
           ] })
         ] }),
         /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-caption", style: { minHeight: `calc(${oneLinerLines} * 1.5em)` }, children: /* @__PURE__ */ jsxRuntime.jsx(

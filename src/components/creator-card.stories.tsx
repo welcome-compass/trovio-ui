@@ -39,6 +39,26 @@ export const Saved: Story = {
 };
 
 /**
+ * Brand-fit ring (top-right): a `score` (0–100) renders a color-tinted ring —
+ * success ≥75, warning ≥50, error below. Omit `score` to hide it.
+ */
+export const WithScore: Story = {
+  args: { score: 82, onSave: () => {}, onStartCampaign: () => {} },
+};
+
+/** A mid-fit (warning) and low-fit (error) ring, to show the color buckets. */
+export const ScoreBuckets: Story = {
+  render: (args) => (
+    <div className="flex gap-4">
+      <CreatorCard {...args} name="Strong fit" score={88} />
+      <CreatorCard {...args} name="Moderate fit" score={61} />
+      <CreatorCard {...args} name="Weak fit" score={34} />
+    </div>
+  ),
+  args: { onSave: () => {}, onStartCampaign: () => {} },
+};
+
+/**
  * Saved tab: saved + the private note editor (renders only when `onNoteChange`
  * is provided). No posts strip needed for the shortlist view.
  */

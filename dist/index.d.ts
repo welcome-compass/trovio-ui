@@ -758,6 +758,13 @@ interface CreatorCardProps {
     oneLinerLines?: number;
     /** Real profile photo; falls back to initials when absent. */
     avatarUrl?: string | null;
+    /**
+     * Composite brand-fit score, 0–100. When set, a small color-tinted fit ring
+     * renders in the card's top-right corner. Omit (or `null`) to hide it — the
+     * card stays valid with no ring, so legacy matches with no score just don't
+     * show one.
+     */
+    score?: number | null;
     /** Top posts on this theme (0–3). Strip + eyebrow hide when empty. */
     topPosts?: CreatorPost[];
     /** Eyebrow above the top-posts strip. Default "Top posts · this theme". */
@@ -784,7 +791,7 @@ interface CreatorCardProps {
     width?: number | string;
     className?: string;
 }
-declare function CreatorCard({ name, handle, oneLiner, oneLinerLines, avatarUrl, topPosts, topPostsLabel, onOpenPost, saved, onSave, onStartCampaign, note, onNoteChange, onNoteBlur, notePlaceholder, width, className, }: CreatorCardProps): react.JSX.Element;
+declare function CreatorCard({ name, handle, oneLiner, oneLinerLines, avatarUrl, score, topPosts, topPostsLabel, onOpenPost, saved, onSave, onStartCampaign, note, onNoteChange, onNoteBlur, notePlaceholder, width, className, }: CreatorCardProps): react.JSX.Element;
 
 /** Conversation lifecycle, mirroring the brands-API conversation status. */
 type ConversationStatus = "active" | "paused" | "archived" | "rejected";

@@ -924,6 +924,7 @@ function TrovioDatePicker({
 }) {
   const selected = toCalendarDate(value);
   const earliest = toCalendarDate(minValue);
+  const triggerRef = useRef(null);
   return /* @__PURE__ */ jsxs("div", { className: clsx35("flex flex-col gap-1.5", className), children: [
     label ? /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: label }) : null,
     /* @__PURE__ */ jsxs(
@@ -935,11 +936,24 @@ function TrovioDatePicker({
         value: selected,
         onChange: (next) => onChange?.(next ? next.toString() : null),
         children: [
-          /* @__PURE__ */ jsxs(DatePicker.Trigger, { children: [
-            selected ? formatCalendarDate(selected) : /* @__PURE__ */ jsx("span", { className: "text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: placeholder }),
-            /* @__PURE__ */ jsx(DatePicker.TriggerIndicator, {})
-          ] }),
-          /* @__PURE__ */ jsx(DatePicker.Popover, { children: /* @__PURE__ */ jsxs(Calendar, { children: [
+          /* @__PURE__ */ jsxs(
+            DatePicker.Trigger,
+            {
+              ref: triggerRef,
+              className: clsx35(
+                "flex w-full items-center justify-between gap-2 text-left",
+                "rounded-xl border-2 border-transparent px-4 py-3 shadow-sm transition-colors",
+                "bg-[rgba(102,102,255,0.1)] hover:bg-[rgba(102,102,255,0.15)]",
+                "dark:bg-[rgba(102,102,255,0.15)] dark:hover:bg-[rgba(102,102,255,0.2)]",
+                "focus-visible:border-trovio-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-trovio-primary/20"
+              ),
+              children: [
+                selected ? formatCalendarDate(selected) : /* @__PURE__ */ jsx("span", { className: "text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: placeholder }),
+                /* @__PURE__ */ jsx(DatePicker.TriggerIndicator, {})
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsx(DatePicker.Popover, { triggerRef, children: /* @__PURE__ */ jsxs(Calendar, { minValue: earliest ?? void 0, children: [
             /* @__PURE__ */ jsxs(Calendar.Header, { children: [
               /* @__PURE__ */ jsx(Calendar.NavButton, { slot: "previous" }),
               /* @__PURE__ */ jsx(Calendar.Heading, {}),

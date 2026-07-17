@@ -2,6 +2,7 @@
 
 import type { CalendarDate } from "@internationalized/date";
 
+import { useRef } from "react";
 import { Calendar, DatePicker } from "@heroui/react";
 import { parseDate } from "@internationalized/date";
 import clsx from "clsx";
@@ -80,6 +81,10 @@ export function TrovioDatePicker({
 }: TrovioDatePickerProps) {
   const selected = toCalendarDate(value);
   const earliest = toCalendarDate(minValue);
+  // HeroUI's DatePicker.Popover never forwards the trigger it captures in
+  // context to the underlying react-aria Popover, so a Button-triggered popover
+  // has no anchor and lands at (0,0). Hand it the trigger ourselves.
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   return (
     <div className={clsx("flex flex-col gap-1.5", className)}>
@@ -95,7 +100,19 @@ export function TrovioDatePicker({
         value={selected}
         onChange={(next) => onChange?.(next ? next.toString() : null)}
       >
-        <DatePicker.Trigger>
+        <DatePicker.Trigger
+          ref={triggerRef}
+          // Read as a form field, not bare text — the default trigger gave no
+          // affordance that it was clickable. Mirrors TrovioInput's treatment so
+          // the picker sits consistently beside the other controls.
+          className={clsx(
+            "flex w-full items-center justify-between gap-2 text-left",
+            "rounded-xl border-2 border-transparent px-4 py-3 shadow-sm transition-colors",
+            "bg-[rgba(102,102,255,0.1)] hover:bg-[rgba(102,102,255,0.15)]",
+            "dark:bg-[rgba(102,102,255,0.15)] dark:hover:bg-[rgba(102,102,255,0.2)]",
+            "focus-visible:border-trovio-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-trovio-primary/20",
+          )}
+        >
           {selected ? (
             formatCalendarDate(selected)
           ) : (
@@ -105,8 +122,11 @@ export function TrovioDatePicker({
           )}
           <DatePicker.TriggerIndicator />
         </DatePicker.Trigger>
-        <DatePicker.Popover>
-          <Calendar>
+        <DatePicker.Popover triggerRef={triggerRef}>
+          {/* The inner Calendar is a standalone react-aria Calendar; without its
+              own minValue it falls back to HeroUI's 1900-01-01 default and lets
+              past days be picked. Pass the bound through so it actually holds. */}
+          <Calendar minValue={earliest ?? undefined}>
             <Calendar.Header>
               <Calendar.NavButton slot="previous" />
               <Calendar.Heading />

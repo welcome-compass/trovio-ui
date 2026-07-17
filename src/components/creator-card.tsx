@@ -5,12 +5,24 @@ import clsx from "clsx";
 
 import { Avatar } from "./avatar";
 import { ClampText } from "./clamp-text";
+import { RingGauge } from "./ring-gauge";
 import { SectionLabel } from "./section-label";
 import { TrovioButton } from "./trovio-button";
 import { TrovioTextArea } from "./trovio-textarea";
 import { TopPostsStrip, type CreatorPost } from "./top-posts-strip";
 
 export type { CreatorPost };
+
+/**
+ * Composite brand-fit score (0–100) → arc color. Strong ≥75 (success),
+ * moderate ≥50 (warning), weak below (error). Same thresholds the admin
+ * dashboard buckets by, so both surfaces read the score the same way.
+ */
+function fitArcColor(score: number): string {
+  if (score >= 75) return "var(--color-trovio-success)";
+  if (score >= 50) return "var(--color-trovio-warning)";
+  return "var(--color-trovio-error)";
+}
 
 /**
  * CreatorCard — one creator inside a conversation on the brand Explore surface:
@@ -39,6 +51,14 @@ export interface CreatorCardProps {
   oneLinerLines?: number;
   /** Real profile photo; falls back to initials when absent. */
   avatarUrl?: string | null;
+
+  /**
+   * Composite brand-fit score, 0–100. When set, a small color-tinted fit ring
+   * renders in the card's top-right corner. Omit (or `null`) to hide it — the
+   * card stays valid with no ring, so legacy matches with no score just don't
+   * show one.
+   */
+  score?: number | null;
 
   /** Top posts on this theme (0–3). Strip + eyebrow hide when empty. */
   topPosts?: CreatorPost[];
@@ -76,6 +96,7 @@ export function CreatorCard({
   oneLiner,
   oneLinerLines = 3,
   avatarUrl,
+  score,
   topPosts,
   topPostsLabel = "Top posts · this theme",
   onOpenPost,
@@ -92,6 +113,7 @@ export function CreatorCard({
   const showPosts = Boolean(topPosts && topPosts.length > 0);
   const showActions = Boolean(onSave || onStartCampaign);
   const showNote = Boolean(onNoteChange);
+  const showScore = typeof score === "number";
 
   return (
     <article
@@ -105,7 +127,7 @@ export function CreatorCard({
     >
       <div className="flex items-center gap-3">
         <Avatar imageUrl={avatarUrl} name={name} size={44} />
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="truncate text-caption font-semibold text-trovio-light-text dark:text-trovio-dark-text">
             {name}
           </div>
@@ -115,6 +137,20 @@ export function CreatorCard({
             </div>
           ) : null}
         </div>
+        {showScore ? (
+          <div
+            aria-label={`Brand fit: ${score} out of 100`}
+            className="shrink-0"
+            role="img"
+            title={`Brand fit: ${score}/100`}
+          >
+            <RingGauge color={fitArcColor(score!)} size={40} stroke={4} value={score! / 100}>
+              <span className="text-[13px] font-bold text-trovio-light-text dark:text-trovio-dark-text">
+                {score}
+              </span>
+            </RingGauge>
+          </div>
+        ) : null}
       </div>
 
       {/* Reserve the full clamp height (oneLinerLines × the caption line box) so

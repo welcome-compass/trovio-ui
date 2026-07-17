@@ -1609,12 +1609,18 @@ function TopPostsStrip({
     }
   );
 }
+function fitArcColor(score) {
+  if (score >= 75) return "var(--color-trovio-success)";
+  if (score >= 50) return "var(--color-trovio-warning)";
+  return "var(--color-trovio-error)";
+}
 function CreatorCard({
   name,
   handle,
   oneLiner,
   oneLinerLines = 3,
   avatarUrl,
+  score,
   topPosts,
   topPostsLabel = "Top posts \xB7 this theme",
   onOpenPost,
@@ -1631,6 +1637,7 @@ function CreatorCard({
   const showPosts = Boolean(topPosts && topPosts.length > 0);
   const showActions = Boolean(onSave || onStartCampaign);
   const showNote = Boolean(onNoteChange);
+  const showScore = typeof score === "number";
   return /* @__PURE__ */ jsxs(
     "article",
     {
@@ -1644,13 +1651,23 @@ function CreatorCard({
       children: [
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
           /* @__PURE__ */ jsx(Avatar, { imageUrl: avatarUrl, name, size: 44 }),
-          /* @__PURE__ */ jsxs("div", { className: "min-w-0", children: [
+          /* @__PURE__ */ jsxs("div", { className: "min-w-0 flex-1", children: [
             /* @__PURE__ */ jsx("div", { className: "truncate text-caption font-semibold text-trovio-light-text dark:text-trovio-dark-text", children: name }),
             handle ? /* @__PURE__ */ jsxs("div", { className: "text-xs text-trovio-light-text-muted dark:text-trovio-dark-text-muted", children: [
               "@",
               handle
             ] }) : null
-          ] })
+          ] }),
+          showScore ? /* @__PURE__ */ jsx(
+            "div",
+            {
+              "aria-label": `Brand fit: ${score} out of 100`,
+              className: "shrink-0",
+              role: "img",
+              title: `Brand fit: ${score}/100`,
+              children: /* @__PURE__ */ jsx(RingGauge, { color: fitArcColor(score), size: 40, stroke: 4, value: score / 100, children: /* @__PURE__ */ jsx("span", { className: "text-[13px] font-bold text-trovio-light-text dark:text-trovio-dark-text", children: score }) })
+            }
+          ) : null
         ] }),
         /* @__PURE__ */ jsx("div", { className: "text-caption", style: { minHeight: `calc(${oneLinerLines} * 1.5em)` }, children: /* @__PURE__ */ jsx(
           ClampText,

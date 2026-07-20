@@ -224,10 +224,15 @@ declare function WidgetCard({ children, className, noPadding, minHeight, ...prop
  *
  * Tone: `muted` (default) is the standard page eyebrow. `primary` is reserved
  * for emphasis inside previews/teasers (e.g. the locked-feature mini-pages).
+ *
+ * Size: `micro` (default) is the standard small eyebrow. `label` is the
+ * body-sized, bolder variant (the `--text-label` token) for a heading-weight
+ * label like the Explore card's "Why they fit" (usually with `tone="primary"`).
  */
-declare function SectionLabel({ children, tone, className, }: {
+declare function SectionLabel({ children, tone, size, className, }: {
     children: ReactNode;
     tone?: "muted" | "primary";
+    size?: "micro" | "label";
     className?: string;
 }): react.JSX.Element;
 
@@ -756,6 +761,12 @@ interface CreatorCardProps {
     oneLiner: string;
     /** Lines the one-liner clamps to before a "More" toggle appears. Default 3. */
     oneLinerLines?: number;
+    /**
+     * Optional prominent label rendered directly above the one-liner (e.g.
+     * "Why they fit"). Uses the `SectionLabel size="label"` token in the brand
+     * primary color. Omit to render no label (default).
+     */
+    oneLinerLabel?: string;
     /** Real profile photo; falls back to initials when absent. */
     avatarUrl?: string | null;
     /**
@@ -791,7 +802,7 @@ interface CreatorCardProps {
     width?: number | string;
     className?: string;
 }
-declare function CreatorCard({ name, handle, oneLiner, oneLinerLines, avatarUrl, score, topPosts, topPostsLabel, onOpenPost, saved, onSave, onStartCampaign, note, onNoteChange, onNoteBlur, notePlaceholder, width, className, }: CreatorCardProps): react.JSX.Element;
+declare function CreatorCard({ name, handle, oneLiner, oneLinerLines, oneLinerLabel, avatarUrl, score, topPosts, topPostsLabel, onOpenPost, saved, onSave, onStartCampaign, note, onNoteChange, onNoteBlur, notePlaceholder, width, className, }: CreatorCardProps): react.JSX.Element;
 
 /** Conversation lifecycle, mirroring the brands-API conversation status. */
 type ConversationStatus = "active" | "paused" | "archived" | "rejected";

@@ -95,6 +95,22 @@ export const CustomLabelAndClamp: Story = {
   },
 };
 
+/**
+ * "Why they fit" — a prominent brand-primary label (SectionLabel size="label",
+ * the `--text-label` token) above the one-liner. Shown with the top-posts strip
+ * hidden, the way the Explore card renders it post-BD-48.
+ */
+export const WhyTheyFit: Story = {
+  args: {
+    oneLinerLabel: "Why they fit",
+    oneLinerLines: 5,
+    score: 82,
+    topPosts: undefined,
+    onSave: () => {},
+    onStartCampaign: () => {},
+  },
+};
+
 /** Interactive — Save/Unsave toggles, and an editable private note. */
 export const Interactive: Story = {
   render: (args) => {

@@ -614,13 +614,15 @@ function WidgetCard({
 function SectionLabel({
   children,
   tone = "muted",
+  size = "micro",
   className
 }) {
   return /* @__PURE__ */ jsxRuntime.jsx(
     "p",
     {
       className: clsx35__default.default(
-        "text-micro uppercase",
+        "uppercase",
+        size === "label" ? "text-label" : "text-micro",
         tone === "primary" ? "text-trovio-primary" : "text-trovio-light-text-muted dark:text-trovio-dark-text-muted",
         className
       ),
@@ -1626,6 +1628,7 @@ function CreatorCard({
   handle,
   oneLiner,
   oneLinerLines = 3,
+  oneLinerLabel,
   avatarUrl,
   score,
   topPosts,
@@ -1676,14 +1679,17 @@ function CreatorCard({
             }
           ) : null
         ] }),
-        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-caption", style: { minHeight: `calc(${oneLinerLines} * 1.5em)` }, children: /* @__PURE__ */ jsxRuntime.jsx(
-          ClampText,
-          {
-            className: "leading-normal text-trovio-light-text dark:text-trovio-dark-text",
-            lines: oneLinerLines,
-            children: oneLiner
-          }
-        ) }),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col gap-1", children: [
+          oneLinerLabel ? /* @__PURE__ */ jsxRuntime.jsx(SectionLabel, { size: "label", tone: "primary", children: oneLinerLabel }) : null,
+          /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-caption", style: { minHeight: `calc(${oneLinerLines} * 1.5em)` }, children: /* @__PURE__ */ jsxRuntime.jsx(
+            ClampText,
+            {
+              className: "leading-normal text-trovio-light-text dark:text-trovio-dark-text",
+              lines: oneLinerLines,
+              children: oneLiner
+            }
+          ) })
+        ] }),
         showPosts && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col gap-2", children: [
           /* @__PURE__ */ jsxRuntime.jsx(SectionLabel, { children: topPostsLabel }),
           /* @__PURE__ */ jsxRuntime.jsx(TopPostsStrip, { onOpenPost, posts: topPosts })
@@ -3001,6 +3007,11 @@ var typeScale = [
     name: "Micro-label",
     class: "text-micro uppercase",
     usage: "Eyebrow / role tags (SectionLabel)"
+  },
+  {
+    name: "Label",
+    class: "text-label uppercase",
+    usage: "Prominent eyebrow (SectionLabel size=label) \u2014 e.g. Explore 'Why they fit'"
   }
 ];
 var designTokens = {

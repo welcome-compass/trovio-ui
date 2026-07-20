@@ -82,6 +82,11 @@ var typeScale = [
     name: "Micro-label",
     class: "text-micro uppercase",
     usage: "Eyebrow / role tags (SectionLabel)"
+  },
+  {
+    name: "Label",
+    class: "text-label uppercase",
+    usage: "Prominent eyebrow (SectionLabel size=label) \u2014 e.g. Explore 'Why they fit'"
   }
 ];
 var designTokens = {

@@ -80,6 +80,11 @@ var typeScale = [
     name: "Micro-label",
     class: "text-micro uppercase",
     usage: "Eyebrow / role tags (SectionLabel)"
+  },
+  {
+    name: "Label",
+    class: "text-label uppercase",
+    usage: "Prominent eyebrow (SectionLabel size=label) \u2014 e.g. Explore 'Why they fit'"
   }
 ];
 var designTokens = {
@@ -96,5 +101,5 @@ var designTokens = {
 };
 
 export { brandColors, darkColors, designTokens, fonts, lightColors, radius, semanticColors, shadow, typeScale };
-//# sourceMappingURL=chunk-SMQSL3K6.js.map
-//# sourceMappingURL=chunk-SMQSL3K6.js.map
+//# sourceMappingURL=chunk-FQMWNDOB.js.map
+//# sourceMappingURL=chunk-FQMWNDOB.js.map

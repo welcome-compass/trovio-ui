@@ -104,6 +104,11 @@ export const typeScale = [
     class: "text-micro uppercase",
     usage: "Eyebrow / role tags (SectionLabel)",
   },
+  {
+    name: "Label",
+    class: "text-label uppercase",
+    usage: "Prominent eyebrow (SectionLabel size=label) — e.g. Explore 'Why they fit'",
+  },
 ] as const;
 
 /** Convenience aggregate for codegen / JSON export. */

@@ -15,20 +15,27 @@ import clsx from "clsx";
  *
  * Tone: `muted` (default) is the standard page eyebrow. `primary` is reserved
  * for emphasis inside previews/teasers (e.g. the locked-feature mini-pages).
+ *
+ * Size: `micro` (default) is the standard small eyebrow. `label` is the
+ * body-sized, bolder variant (the `--text-label` token) for a heading-weight
+ * label like the Explore card's "Why they fit" (usually with `tone="primary"`).
  */
 export function SectionLabel({
   children,
   tone = "muted",
+  size = "micro",
   className,
 }: {
   children: ReactNode;
   tone?: "muted" | "primary";
+  size?: "micro" | "label";
   className?: string;
 }) {
   return (
     <p
       className={clsx(
-        "text-micro uppercase",
+        "uppercase",
+        size === "label" ? "text-label" : "text-micro",
         tone === "primary"
           ? "text-trovio-primary"
           : "text-trovio-light-text-muted dark:text-trovio-dark-text-muted",

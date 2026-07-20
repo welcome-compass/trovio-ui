@@ -99,6 +99,10 @@ declare const typeScale: readonly [{
     readonly name: "Micro-label";
     readonly class: "text-micro uppercase";
     readonly usage: "Eyebrow / role tags (SectionLabel)";
+}, {
+    readonly name: "Label";
+    readonly class: "text-label uppercase";
+    readonly usage: "Prominent eyebrow (SectionLabel size=label) — e.g. Explore 'Why they fit'";
 }];
 /** Convenience aggregate for codegen / JSON export. */
 declare const designTokens: {
@@ -186,6 +190,10 @@ declare const designTokens: {
         readonly name: "Micro-label";
         readonly class: "text-micro uppercase";
         readonly usage: "Eyebrow / role tags (SectionLabel)";
+    }, {
+        readonly name: "Label";
+        readonly class: "text-label uppercase";
+        readonly usage: "Prominent eyebrow (SectionLabel size=label) — e.g. Explore 'Why they fit'";
     }];
 };
 type DesignTokens = typeof designTokens;

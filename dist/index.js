@@ -1,4 +1,4 @@
-export { brandColors, darkColors, designTokens, fonts, lightColors, radius, semanticColors, shadow, typeScale } from './chunk-SMQSL3K6.js';
+export { brandColors, darkColors, designTokens, fonts, lightColors, radius, semanticColors, shadow, typeScale } from './chunk-FQMWNDOB.js';
 import React2, { forwardRef, useRef, useState, useCallback, useImperativeHandle, useEffect, Fragment as Fragment$1 } from 'react';
 import { buttonVariants, Button, Spinner, Chip, Input, TextArea, Modal, Checkbox, Switch, Skeleton, Card, Select, ListBox, DatePicker, Calendar, NumberField } from '@heroui/react';
 import { tv } from 'tailwind-variants';
@@ -607,13 +607,15 @@ function WidgetCard({
 function SectionLabel({
   children,
   tone = "muted",
+  size = "micro",
   className
 }) {
   return /* @__PURE__ */ jsx(
     "p",
     {
       className: clsx35(
-        "text-micro uppercase",
+        "uppercase",
+        size === "label" ? "text-label" : "text-micro",
         tone === "primary" ? "text-trovio-primary" : "text-trovio-light-text-muted dark:text-trovio-dark-text-muted",
         className
       ),
@@ -1619,6 +1621,7 @@ function CreatorCard({
   handle,
   oneLiner,
   oneLinerLines = 3,
+  oneLinerLabel,
   avatarUrl,
   score,
   topPosts,
@@ -1669,14 +1672,17 @@ function CreatorCard({
             }
           ) : null
         ] }),
-        /* @__PURE__ */ jsx("div", { className: "text-caption", style: { minHeight: `calc(${oneLinerLines} * 1.5em)` }, children: /* @__PURE__ */ jsx(
-          ClampText,
-          {
-            className: "leading-normal text-trovio-light-text dark:text-trovio-dark-text",
-            lines: oneLinerLines,
-            children: oneLiner
-          }
-        ) }),
+        /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-1", children: [
+          oneLinerLabel ? /* @__PURE__ */ jsx(SectionLabel, { size: "label", tone: "primary", children: oneLinerLabel }) : null,
+          /* @__PURE__ */ jsx("div", { className: "text-caption", style: { minHeight: `calc(${oneLinerLines} * 1.5em)` }, children: /* @__PURE__ */ jsx(
+            ClampText,
+            {
+              className: "leading-normal text-trovio-light-text dark:text-trovio-dark-text",
+              lines: oneLinerLines,
+              children: oneLiner
+            }
+          ) })
+        ] }),
         showPosts && /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-2", children: [
           /* @__PURE__ */ jsx(SectionLabel, { children: topPostsLabel }),
           /* @__PURE__ */ jsx(TopPostsStrip, { onOpenPost, posts: topPosts })

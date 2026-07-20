@@ -49,6 +49,12 @@ export interface CreatorCardProps {
   oneLiner: string;
   /** Lines the one-liner clamps to before a "More" toggle appears. Default 3. */
   oneLinerLines?: number;
+  /**
+   * Optional prominent label rendered directly above the one-liner (e.g.
+   * "Why they fit"). Uses the `SectionLabel size="label"` token in the brand
+   * primary color. Omit to render no label (default).
+   */
+  oneLinerLabel?: string;
   /** Real profile photo; falls back to initials when absent. */
   avatarUrl?: string | null;
 
@@ -95,6 +101,7 @@ export function CreatorCard({
   handle,
   oneLiner,
   oneLinerLines = 3,
+  oneLinerLabel,
   avatarUrl,
   score,
   topPosts,
@@ -156,14 +163,22 @@ export function CreatorCard({
       {/* Reserve the full clamp height (oneLinerLines × the caption line box) so
           every card lines its posts strip + actions up at the same offset —
           shorter one-liners simply leave whitespace below. Keeps a rail of cards
-          the same height without a hard-coded card min-height. */}
-      <div className="text-caption" style={{ minHeight: `calc(${oneLinerLines} * 1.5em)` }}>
-        <ClampText
-          className="leading-normal text-trovio-light-text dark:text-trovio-dark-text"
-          lines={oneLinerLines}
-        >
-          {oneLiner}
-        </ClampText>
+          the same height without a hard-coded card min-height. An optional
+          prominent label ("Why they fit") sits snug above the one-liner. */}
+      <div className="flex flex-col gap-1">
+        {oneLinerLabel ? (
+          <SectionLabel size="label" tone="primary">
+            {oneLinerLabel}
+          </SectionLabel>
+        ) : null}
+        <div className="text-caption" style={{ minHeight: `calc(${oneLinerLines} * 1.5em)` }}>
+          <ClampText
+            className="leading-normal text-trovio-light-text dark:text-trovio-dark-text"
+            lines={oneLinerLines}
+          >
+            {oneLiner}
+          </ClampText>
+        </div>
       </div>
 
       {showPosts && (

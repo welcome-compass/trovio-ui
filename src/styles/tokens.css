@@ -114,4 +114,13 @@
   --text-micro--line-height: 1.4;
   --text-micro--letter-spacing: 0.1em;
   --text-micro--font-weight: 600;
+
+  /* Prominent uppercase label — body-sized eyebrow, heavier than text-micro.
+     Pair with `uppercase` + a color utility (e.g. text-trovio-primary) via the
+     SectionLabel `size="label"` variant. Introduced for the Explore creator
+     card's "Why they fit" heading (BD-48). */
+  --text-label: 1rem;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.04em;
+  --text-label--font-weight: 700;
 }

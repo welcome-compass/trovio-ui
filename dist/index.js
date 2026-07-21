@@ -216,6 +216,36 @@ var TrovioBadge = ({
     }
   );
 };
+var trovioChipVariants = tv({
+  base: "rounded-full font-semibold border",
+  variants: {
+    variant: {
+      soft: "bg-trovio-primary/10 border-trovio-primary/15 text-trovio-light-text dark:text-trovio-dark-text",
+      solid: "bg-trovio-primary border-trovio-primary text-white",
+      outline: "bg-transparent border-trovio-primary/40 text-trovio-primary",
+      neutral: "bg-trovio-light-surface dark:bg-trovio-dark-surface border-trovio-light-border dark:border-trovio-dark-border text-trovio-light-text dark:text-trovio-dark-text"
+    }
+  },
+  defaultVariants: {
+    variant: "soft"
+  }
+});
+var TrovioChip = ({
+  children,
+  variant = "soft",
+  className,
+  ...props
+}) => {
+  return /* @__PURE__ */ jsx(
+    Chip,
+    {
+      ...props,
+      className: trovioChipVariants({ variant, className }),
+      variant: "soft",
+      children
+    }
+  );
+};
 var trovioInputVariants = tv({
   base: [
     "w-full",
@@ -2918,6 +2948,6 @@ function CoursePromoBanner({
   );
 }
 
-export { Avatar, BackButton, BrandCard, BrandLogo, Breadcrumbs, Carousel, ClampText, ConversationCard, CourseCallout, CoursePromoBanner, CreatorCard, CreatorCardSkeleton, Drawer, EmailMessage, GeneratingBlock, GoalCard, HeadlineBlock, JourneyStepper, LinkCard, LockChip, LockedFeatureCard, MediaKitPreview, OfferField, OnboardingBrandHeader, PillarChips, PlatformIcon, PortraitHero, QuoteCard, RingGauge, ScoreRing, SectionHeading, SectionLabel, SegmentedToggle, Sparkline, StatStrip, Timeline, TitledPanel, TopPostsStrip, TrovioBadge, TrovioButton, TrovioCheckbox, TrovioDatePicker, TrovioIcon, TrovioInput, TrovioModal, TrovioProgressBar, TrovioSelect, TrovioSkeleton, TrovioSpinner, TrovioSwitch, TrovioTextArea, WidgetCard, formatCompactNumber, platformLabel };
+export { Avatar, BackButton, BrandCard, BrandLogo, Breadcrumbs, Carousel, ClampText, ConversationCard, CourseCallout, CoursePromoBanner, CreatorCard, CreatorCardSkeleton, Drawer, EmailMessage, GeneratingBlock, GoalCard, HeadlineBlock, JourneyStepper, LinkCard, LockChip, LockedFeatureCard, MediaKitPreview, OfferField, OnboardingBrandHeader, PillarChips, PlatformIcon, PortraitHero, QuoteCard, RingGauge, ScoreRing, SectionHeading, SectionLabel, SegmentedToggle, Sparkline, StatStrip, Timeline, TitledPanel, TopPostsStrip, TrovioBadge, TrovioButton, TrovioCheckbox, TrovioChip, TrovioDatePicker, TrovioIcon, TrovioInput, TrovioModal, TrovioProgressBar, TrovioSelect, TrovioSkeleton, TrovioSpinner, TrovioSwitch, TrovioTextArea, WidgetCard, formatCompactNumber, platformLabel };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

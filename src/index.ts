@@ -14,6 +14,8 @@ export { TrovioIcon } from "./components/trovio-icon";
 export type { TrovioIconProps } from "./components/trovio-icon";
 export { TrovioBadge } from "./components/trovio-badge";
 export type { TrovioBadgeProps } from "./components/trovio-badge";
+export { TrovioChip } from "./components/trovio-chip";
+export type { TrovioChipProps } from "./components/trovio-chip";
 export { TrovioInput } from "./components/trovio-input";
 export type { TrovioInputProps } from "./components/trovio-input";
 export { TrovioTextArea } from "./components/trovio-textarea";

@@ -223,6 +223,36 @@ var TrovioBadge = ({
     }
   );
 };
+var trovioChipVariants = tailwindVariants.tv({
+  base: "rounded-full font-semibold border",
+  variants: {
+    variant: {
+      soft: "bg-trovio-primary/10 border-trovio-primary/15 text-trovio-light-text dark:text-trovio-dark-text",
+      solid: "bg-trovio-primary border-trovio-primary text-white",
+      outline: "bg-transparent border-trovio-primary/40 text-trovio-primary",
+      neutral: "bg-trovio-light-surface dark:bg-trovio-dark-surface border-trovio-light-border dark:border-trovio-dark-border text-trovio-light-text dark:text-trovio-dark-text"
+    }
+  },
+  defaultVariants: {
+    variant: "soft"
+  }
+});
+var TrovioChip = ({
+  children,
+  variant = "soft",
+  className,
+  ...props
+}) => {
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    react.Chip,
+    {
+      ...props,
+      className: trovioChipVariants({ variant, className }),
+      variant: "soft",
+      children
+    }
+  );
+};
 var trovioInputVariants = tailwindVariants.tv({
   base: [
     "w-full",
@@ -3068,6 +3098,7 @@ exports.TopPostsStrip = TopPostsStrip;
 exports.TrovioBadge = TrovioBadge;
 exports.TrovioButton = TrovioButton;
 exports.TrovioCheckbox = TrovioCheckbox;
+exports.TrovioChip = TrovioChip;
 exports.TrovioDatePicker = TrovioDatePicker;
 exports.TrovioIcon = TrovioIcon;
 exports.TrovioInput = TrovioInput;
